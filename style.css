@@ -24,6 +24,7 @@ body {
 main {
   flex-grow: 1;
   padding: 0;
+  flex-basis: 0;
   position: relative;
 }
 
@@ -69,3 +70,4 @@ main {
 .color-button:active {
   scale: 0.95;
 }
+
