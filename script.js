@@ -109,10 +109,16 @@ onmousemove = e => {
   }
 }
 
-canvas.onwheel = e => {
-  rawZoom -= e.deltaY * 0.005
+canvas.addEventListener("wheel", e => {
+  if (e.ctrlKey) {
+    e.preventDefault()
+    rawZoom -= e.deltaY * 0.015
+  } else {
+    rawZoom -= e.deltaY * 0.005
+  }
+  
   cameraZoom = 2 ** rawZoom
-}
+}, { passive: false })
 
 onkeydown = e => {
   if (e.code === "Escape") {
