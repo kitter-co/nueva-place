@@ -41,6 +41,7 @@ main {
   background: var(--bg-1);
   max-height: calc(100% - 20px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 @media (max-height: 478px) {
@@ -104,4 +105,22 @@ main {
   transform: translateY(-50%);
   opacity: 1;
 } */
+
+#cooldown {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  /* animation: cooldown 10s linear forwards; */
+  height: 100%;
+  background-image: linear-gradient(22.5deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 25%, rgba(0, 0, 0, 0.4) 25%, rgba(0, 0, 0, 0.4) 75%, rgba(0, 0, 0, 0.2) 75%, rgba(0, 0, 0, 0.2) 100%);
+  background-size: 100% 20px;
+}
+
+@keyframes cooldown {
+  to {
+    height: 0;
+  }
+}
 
