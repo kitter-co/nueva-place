@@ -110,6 +110,7 @@ main {
   animation: cooldown 10s linear forwards;
   height: 100%;
   background-image: repeating-linear-gradient(-25deg, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0.2) 25px, rgba(0, 0, 0, 0.4) 25px, rgba(0, 0, 0, 0.4) 50px);
+  backdrop-filter: blur(1px);
 }
 
 @keyframes cooldown {
