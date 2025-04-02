@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+  font-family: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
+  min-width: 0;
+  min-height: 0;
+}
+
+:not(h1, h2, h3, h4, h5, h6) {
+  font-size: inherit;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
