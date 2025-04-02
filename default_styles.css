@@ -26,7 +26,23 @@ body {
   color: var(--text-default);
 }
 
+/* links */
+
+a {
+  text-decoration-color: transparent;
+  color: var(--accent);
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-color: currentColor;
+}
+
 /* buttons */
+
+.button-primary, .button-secondary {
+  padding: 10px;
+  border-radius: 8px;
+}
 
 .button-primary {
   background: var(--accent);
