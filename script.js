@@ -66,7 +66,9 @@ let colors = {
   "Magenta":     [246, 48, 163],
   "White":       [255, 255, 255],
   "Gray":        [127, 127, 127],
-  "Black":       [0, 0, 0]
+  "Black":       [0, 0, 0],
+  "Nueva Blue":  [0, 40, 188],
+  "Nueva Lime":  [208, 243, 0]
 }
 
 for (let [name, rgb] of Object.entries(colors)) {
