@@ -55,22 +55,24 @@ Promise.resolve({ json() { return { width: 3, height: 3, img: [[0xff0000, 0xff88
   })
 
 let colors = {
-  Tomato:    [213,   0,   0],
+  White: [255, 255, 255],
+  Tomato:    [213, 0, 0],
   Flamingo:  [230, 124, 115],
-  Tangerine: [244,  81,  30],
-  Banana:    [246, 191,  38],
-  Sage:      [ 51, 182, 121],
-  Basil:     [ 11, 128,  67],
-  Peacock:   [  3, 155, 229],
-  Blueberry: [ 63,  81, 181],
+  Tangerine: [244,  81, 30],
+  Banana:    [246, 191, 38],
+  Sage:      [51, 182, 121],
+  Basil:     [11, 128, 67],
+  Peacock:   [3, 155, 229],
+  Blueberry: [63, 81, 181],
   Lavender:  [121, 134, 203],
-  Grape:     [142,  36, 170],
-  Graphite:  [ 97,  97,  97]
+  Grape:     [142, 36, 170],
+  Graphite:  [97, 97, 97]
 }
 
 for (let [name, rgb] of Object.entries(colors)) {
   let button = document.createElement("button")
-  button.className = "color-button"
+  button.classList.add("color-button")
+  if (name == "White") button.classList.add("white")
   button.title = name
   button.style.setProperty("--color", `rgb(${rgb})`)
   id("color-buttons").append(button)
