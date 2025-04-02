@@ -81,10 +81,6 @@ main {
   scale: 0.95;
 }
 
-.color-button > div {
-  display: none;
-}
-
 /* .color-button > div {
   position: absolute;
   right: calc(100% + 20px);
@@ -100,7 +96,6 @@ main {
   transform-origin: center right;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
 .color-button:is(:focus-visible, :hover) > div {
   transform: translateY(-50%);
   opacity: 1;
