@@ -121,6 +121,7 @@ for (let [name, rgb] of Object.entries(colors)) {
   button.classList.add("color-button")
   if (name === "White") button.classList.add("white")
   button.ariaLabel = name
+  button.title = name
   // button.innerHTML = `<div>${name}</div>`
   button.style.setProperty("--color", `rgb(${rgb})`)
   id("color-buttons").append(button)
