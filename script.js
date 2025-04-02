@@ -45,21 +45,23 @@ Promise.resolve({ json() { return { width: 3, height: 3, img: [[[1, 2, 3, 255], 
   })
 
 let colors = {
-  "Tomato": "#d50000",
-  "Flamingo": "#e67c73",
-  "Tangerine": "#f4511e",
-  "Banana": "#f6bf26",
-  "Sage": "#33b679",
-  "Basil": "#0b8043",
-  "Peacock": "#039be5",
-  "Blueberry": "#3f51b5",
-  "Lavender": "#7986cb",
-  "Grape": "#8e24aa",
-  "Graphite": "#616161"
+  Tomato:    "#d50000",
+  Flamingo:  "#e67c73",
+  Tangerine: "#f4511e",
+  Banana:    "#f6bf26",
+  Sage:      "#33b679",
+  Basil:     "#0b8043",
+  Peacock:   "#039be5",
+  Blueberry: "#3f51b5",
+  Lavender:  "#7986cb",
+  Grape:     "#8e24aa",
+  Graphite:  "#616161"
 }
 
 for (let [key, value] of Object.entries(colors)) {
   let button = document.createElement("button")
+  button.classList.add("color-button")
   button.title = key
   button.style.setProperty("--color", value)
+  id("color-buttons").append(button)
 }
