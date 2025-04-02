@@ -67,19 +67,15 @@ main {
   outline-offset: 2px;
 }
 
-/* .color-button:hover {
-  scale: 1.05;
+.color-button > div {
+  display: none;
 }
 
-.color-button:active {
-  scale: 0.95;
-} */
-
-.color-button > div {
+/* .color-button > div {
   position: absolute;
-  right: calc(100% + 15px);
+  right: calc(100% + 20px);
   top: 50%;
-  transform: translateY(-50%) scale(0);
+  transform: translateY(-50%) translateX(10px);
   opacity: 0;
   padding: 5px;
   background: var(--bg-1);
@@ -88,10 +84,11 @@ main {
   transition: transform 0.2s ease, opacity 0.1s linear;
   pointer-events: none;
   transform-origin: center right;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .color-button:is(:focus-visible, :hover) > div {
   transform: translateY(-50%);
   opacity: 1;
-}
+} */
 
