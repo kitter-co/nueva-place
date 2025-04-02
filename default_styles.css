@@ -31,19 +31,32 @@ body {
   background: var(--bg-0);
 }
 
+header {
+  padding: 10px 25px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-1);
+}
+
 main {
   padding: 25px;
 }
 
 /* links */
 
-a {
+a:not(.button) {
   text-decoration-color: transparent;
   color: var(--accent);
 }
 
 a:is(:hover, :focus-visible) {
   text-decoration-color: currentColor;
+}
+
+a.button {
+  text-decoration: none;
 }
 
 /* buttons */
