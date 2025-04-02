@@ -26,6 +26,10 @@ body {
   color: var(--text-default);
 }
 
+main {
+  padding: 25px;
+}
+
 /* links */
 
 a {
