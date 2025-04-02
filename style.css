@@ -1,8 +1,7 @@
 #canvas-wrapper {
   overflow: hidden;
-  /* temporary */
-  width: 400px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
 }
 
 #canvas {
@@ -17,17 +16,50 @@ header {
   justify-content: center;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+  padding: 0;
+}
+
 #color-buttons {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   gap: 5px;
-  padding: 10px 15px;
-  border-radius: 100px;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 25px;
   background: var(--bg-1);
+  /* margin: auto 0; */
+  max-height: calc(100% - 20px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  flex-wrap: wrap;
 }
 
 .color-button {
   height: 30px;
   width: 30px;
-  border-radius: 8px;
+  border-radius: 100px;
   background: var(--color);
+  transition: scale 0.1s ease;
+}
+
+.color-button:focus-visible {
+  outline: 2px solid var(--color);
+  outline-offset: 2px;
+}
+
+.color-button:hover {
+  scale: 1.05;
+}
+
+.color-button:active {
+  scale: 0.95;
 }

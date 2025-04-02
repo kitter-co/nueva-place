@@ -31,6 +31,10 @@ body {
   background: var(--bg-0);
 }
 
+html, body {
+  height: 100%;
+}
+
 header {
   padding: 10px 25px;
   position: sticky;
