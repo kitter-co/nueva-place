@@ -43,6 +43,10 @@ a:is(:hover, :focus-visible) {
 
 /* buttons */
 
+button {
+  cursor: pointer;
+}
+
 .button-primary, .button-secondary {
   padding: 10px;
   border-radius: 8px;
@@ -51,4 +55,12 @@ a:is(:hover, :focus-visible) {
 .button-primary {
   background: var(--accent);
   color: var(--text-primary);
+}
+
+/* cards */
+
+.card {
+  padding: 10px;
+  border-radius: 24px;
+  box-shadow: 0 4px 8px gainsboro;
 }
