@@ -20,6 +20,9 @@ header {
 #color-buttons {
   display: flex;
   gap: 5px;
+  padding: 10px 15px;
+  border-radius: 100px;
+  background: var(--bg-1);
 }
 
 .color-button {
