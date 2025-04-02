@@ -55,17 +55,18 @@ Promise.resolve({ json() { return { width: 3, height: 3, img: [[0xff0000, 0xff88
   })
 
 let colors = {
-  White:         [255, 255, 255],
-  Red:           [213, 0, 0],
-  Orange:        [254, 111, 27],
-  Yellow:        [246, 191, 38],
+  "Red":         [213, 0, 0],
+  "Orange":      [254, 111, 27],
+  "Yellow":      [246, 191, 38],
   "Light Green": [13, 186, 86],
   "Dark Green":  [3, 144, 71],
   "Light Blue":  [3, 155, 229],
   "Dark Blue":   [44, 57, 190],
   "Purple":      [172, 48, 221],
-  "Magenta":      [246, 48, 163],
-  "Gray":        [127, 127, 127]
+  "Magenta":     [246, 48, 163],
+  "White":       [255, 255, 255],
+  "Gray":        [127, 127, 127],
+  "Black":       [0, 0, 0]
 }
 
 for (let [name, rgb] of Object.entries(colors)) {
