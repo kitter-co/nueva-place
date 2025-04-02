@@ -8,19 +8,26 @@ const offscreenCtx = offscreenCanvas.getContext("2d")
 
 offscreenCtx.imageSmoothingEnabled = false
 
-let signedIn = false, onCooldown = false, lastEdit = 0
+let signedIn = true, onCooldown = false, lastEdit = 0
 
 let canvasW, canvasH, imgW, imgH, imgData
 
-let cameraX = 0, cameraY = 0, cameraZoom = 8
+let cameraX = 0, cameraY = 0, rawZoom = 3, cameraZoom = 2 ** rawZoom
 
-let mouseX = -1, mouseY = -1, drawColor
+let mouseX = null, mouseY = null, targetX = null, targetY = null, drawColor = null
 
-function updateMousePos(pageX, pageY) {
+function canPlace() {
+  return signedIn && !onCooldown && drawColor
+}
+
+function updateMousePos(e) {
   let rect = canvas.getBoundingClientRect()
 
-  mouseX = (pageX - rect.left + cameraX) / cameraZoom
-  mouseY = (pageY - rect.top  + cameraY) / cameraZoom
+  mouseX = e.pageX
+  mouseY = e.pageY
+
+  targetX = Math.floor((mouseX - rect.left + cameraX) / cameraZoom)
+  targetY = Math.floor((mouseY - rect.top  + cameraY) / cameraZoom)
 }
 
 function setPixel(x, y, rgb) {
@@ -29,11 +36,11 @@ function setPixel(x, y, rgb) {
   imgData.data[i + 0] = rgb[0]
   imgData.data[i + 1] = rgb[1]
   imgData.data[i + 2] = rgb[2]
-
-  draw()
 }
 
 function draw() {
+  requestAnimationFrame(draw)
+
   canvas.width = canvasW = canvasWrapper.offsetWidth * devicePixelRatio
   canvas.height = canvasH = canvasWrapper.offsetHeight * devicePixelRatio
   ctx.scale(devicePixelRatio, devicePixelRatio)
@@ -44,32 +51,73 @@ function draw() {
   offscreenCtx.putImageData(imgData, 0, 0)
   ctx.drawImage(offscreenCanvas, -cameraX, -cameraY, imgW * cameraZoom, imgH * cameraZoom)
 
-  console.log(imgData)
+  if (canPlace() && targetX !== null && targetY !== null && !draggingCamera) {
+    ctx.beginPath()
+    ctx.rect(targetX * cameraZoom - cameraX, targetY * cameraZoom - cameraY, cameraZoom, cameraZoom)
+    ctx.fillStyle = "#0002"
+    ctx.strokeStyle = `rgb(${drawColor})`
+    ctx.fill()
+    ctx.stroke()
+
+    canvas.style.cursor = "crosshair"
+  } else {
+    canvas.style.cursor = "default"
+  }
 }
 
-function attemptPlacePixel(x, y, rgb) {
-  if (x < 0 || x >= imgW || y < 0 || y >= imgH) return
-  // if (!signedIn || onCooldown) return
+function attemptPlacePixel() {
+  if (!canPlace() || !inBounds()) return
 
-  sendPlaceRequest(x, y, (rgb[0] << 16) | (rgb[1] << 8) | rgb[2])
-  setPixel(x, y, rgb) // TODO undo if server request fails
+  sendPlaceRequest(targetX, targetY, (drawColor[0] << 16) | (drawColor[1] << 8) | drawColor[2])
+  setPixel(targetX, targetY, drawColor) // TODO undo if server request fails
+}
+
+function inBounds() {
+  return targetX !== null && targetY !== null && targetX >= 0 && targetX < imgW && targetY >= 0 && targetY < imgH
 }
 
 function sendPlaceRequest(x, y, hex) {
   // TODO
 }
 
-onmousemove = e => {
-  updateMousePos(e.pageX, e.pageY)
-}
+let draggingCamera = false
 
 canvas.onmousedown = e => {
-  updateMousePos(e.pageX, e.pageY)
-  attemptPlacePixel(Math.floor(mouseX), Math.floor(mouseY), drawColor)
+  if (!drawColor || !inBounds()) {
+    draggingCamera = true
+  }
+}
+
+canvas.onclick = e => {
+  updateMousePos(e)
+  if (!draggingCamera) attemptPlacePixel()
 }
 
 onmouseup = e => {
-  updateMousePos(e.pageX, e.pageY)
+  updateMousePos(e)
+  draggingCamera = false
+}
+
+onmousemove = e => {
+  let lastX = mouseX, lastY = mouseY
+
+  updateMousePos(e)
+
+  if (draggingCamera) {
+    cameraX -= mouseX - lastX
+    cameraY -= mouseY - lastY
+  }
+}
+
+canvas.onwheel = e => {
+  rawZoom -= e.deltaY * 0.005
+  cameraZoom = 2 ** rawZoom
+}
+
+onkeydown = e => {
+  if (e.code === "Escape") {
+    drawColor = null
+  }
 }
 
 // placeholder data (draws a TINY black square in the corner)
