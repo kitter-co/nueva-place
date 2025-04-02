@@ -1,7 +1,11 @@
 :root {
   --accent: #0028bc;
+
   --text-primary: white;
   --text-default: black;
+
+  --bg-0: white;
+  --bg-1: #f0f4f6;
 }
 
 * {
@@ -24,6 +28,7 @@
 body {
   font-family: system-ui, sans-serif;
   color: var(--text-default);
+  background: var(--bg-0);
 }
 
 main {
@@ -50,6 +55,15 @@ button {
 .button-primary, .button-secondary {
   padding: 10px;
   border-radius: 8px;
+}
+
+.button-secondary {
+  border: 1px solid var(--bg-1);
+}
+
+.button-secondary:is(:hover, :focus-visible) {
+  background: var(--bg-1);
+  border-color: transparent;
 }
 
 .button-primary {
