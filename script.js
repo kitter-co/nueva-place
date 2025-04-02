@@ -67,15 +67,15 @@ let colors = {
   "White":       [255, 255, 255],
   "Gray":        [127, 127, 127],
   "Black":       [0, 0, 0],
-  "Nueva Blue":  [0, 40, 188],
-  "Nueva Lime":  [208, 243, 0]
+  "Nueva Blue":  [0, 40, 188]
 }
 
 for (let [name, rgb] of Object.entries(colors)) {
   let button = document.createElement("button")
   button.classList.add("color-button")
   if (name == "White") button.classList.add("white")
-  button.title = name
+  // button.title = name
+  button.innerHTML = `<div>${name}</div>`
   button.style.setProperty("--color", `rgb(${rgb})`)
   id("color-buttons").append(button)
 

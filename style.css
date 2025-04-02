@@ -55,7 +55,7 @@ main {
   width: 30px;
   border-radius: 100px;
   background: var(--color);
-  transition: scale 0.1s ease;
+  position: relative;
 }
 
 .color-button.white {
@@ -67,11 +67,31 @@ main {
   outline-offset: 2px;
 }
 
-.color-button:hover {
+/* .color-button:hover {
   scale: 1.05;
 }
 
 .color-button:active {
   scale: 0.95;
+} */
+
+.color-button > div {
+  position: absolute;
+  right: calc(100% + 15px);
+  top: 50%;
+  transform: translateY(-50%) scale(0);
+  opacity: 0;
+  padding: 5px;
+  background: var(--bg-1);
+  border-radius: 5px;
+  white-space: nowrap;
+  transition: transform 0.2s ease, opacity 0.1s linear;
+  pointer-events: none;
+  transform-origin: center right;
+}
+
+.color-button:is(:focus-visible, :hover) > div {
+  transform: translateY(-50%);
+  opacity: 1;
 }
 
