@@ -24,6 +24,7 @@ body {
 main {
   flex-grow: 1;
   padding: 0;
+  position: relative;
 }
 
 #color-buttons {
@@ -37,10 +38,15 @@ main {
   padding: 10px;
   border-radius: 25px;
   background: var(--bg-1);
-  /* margin: auto 0; */
   max-height: calc(100% - 20px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  flex-wrap: wrap;
+}
+
+@media (max-height: 478px) {
+  #color-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .color-button {
