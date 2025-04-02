@@ -21,3 +21,10 @@ header {
   display: flex;
   gap: 5px;
 }
+
+.color-button {
+  height: 30px;
+  width: 30px;
+  border-radius: 8px;
+  background: var(--color);
+}
