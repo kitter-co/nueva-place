@@ -43,7 +43,7 @@ main {
   border-radius: 25px;
   background: var(--bg-0);
   max-height: calc(100% - 20px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   height: var(--height, auto);
   transition: height 0.5s cubic-bezier(0.724, 1.467, 0.082, 1.2335);
