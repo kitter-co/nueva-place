@@ -199,17 +199,8 @@ main {
   text-align: right;
 }
 
-#signout-btn {
-  background: #222;
-  color: white;
-  border: none;
-  padding: 4px 8px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
 #email-badge {
-  background: #222;
+  background: var(--accent);
   color: white;
   padding: 6px 12px;
   border-radius: 999px;

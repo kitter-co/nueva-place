@@ -153,7 +153,7 @@ function sendPlaceRequest(x, y, hex) {
 Promise.resolve({ json() { return { width: 10, height: 5, img: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] } } })
 // fetch("the data")
   .catch(err => {
-    alert(`It didn't work :(\n\nERROR:\n${err.message}`)
+    alert(`It didn"t work :(\n\nERROR:\n${err.message}`)
   })
   .then(res => res.json()).then(data => {
     imgW = data.width
@@ -244,31 +244,31 @@ function handleCredentialResponse(response) {
   const data = parseJwt(response.credential);
 
   // Show email badge
-  const emailBadge = document.getElementById("email-badge");
+  let emailBadge = id("email-badge");
   emailBadge.textContent = data.email;
   emailBadge.style.display = "block";
 
   // Hide sign-in button, show sign out
-  document.getElementById("signin-btn").style.display = "none";
-  document.getElementById("signout-btn").style.display = "inline-block";
+  id("signin-btn").style.display = "none";
+  id("signout-btn").style.display = "inline-block";
 
   signedIn = true;
 }
 
 document.getElementById("signout-btn").addEventListener("click", () => {
   google.accounts.id.disableAutoSelect();
-  document.getElementById("email-badge").style.display = "none";
-  document.getElementById("signout-btn").style.display = "none";
-  document.getElementById("signin-btn").style.display = "block";
+  id("email-badge").style.display = "none";
+  id("signout-btn").style.display = "none";
+  id("signin-btn").style.display = "block";
   signedIn = false;
-});
+})
 
 function parseJwt(token) {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const jsonPayload = decodeURIComponent(atob(base64).split('').map(c =>
-    '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-  ).join(''));
+  let base64Url = token.split(".")[1];
+  let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  let jsonPayload = decodeURIComponent(atob(base64).split("").map(c =>
+    "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)
+  ).join(""));
 
   return JSON.parse(jsonPayload);
 }
