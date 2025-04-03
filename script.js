@@ -47,8 +47,8 @@ function setPixel(x, y, rgb) {
   imgData.data[i + 2] = rgb[2]
 }
 
-function draw(init = false) {
-  requestAnimationFrame(draw)
+function draw(init = null) {
+  requestAnimationFrame(() => draw())
 
   canvasW = canvasWrapper.offsetWidth
   canvasH = canvasWrapper.offsetHeight
