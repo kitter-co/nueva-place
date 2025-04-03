@@ -216,17 +216,17 @@ main {
 }
 
 #profile-img {
-  /* temp */
-  background-image: url("./nueva_school.png");
-  background-size: 75%;
-  background-repeat: no-repeat;
-  background-position: center;
-  /* end temp */
-
+  overflow: hidden;
   height: 40px;
   width: 40px;
   border-radius: 100px;
   padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+#profile-img > img {
+  height: 100%;
 }
 
 #menu {
