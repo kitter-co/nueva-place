@@ -52,6 +52,10 @@ main {
   padding: 25px;
 }
 
+body.disable-transitions * {
+  transition: none !important;
+}
+
 /* links */
 
 a:not(.button) {
