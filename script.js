@@ -246,6 +246,6 @@ id("exit-place-mode").onclick = cancelColor
 
 // END OF GOOGLE SIGN-IN ——————————————————————————————————————————————————————————————————————
 
-id("hamburger-button").onclick = () => {
-  id("hamburger-menu").classList.toggle("hidden")
+id("profile-img").onclick = () => {
+  id("menu").classList.toggle("shown")
 }

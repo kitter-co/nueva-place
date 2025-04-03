@@ -79,11 +79,11 @@ button {
 }
 
 .button-secondary {
-  border: 1px solid var(--bg-1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .button-secondary:is(:hover, :focus-visible) {
-  background: var(--bg-1);
+  background: rgba(0, 0, 0, 0.05);
   border-color: transparent;
 }
 
