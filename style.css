@@ -185,7 +185,7 @@ main {
 
 /* GOOGLE SIGN IN */
 #sign-in-container {
-  position: absolute;
+  /* position: absolute; */
   top: 10px;
   right: 10px;
   display: flex;
@@ -202,8 +202,8 @@ main {
 #email-badge {
   background: var(--accent);
   color: white;
-  padding: 6px 12px;
-  border-radius: 999px;
+  padding: 5px 10px;
+  border-radius: 100px;
   font-size: 0.85em;
   max-width: 200px;
   white-space: nowrap;
@@ -212,3 +212,19 @@ main {
 }
 
 /* GOOGLE SIGN IN */
+
+#hamburger-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0;
+  border-radius: 100px;
+  height: 30px;
+  width: 30px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+}
+
+#hamburger-button svg {
+  height: 20px;
+  width: 20px;
+}
