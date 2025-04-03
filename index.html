@@ -61,11 +61,11 @@
         // SIGN IN
         document.getElementById("sign-in").addEventListener("click", () => {
           signInWithPopup(auth, provider).then(result => {
-            const user = result.user
-            if (!user.email.endsWith("@nueva.place")) {
-              alert("You must use your organizational email.")
-              signOut(auth)
-              return
+            const user = result.user;
+            if (!user.email.endsWith("@nuevaschool.org")) {
+              alert("You must use a @nuevaschool.org email address.");
+              signOut(auth);
+              return;
             }
             showUser(user.email)
           })
