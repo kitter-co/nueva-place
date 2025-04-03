@@ -16,7 +16,8 @@ let signedIn = true, onCooldown = false, lastEdit = 0
 
 let canvasW, canvasH, imgW, imgH, imgData
 
-let cameraX = 0, cameraY = 0, rawZoom = 3, zoom = 2 ** rawZoom
+const MIN_ZOOM = 1, MAX_ZOOM = 4.5 // these are "raw zoom" values, rawZoom = ln(zoom)
+let cameraX = 0, cameraY = 0, rawZoom = 3, zoom = Math.exp(rawZoom)
 
 let mouseX = null, mouseY = null, targetX = null, targetY = null, currentColor = null
 
@@ -46,12 +47,20 @@ function setPixel(x, y, rgb) {
   imgData.data[i + 2] = rgb[2]
 }
 
-function draw() {
-  requestAnimationFrame(draw)
+function draw(init = null) {
+  requestAnimationFrame(() => draw())
 
-  canvas.width = canvasW = canvasWrapper.offsetWidth * devicePixelRatio
-  canvas.height = canvasH = canvasWrapper.offsetHeight * devicePixelRatio
+  canvasW = canvasWrapper.offsetWidth
+  canvasH = canvasWrapper.offsetHeight
+  canvas.width = canvasW * devicePixelRatio
+  canvas.height = canvasH * devicePixelRatio
   ctx.scale(devicePixelRatio, devicePixelRatio)
+
+  if (init) {
+    cameraX = (imgW - canvasW / zoom) / 2
+    cameraY = (imgH - canvasH / zoom) / 2
+  }
+
   ctx.imageSmoothingEnabled = false
 
   ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -122,10 +131,10 @@ canvas.onwheel = e => {
   }
 
   let oldZoom = zoom
-  zoom = 2 ** rawZoom
-  // TODO fix this - it kinda works most of the time but its super janky
-  cameraX += (mouseX + cameraX) * (zoom - oldZoom) / oldZoom / zoom
-  cameraY += (mouseY + cameraY) * (zoom - oldZoom) / oldZoom / zoom
+  rawZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, rawZoom))
+  zoom = Math.exp(rawZoom)
+  cameraX += mouseX / oldZoom - mouseX / zoom
+  cameraY += mouseY / oldZoom - mouseY / zoom
 }
 
 onkeydown = e => {
@@ -166,7 +175,7 @@ Promise.resolve({ json() { return { width: 10, height: 5, img: [[0, 0, 0, 0, 0, 
     }
     imgData = new ImageData(rawData, imgW, imgH)
 
-    draw()
+    draw(true)
   })
 
 // COLOR PALETTE
@@ -226,3 +235,43 @@ for (let [name, rgb] of Object.entries(colors)) {
 }
 
 id("exit-place-mode").onclick = cancelColor
+
+
+
+// ===== GOOGLE SIGN-IN ——————————————————————————————————————————————————————————————————————
+
+function handleCredentialResponse(response) {
+  const data = parseJwt(response.credential);
+
+  // Show email badge
+  const emailBadge = document.getElementById("email-badge");
+  emailBadge.textContent = data.email;
+  emailBadge.style.display = "block";
+
+  // Hide sign-in button, show sign out
+  document.getElementById("signin-btn").style.display = "none";
+  document.getElementById("signout-btn").style.display = "inline-block";
+
+  signedIn = true;
+}
+
+document.getElementById("signout-btn").addEventListener("click", () => {
+  google.accounts.id.disableAutoSelect();
+  document.getElementById("email-badge").style.display = "none";
+  document.getElementById("signout-btn").style.display = "none";
+  document.getElementById("signin-btn").style.display = "block";
+  signedIn = false;
+});
+
+function parseJwt(token) {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(atob(base64).split('').map(c =>
+    '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+  ).join(''));
+
+  return JSON.parse(jsonPayload);
+}
+
+
+// END OF GOOGLE SIGN-IN ——————————————————————————————————————————————————————————————————————
