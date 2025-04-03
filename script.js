@@ -4,7 +4,13 @@ onload = () => {
 
 // UTILS
 
-const id = id => document.getElementById(id)
+function id(id) {
+  return document.getElementById(id)
+}
+
+function clamp(n, min, max) {
+  return Math.max(min, Math.min(max, n))
+}
 
 // CANVAS
 
@@ -16,7 +22,7 @@ const offscreenCtx = offscreenCanvas.getContext("2d")
 
 offscreenCtx.imageSmoothingEnabled = false
 
-let signedIn = true, onCooldown = false, lastEdit = 0
+let signedIn = true, onCooldown = false, lastEditTime
 
 let canvasW, canvasH, imgW, imgH, imgData
 
@@ -77,6 +83,7 @@ function draw(init = null) {
       ctx.beginPath()
       ctx.rect((targetX - cameraX) * zoom, (targetY - cameraY) * zoom, zoom, zoom)
       ctx.strokeStyle = currentColor == "0,0,0" ? "#333" : `rgb(${currentColor})`
+      ctx.lineWidth = clamp(zoom / 20, 1, 2)
       ctx.stroke()
       ctx.fillStyle = "#4442"
       ctx.fill()
@@ -137,7 +144,7 @@ canvas.onwheel = e => {
   }
 
   let oldZoom = zoom
-  rawZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, rawZoom))
+  rawZoom = clamp(rawZoom, MIN_ZOOM, MAX_ZOOM)
   zoom = Math.exp(rawZoom)
   cameraX += mouseX / oldZoom - mouseX / zoom
   cameraY += mouseY / oldZoom - mouseY / zoom
