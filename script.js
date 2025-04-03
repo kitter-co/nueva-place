@@ -68,17 +68,19 @@ function draw(init = null) {
   offscreenCtx.putImageData(imgData, 0, 0)
   ctx.drawImage(offscreenCanvas, -cameraX * zoom, -cameraY * zoom, imgW * zoom, imgH * zoom)
 
-  if (canPlace() && targetX !== null && targetY !== null && !draggingCamera) {
-    ctx.beginPath()
-    ctx.rect((targetX - cameraX) * zoom, (targetY - cameraY) * zoom, zoom, zoom)
-    ctx.strokeStyle = currentColor == "0,0,0" ? "#333" : `rgb(${currentColor})`
-    ctx.stroke()
-    ctx.fillStyle = "#4442"
-    ctx.fill()
+  if (canPlace() && !draggingCamera) {
+    if (inBounds()) {
+      ctx.beginPath()
+      ctx.rect((targetX - cameraX) * zoom, (targetY - cameraY) * zoom, zoom, zoom)
+      ctx.strokeStyle = currentColor == "0,0,0" ? "#333" : `rgb(${currentColor})`
+      ctx.stroke()
+      ctx.fillStyle = "#4442"
+      ctx.fill()
+    }
 
     canvas.style.cursor = "crosshair"
   } else {
-    canvas.style.cursor = "default"
+    canvas.style.cursor = draggingCamera ? "grabbing" : "grab"
   }
 }
 
@@ -154,7 +156,7 @@ function sendPlaceRequest(x, y, hex) {
 Promise.resolve({ json() { return { width: 10, height: 5, img: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] } } })
 // fetch("the data")
   .catch(err => {
-    alert(`It didn"t work :(\n\nERROR:\n${err.message}`)
+    alert(`It didn't work :(\n\nERROR:\n${err.message}`)
   })
   .then(res => res.json()).then(data => {
     imgW = data.width
@@ -203,8 +205,10 @@ function selectColor(rgb) {
     colorButtonsWrapper.style.height = colorButtonsWrapper.offsetHeight + "px"
     void colorButtonsWrapper.offsetWidth // force css recalc
     colorButtonsWrapper.classList.add("closed")
-    if (rgb == [255, 255, 255]) colorButtonsWrapper.style.setProperty("--selected-color", "rgba(0, 0, 0, 0.2)")
-    else colorButtonsWrapper.style.setProperty("--selected-color", `rgb(${rgb})`)
+    colorButtonsWrapper.style.setProperty(
+      "--selected-color",
+      rgb == "255,255,255" ? "#0004" : `rgb(${rgb})`
+    )
   }
 
   currentColor = rgb
@@ -237,22 +241,14 @@ for (let [name, rgb] of Object.entries(colors)) {
 
 id("exit-place-mode").onclick = cancelColor
 
-
-
-// ===== GOOGLE SIGN-IN ——————————————————————————————————————————————————————————————————————
-
-
-  // have fun
-
-
-// END OF GOOGLE SIGN-IN ——————————————————————————————————————————————————————————————————————
+// ACCOUNTS
 
 id("profile-img").onclick = () => {
   id("menu").classList.toggle("shown")
 }
 
 document.addEventListener("mousedown", e => {
-  if (e.target != id("profile-img") && !id("profile-img").contains(e.target) && e.target != id("menu") && !id("menu").contains(e.target)) {
+  if (!id("profile-img").contains(e.target) && !id("menu").contains(e.target)) {
     id("menu").classList.remove("shown")
   }
 })
