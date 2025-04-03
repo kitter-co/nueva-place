@@ -154,7 +154,7 @@ main {
   z-index: 1;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.2s linear, visibility 0.2s linear;
+  transition: opacity 0.2s linear, visibility  0.2s linear;
 }
 
 #color-buttons.closed #exit-place-mode {
@@ -166,4 +166,28 @@ main {
 #exit-place-mode svg {
   height: 30px;
   width: 30px;
+}
+
+#logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 0.75em;
+  z-index: 2;
+  font-weight: bold;
+  pointer-events: none;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+}
+
+#logo > div {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  background: currentColor;
+  mask-image: url("./nueva_school.png");
+  mask-size: 100%;
+  mask-repeat: no-repeat;
+  mask-position: center;
 }
