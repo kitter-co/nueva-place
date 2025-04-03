@@ -95,11 +95,18 @@ function draw(init = null) {
   }
 }
 
+function startCooldown() {
+  onCooldown = true
+  colorButtonsWrapper.classList.add("hidden")
+  currentColor = null
+}
+
 function attemptPlacePixel() {
   if (!canPlace() || !inBounds()) return
 
   sendPlaceRequest(targetX, targetY, (currentColor[0] << 16) | (currentColor[1] << 8) | currentColor[2])
   setPixel(targetX, targetY, currentColor) // TODO undo if server request fails
+  startCooldown()
 }
 
 function inBounds() {
@@ -161,6 +168,7 @@ onkeydown = e => {
 
 function sendPlaceRequest(x, y, hex) {
   // TODO
+  return Promise.resolve()
 }
 
 // TODO placeholder data
