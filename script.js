@@ -242,31 +242,24 @@ id("exit-place-mode").onclick = cancelColor
 function handleCredentialResponse(response) {
   const data = parseJwt(response.credential);
 
-  const userInfoDiv = document.getElementById("user-info");
-  userInfoDiv.innerHTML = `
-    <p>👋 Hello, ${data.name}</p>
-    <p>${data.email}</p>
-    <img src="${data.picture}" alt="User Picture" />
-  `;
+  // Show email badge
+  const emailBadge = document.getElementById("email-badge");
+  emailBadge.textContent = data.email;
+  emailBadge.style.display = "block";
 
+  // Hide sign-in button, show sign out
+  document.getElementById("signin-btn").style.display = "none";
   document.getElementById("signout-btn").style.display = "inline-block";
 
-  signedIn = true; 
-}
-
-function parseJwt(token) {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const jsonPayload = decodeURIComponent(atob(base64).split('').map(c =>
-    '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-  ).join(''));
-
-  return JSON.parse(jsonPayload);
+  signedIn = true;
 }
 
 document.getElementById("signout-btn").addEventListener("click", () => {
   google.accounts.id.disableAutoSelect();
-  document.getElementById("user-info").innerHTML = "";
+  document.getElementById("email-badge").style.display = "none";
   document.getElementById("signout-btn").style.display = "none";
-  signedIn = false; // Your existing variable
+  document.getElementById("signin-btn").style.display = "block";
+  signedIn = false;
 });
+
+// END OF GOOGLE SIGN-IN ——————————————————————————————————————————————————————————————————————
