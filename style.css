@@ -40,9 +40,11 @@ main {
   flex-direction: column;
   justify-content: center;
   padding: 8px; /* 10px including border */
-  border: 2px solid var(--selected-color, transparent);
+  /* border: 2px solid var(--selected-color, transparent); */
+  /* color: var(--selected-color, black); */
+  background: var(--selected-color, var(--bg-0));
   border-radius: 25px;
-  background: var(--bg-0);
+  /* background: var(--bg-0); */
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   transition: border-color 0.4s ease-out -0.2s,
@@ -107,7 +109,7 @@ main {
 #exit-place-mode {
   padding: 0;
   border-radius: 100px;
-  inset: auto -10px;
+  inset: auto 0;
   aspect-ratio: 1;
   border: none;
   position: absolute;
