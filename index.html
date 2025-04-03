@@ -30,24 +30,31 @@
                 </div>
             </div>
 
-            <!-- GOOGLE SIGN IN -->
+
+        </main>
+        
+        <!-- GOOGLE SIGN IN -->
+        <div id="sign-in-container">
             <div id="g_id_onload"
                 data-client_id="888072535263-3fbu510dvpe6itsgm2ffhcrj9rn6okdf.apps.googleusercontent.com"
                 data-callback="handleCredentialResponse"
                 data-auto_prompt="false">
             </div>
-
+        
             <div class="g_id_signin"
                 data-type="standard"
-                data-size="large"
+                data-size="small"
                 data-theme="outline"
                 data-text="sign_in_with"
                 data-shape="rectangular"
                 data-logo_alignment="left">
             </div>
-            <!-- GOOGLE SIGN IN -->
-
-        </main>
+        
+            <div id="user-info"></div>
+            <button id="signout-btn" style="display:none;">Sign Out</button>
+        </div>
+        <!-- GOOGLE SIGN IN -->
+        
     </body>
     <script src="./script.js"></script>
 </html>
