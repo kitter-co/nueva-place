@@ -1,21 +1,4 @@
-#canvas-wrapper {
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  background: var(--bg-1);
-}
-
-#canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* header { */
-/*   display: flex; */
-/*   align-items: center; */
-/*   justify-content: center; */
-/* } */
+/* MAIN */
 
 body {
   overflow: hidden;
@@ -30,6 +13,23 @@ main {
   position: relative;
 }
 
+/* CANVAS */
+
+#canvas-wrapper {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-1);
+}
+
+#canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* COLOR PALETTE */
+
 #color-buttons {
   position: absolute;
   right: 10px;
@@ -42,16 +42,10 @@ main {
   padding: 10px;
   border-radius: 25px;
   background: var(--bg-0);
-  max-height: calc(100% - 20px);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   height: var(--height, auto);
-  transition: height 0.5s cubic-bezier(0.724, 1.467, 0.082, 1.2335);
-}
-
-#color-buttons.closed {
-  height: 50px !important;
-  transition: height 0.5s cubic-bezier(0.918, -0.467, 0.276, 0.99);
+  transition: height 0.4s linear(0, 0.181 3.9%, 0.346 8%, 0.489 12.1%, 0.615 16.4%, 0.723 20.8%, 0.771 23.1%, 0.815 25.4%, 0.855 27.8%, 0.89 30.2%, 0.922 32.7%, 0.95 35.3%, 0.97 37.5%, 0.988 39.8%, 1.003 42.1%, 1.016 44.5%, 1.027 47%, 1.035 49.6%, 1.04 52.3%, 1.044 55.1%, 1.045 59.1%, 1.042 63.6%, 1.036 68.6%, 1.015 80.8%, 1.007 86.7%, 1.002 93.2%, 1);
 }
 
 @media (max-height: 478px) {
@@ -61,18 +55,33 @@ main {
   }
 }
 
+#color-buttons.closed {
+  height: 50px !important;
+  transition: height 0.4s cubic-bezier(0.918, -0.3, 0.276, 1);
+}
+
+@supports not (transition-timing-function: linear(0, 1)) {
+  #color-buttons {
+    transition: height 0.3s ease-out;
+  }
+
+  #color-buttons.closed {
+    transition: height 0.3s ease-in;
+  }
+}
+
 .color-button {
-  height: 30px;
   width: 30px;
+  height: 30px;
   border-radius: 100px;
   background: var(--color);
   position: relative;
-  transition: scale 0.1s ease, opacity 0.1s linear;
+  transition: scale 0.1s, opacity 0.3s;
 }
 
 #color-buttons.closed .color-button {
   opacity: 0;
-  transition: scale 0.1s ease, opacity 0.3s 0.1s linear;
+  transition: scale 0.1s, opacity 0.23s 0.15s;
 }
 
 .color-button.white {
@@ -96,25 +105,33 @@ main {
   scale: 0.95;
 }
 
-/* .color-button > div {
+#exit-place-mode {
+  padding: 0;
+  border-radius: 100px;
+  inset: auto -10px;
+  aspect-ratio: 1;
+  border: none;
   position: absolute;
-  right: calc(100% + 20px);
   top: 50%;
-  transform: translateY(-50%) translateX(10px);
-  opacity: 0;
-  padding: 5px;
-  background: var(--bg-1);
-  border-radius: 5px;
-  white-space: nowrap;
-  transition: transform 0.2s ease, opacity 0.1s linear;
-  pointer-events: none;
-  transform-origin: center right;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-.color-button:is(:focus-visible, :hover) > div {
   transform: translateY(-50%);
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0s 0.2s;
+}
+
+#color-buttons.closed #exit-place-mode {
+  transition: opacity 0.2s 0.2s, visibility 0s 0.2s;
   opacity: 1;
-} */
+  visibility: visible;
+}
+
+#exit-place-mode svg {
+  width: 30px;
+  height: 30px;
+}
+
+/* COOLDOWN PROGRESS BAR */
 
 #cooldown {
   position: absolute;
@@ -141,32 +158,7 @@ main {
   to { height: 0; }
 }
 
-#exit-place-mode {
-  padding: 0;
-  border-radius: 100px;
-  height: 50px;
-  width: 50px;
-  margin-left: -10px;
-  border: none;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s linear, visibility  0.2s linear;
-}
-
-#color-buttons.closed #exit-place-mode {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.3s 0.2s linear, visibility 0.3s 0.2s linear;
-}
-
-#exit-place-mode svg {
-  height: 30px;
-  width: 30px;
-}
+/* LOGO */
 
 #logo {
   position: absolute;

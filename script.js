@@ -1,4 +1,8 @@
+// UTILS
+
 const id = id => document.getElementById(id)
+
+// CANVAS
 
 const canvasWrapper = id("canvas-wrapper")
 const canvas = id("canvas")
@@ -14,10 +18,10 @@ let canvasW, canvasH, imgW, imgH, imgData
 
 let cameraX = 0, cameraY = 0, rawZoom = 3, zoom = 2 ** rawZoom
 
-let mouseX = null, mouseY = null, targetX = null, targetY = null, drawColor = null
+let mouseX = null, mouseY = null, targetX = null, targetY = null, currentColor = null
 
 function canPlace() {
-  return signedIn && !onCooldown && drawColor
+  return signedIn && !onCooldown && currentColor
 }
 
 function updateMousePos(e) {
@@ -26,8 +30,12 @@ function updateMousePos(e) {
   mouseX = e.pageX
   mouseY = e.pageY
 
-  targetX = Math.floor((mouseX - rect.left) / zoom + cameraX)
-  targetY = Math.floor((mouseY - rect.top ) / zoom + cameraY)
+  if (e.target === canvas) {
+    targetX = Math.floor((mouseX - rect.left) / zoom + cameraX)
+    targetY = Math.floor((mouseY - rect.top ) / zoom + cameraY)
+  } else {
+    targetX = targetY = null
+  }
 }
 
 function setPixel(x, y, rgb) {
@@ -54,7 +62,7 @@ function draw() {
   if (canPlace() && targetX !== null && targetY !== null && !draggingCamera) {
     ctx.beginPath()
     ctx.rect((targetX - cameraX) * zoom, (targetY - cameraY) * zoom, zoom, zoom)
-    ctx.strokeStyle = `rgb(${drawColor})`
+    ctx.strokeStyle = `rgb(${currentColor})`
     ctx.stroke()
     ctx.fillStyle = "#0002"
     ctx.fill()
@@ -68,22 +76,18 @@ function draw() {
 function attemptPlacePixel() {
   if (!canPlace() || !inBounds()) return
 
-  sendPlaceRequest(targetX, targetY, (drawColor[0] << 16) | (drawColor[1] << 8) | drawColor[2])
-  setPixel(targetX, targetY, drawColor) // TODO undo if server request fails
+  sendPlaceRequest(targetX, targetY, (currentColor[0] << 16) | (currentColor[1] << 8) | currentColor[2])
+  setPixel(targetX, targetY, currentColor) // TODO undo if server request fails
 }
 
 function inBounds() {
   return targetX !== null && targetY !== null && targetX >= 0 && targetX < imgW && targetY >= 0 && targetY < imgH
 }
 
-function sendPlaceRequest(x, y, hex) {
-  // TODO
-}
-
 let draggingCamera = false
 
 canvas.onmousedown = e => {
-  if (!drawColor || !inBounds()) {
+  if (!currentColor || !inBounds()) {
     draggingCamera = true
   }
 }
@@ -126,16 +130,17 @@ canvas.onwheel = e => {
 
 onkeydown = e => {
   if (e.code === "Escape") {
-    drawColor = null
-  }
-
-  if (e.code === "KeyP") {
-    id("color-buttons").style.setProperty("--height", id("color-buttons").getBoundingClientRect().height + "px")
-    setTimeout(() => { id("color-buttons").classList.add("closed") }, 0)
+    cancelColor()
   }
 }
 
-// placeholder data (draws a TINY black square in the corner)
+// SERVÍR
+
+function sendPlaceRequest(x, y, hex) {
+  // TODO
+}
+
+// TODO placeholder data
 Promise.resolve({ json() { return { width: 10, height: 5, img: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] } } })
 // fetch("the data")
   .catch(err => {
@@ -164,7 +169,9 @@ Promise.resolve({ json() { return { width: 10, height: 5, img: [[0, 0, 0, 0, 0, 
     draw()
   })
 
-let colors = {
+// COLOR PALETTE
+
+const colors = {
   "Red":         [213, 0, 0],
   "Orange":      [254, 111, 27],
   "Yellow":      [246, 191, 38],
@@ -175,8 +182,31 @@ let colors = {
   "Purple":      [172, 48, 221],
   "Magenta":     [246, 48, 163],
   "White":       [255, 255, 255],
-  "Gray":        [127, 127, 127],
+  "Gray":        [160, 160, 160],
   "Black":       [0, 0, 0]
+}
+
+const colorButtonsWrapper = id("color-buttons")
+
+function selectColor(rgb) {
+  if (!currentColor) {
+    colorButtonsWrapper.style.setProperty("--height", colorButtonsWrapper.getBoundingClientRect().height + "px")
+    void colorButtonsWrapper.offsetWidth // update css
+    colorButtonsWrapper.classList.add("closed")
+  }
+
+  currentColor = rgb
+}
+
+function cancelColor() {
+  if (currentColor) {
+    colorButtonsWrapper.classList.remove("closed")
+    setTimeout(() => {
+      colorButtonsWrapper.style.removeProperty("--height")
+    }, 400)
+  }
+
+  currentColor = null
 }
 
 for (let [name, rgb] of Object.entries(colors)) {
@@ -184,13 +214,12 @@ for (let [name, rgb] of Object.entries(colors)) {
   button.classList.add("color-button")
   if (name === "White") button.classList.add("white")
   button.title = name
-  // button.innerHTML = `<div>${name}</div>`
   button.style.setProperty("--color", `rgb(${rgb})`)
-  id("color-buttons").append(button)
+  colorButtonsWrapper.append(button)
 
-  button.onclick = () => drawColor = rgb
+  button.onclick = () => {
+    selectColor(rgb)
+  }
 }
 
-id("exit-place-mode").onclick = () => {
-  id("color-buttons").classList.remove("closed")
-}
+id("exit-place-mode").onclick = cancelColor
