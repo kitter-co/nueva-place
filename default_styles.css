@@ -29,14 +29,14 @@
   font-size: inherit;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   font-family: system-ui, sans-serif;
   color: var(--text-default);
   background: var(--bg-0);
-}
-
-html, body {
-  height: 100%;
 }
 
 header {
@@ -46,10 +46,6 @@ header {
   left: 0;
   right: 0;
   background: var(--bg-1);
-}
-
-main {
-  padding: 25px;
 }
 
 body.disable-transitions * {
@@ -86,6 +82,11 @@ button {
   border-radius: 20px;
 }
 
+.button-primary {
+  background: var(--accent);
+  color: var(--text-primary);
+}
+
 .button-secondary {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -98,11 +99,6 @@ button {
 .button-secondary:active {
   background: rgba(0, 0, 0, 0.075);
   border-color: transparent;
-}
-
-.button-primary {
-  background: var(--accent);
-  color: var(--text-primary);
 }
 
 /* cards */
