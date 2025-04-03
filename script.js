@@ -275,3 +275,7 @@ function parseJwt(token) {
 
 
 // END OF GOOGLE SIGN-IN ——————————————————————————————————————————————————————————————————————
+
+id("hamburger-button").onclick = () => {
+  id("hamburger-menu").classList.toggle("hidden")
+}
