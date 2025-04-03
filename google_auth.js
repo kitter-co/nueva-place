@@ -50,15 +50,16 @@ document.getElementById("sign-out").addEventListener("click", () => {
 
 onAuthStateChanged(auth, user => {
   if (user && user.email.endsWith("@nueva.place")) {
-    showUser(user.email)
+    showUser(user.email, user.photoURL)
   } else {
     hideUser()
   }
 })
 
-function showUser(email) {
+function showUser(email, img) {
   document.getElementById("account-email").innerText = email
-  document.getElementById("profile-img").style.display = "block"
+  document.getElementById("profile-img").style.display = "flex"
+  document.getElementById("profile-img").innerHTML = `<img src="${img}">`
   document.getElementById("sign-in").style.display = "none"
   signedIn = true
 }
