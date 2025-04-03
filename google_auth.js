@@ -36,15 +36,6 @@ onAuthStateChanged(auth, user => {
   if (user.email.endsWith("@nuevaschool.org")) {
     signInSuccess(user.email, user.photoURL)
   } else {
-    let errorElem = id("signin-error")
-    errorElem.style.display = "block"
-    errorElem.classList.add("shown")
-
-    setTimeout(() => {
-      errorElem.classList.remove("shown")
-      setTimeout(() => {
-        errorElem.style.display = "none"
-      }, 600)
-    }, 5000)
+    errorToast("You must use a @nuevaschool.org email address.")
   }
 })

@@ -272,3 +272,22 @@ document.onmousedown = e => {
     id("account-menu").classList.remove("shown")
   }
 }
+
+// ERROR TOAST
+
+const errorToastElem = id("error-toast")
+let toastHideTimeout
+
+function errorToast(msg = "Something went wrong :(") {
+  errorToastElem.innerText = msg
+
+  clearTimeout(toastHideTimeout)
+  // force the transition to play again even if it is already shown
+  errorToastElem.classList.remove("shown")
+  errorToastElem.style.transition = "none"
+  void errorToastElem.offsetWidth // force css recalc
+  errorToastElem.style.transition = ""
+  errorToastElem.classList.add("shown")
+
+  toastHideTimeout = setTimeout(() => errorToastElem.classList.remove("shown"), 5000)
+}

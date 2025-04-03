@@ -1,12 +1,14 @@
 :root {
   --accent: #0028bc;
 
-  --text-primary: white;
   --text-default: black;
+  --text-primary: white;
+  --text-error: #d50000;
 
   --bg-0: white;
   --bg-1: #f0f4f6;
 
+  --ease-in: cubic-bezier(0.66, 0.05, 1, 0.28);
   --ease-out: cubic-bezier(0.05, 0.66, 0.28, 1);
   --bounce-in: cubic-bezier(0.918, -0.3, 0.276, 1);
   --bounce-out: cubic-bezier(0.5, 0.19, 0.2, 1.19); /* fallback */
