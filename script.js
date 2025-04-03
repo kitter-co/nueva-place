@@ -62,9 +62,9 @@ function draw() {
   if (canPlace() && targetX !== null && targetY !== null && !draggingCamera) {
     ctx.beginPath()
     ctx.rect((targetX - cameraX) * zoom, (targetY - cameraY) * zoom, zoom, zoom)
-    ctx.strokeStyle = `rgb(${currentColor})`
+    ctx.strokeStyle = currentColor == "0,0,0" ? "#333" : `rgb(${currentColor})`
     ctx.stroke()
-    ctx.fillStyle = "#0002"
+    ctx.fillStyle = "#4442"
     ctx.fill()
 
     canvas.style.cursor = "crosshair"
@@ -190,9 +190,10 @@ const colorButtonsWrapper = id("color-buttons")
 
 function selectColor(rgb) {
   if (!currentColor) {
-    colorButtonsWrapper.style.setProperty("--height", colorButtonsWrapper.getBoundingClientRect().height + "px")
-    void colorButtonsWrapper.offsetWidth // update css
+    colorButtonsWrapper.style.height = colorButtonsWrapper.offsetHeight + "px"
+    void colorButtonsWrapper.offsetWidth // force css recalc
     colorButtonsWrapper.classList.add("closed")
+    colorButtonsWrapper.style.setProperty("--selected-color", `rgb(${rgb})`)
   }
 
   currentColor = rgb
@@ -201,8 +202,9 @@ function selectColor(rgb) {
 function cancelColor() {
   if (currentColor) {
     colorButtonsWrapper.classList.remove("closed")
+    colorButtonsWrapper.style.removeProperty("--selected-color")
     setTimeout(() => {
-      colorButtonsWrapper.style.removeProperty("--height")
+      colorButtonsWrapper.style.height = ""
     }, 400)
   }
 
