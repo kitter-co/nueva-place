@@ -240,38 +240,8 @@ id("exit-place-mode").onclick = cancelColor
 
 // ===== GOOGLE SIGN-IN ——————————————————————————————————————————————————————————————————————
 
-function handleCredentialResponse(response) {
-  const data = parseJwt(response.credential);
 
-  // Show email badge
-  let emailBadge = id("email-badge");
-  emailBadge.textContent = data.email;
-  emailBadge.style.display = "block";
-
-  // Hide sign-in button, show sign out
-  id("signin-btn").style.display = "none";
-  id("sign-out-button").style.display = "inline-block";
-
-  signedIn = true;
-}
-
-document.getElementById("sign-out-button").addEventListener("click", () => {
-  google.accounts.id.disableAutoSelect();
-  id("email-badge").style.display = "none";
-  id("sign-out-button").style.display = "none";
-  id("signin-btn").style.display = "block";
-  signedIn = false;
-})
-
-function parseJwt(token) {
-  let base64Url = token.split(".")[1];
-  let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-  let jsonPayload = decodeURIComponent(atob(base64).split("").map(c =>
-    "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)
-  ).join(""));
-
-  return JSON.parse(jsonPayload);
-}
+  // have fun
 
 
 // END OF GOOGLE SIGN-IN ——————————————————————————————————————————————————————————————————————
