@@ -18,13 +18,19 @@ const provider = new GoogleAuthProvider()
 // SIGN IN
 
 id("sign-in").onclick = () => {
-  signInWithPopup(auth, provider).catch(console.error) // TODO error popup
+  signInWithPopup(auth, provider).catch(error => {
+    errorToast("Something went wrong while trying to sign in.", true)
+    console.error(error)
+  })
 }
 
 // SIGN OUT
 
 id("sign-out").onclick = () => {
-  signOut(auth).catch(console.error) // TODO error popup
+  signOut(auth).catch(error => {
+    errorToast("Something went wrong while trying to sign out.", true)
+    console.error(error)
+  })
 }
 
 onAuthStateChanged(auth, user => {

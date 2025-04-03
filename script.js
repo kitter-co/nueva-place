@@ -278,8 +278,8 @@ document.onmousedown = e => {
 const errorToastElem = id("error-toast")
 let toastHideTimeout
 
-function errorToast(msg = "Something went wrong :(") {
-  errorToastElem.innerText = msg
+function errorToast(msg = "Something went wrong :(", bug = false) {
+  errorToastElem.innerText = msg + (bug ? "\n\n(You found a bug! 🎉)" : "")
 
   clearTimeout(toastHideTimeout)
   // force the transition to play again even if it is already shown
