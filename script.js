@@ -1,3 +1,7 @@
+onload = () => {
+  document.body.classList.remove("disable-transitions")
+}
+
 // UTILS
 
 const id = id => document.getElementById(id)
@@ -247,8 +251,8 @@ id("profile-img").onclick = () => {
   id("menu").classList.toggle("shown")
 }
 
-document.addEventListener("mousedown", e => {
+document.onmousedown = e => {
   if (!id("profile-img").contains(e.target) && !id("menu").contains(e.target)) {
     id("menu").classList.remove("shown")
   }
-})
+}
