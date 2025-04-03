@@ -140,6 +140,7 @@ canvas.onwheel = e => {
 onkeydown = e => {
   if (e.code === "Escape") {
     cancelColor()
+    id("menu").classList.remove("shown")
   }
 }
 
@@ -249,3 +250,9 @@ id("exit-place-mode").onclick = cancelColor
 id("profile-img").onclick = () => {
   id("menu").classList.toggle("shown")
 }
+
+document.addEventListener("mousedown", e => {
+  if (e.target != id("profile-img") && !id("profile-img").contains(e.target)) {
+    id("menu").classList.remove("shown")
+  }
+})
