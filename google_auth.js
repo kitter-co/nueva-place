@@ -20,11 +20,18 @@ document.getElementById("sign-in").addEventListener("click", () => {
     signInWithPopup(auth, provider).then(result => {
     const user = result.user
     if (!user.email.endsWith("@nuevaschool.org")) {
-        const errorDiv = document.getElementById("signin-error")
+        let errorDiv = document.getElementById("signin-error")
         errorDiv.style.display = "block"
         setTimeout(() => {
-            errorDiv.style.display = "none"
-        }, 4000)
+            errorDiv.classList.add("shown")
+        }) // the set timeout with 0 time is because without it the div wont transition
+
+        setTimeout(() => {
+            errorDiv.classList.remove("shown")
+            setTimeout(() => {
+                errorDiv.style.display = "none"
+            }, 600)
+        }, 5000)
 
         signOut(auth)
 
