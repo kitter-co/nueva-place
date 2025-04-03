@@ -36,6 +36,7 @@ document.getElementById("sign-in").addEventListener("click", () => {
         signOut(auth)
 
     }
+    console.log(user)
     showUser(user.email)
     })
 })

@@ -239,7 +239,7 @@ main {
   border-radius: 10px;
   opacity: 0;
   transform: translateY(-10px);
-  width: 190px;
+  min-width: 190px;
   display: flex;
   gap: 5px;
   flex-direction: column;
