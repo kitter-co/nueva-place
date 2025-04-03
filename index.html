@@ -6,6 +6,8 @@
         <title>Nueva Place</title>
         <link href="./default_styles.css" rel="stylesheet">
         <link href="./style.css" rel="stylesheet">
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+
     </head>
     <body>
         <a id="logo" href="#link-to-the-homepage"><div></div>/Place</a>
@@ -27,6 +29,24 @@
                     <div id="cooldown"></div>
                 </div>
             </div>
+
+            <!-- GOOGLE SIGN IN -->
+            <div id="g_id_onload"
+                data-client_id="888072535263-3fbu510dvpe6itsgm2ffhcrj9rn6okdf.apps.googleusercontent.com"
+                data-callback="handleCredentialResponse"
+                data-auto_prompt="false">
+            </div>
+
+            <div class="g_id_signin"
+                data-type="standard"
+                data-size="large"
+                data-theme="outline"
+                data-text="sign_in_with"
+                data-shape="rectangular"
+                data-logo_alignment="left">
+            </div>
+            <!-- GOOGLE SIGN IN -->
+
         </main>
     </body>
     <script src="./script.js"></script>
