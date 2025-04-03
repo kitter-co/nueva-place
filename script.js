@@ -250,15 +250,15 @@ function handleCredentialResponse(response) {
 
   // Hide sign-in button, show sign out
   id("signin-btn").style.display = "none";
-  id("signout-btn").style.display = "inline-block";
+  id("sign-out-button").style.display = "inline-block";
 
   signedIn = true;
 }
 
-document.getElementById("signout-btn").addEventListener("click", () => {
+document.getElementById("sign-out-button").addEventListener("click", () => {
   google.accounts.id.disableAutoSelect();
   id("email-badge").style.display = "none";
-  id("signout-btn").style.display = "none";
+  id("sign-out-button").style.display = "none";
   id("signin-btn").style.display = "block";
   signedIn = false;
 })
