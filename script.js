@@ -22,7 +22,7 @@ const offscreenCtx = offscreenCanvas.getContext("2d")
 
 offscreenCtx.imageSmoothingEnabled = false
 
-let signedIn = true, onCooldown = false, lastEditTime
+let signedIn = false, onCooldown = false, lastEditTime
 
 let canvasW, canvasH, imgW, imgH, imgData
 
@@ -153,7 +153,7 @@ canvas.onwheel = e => {
 onkeydown = e => {
   if (e.code === "Escape") {
     cancelColor()
-    id("menu").classList.remove("shown")
+    id("account-menu").classList.remove("shown")
   }
 }
 
@@ -254,12 +254,21 @@ id("exit-place-mode").onclick = cancelColor
 
 // ACCOUNTS
 
+function signInSuccess(email, img) {
+  id("account-email").innerText = email
+  id("profile-img").style.display = "flex"
+  id("profile-img").innerHTML = `<img src="${img}">`
+  id("sign-in").style.display = "none"
+  colorButtonsWrapper.classList.remove("hidden")
+  signedIn = true
+}
+
 id("profile-img").onclick = () => {
-  id("menu").classList.toggle("shown")
+  id("account-menu").classList.toggle("shown")
 }
 
 document.onmousedown = e => {
-  if (!id("profile-img").contains(e.target) && !id("menu").contains(e.target)) {
-    id("menu").classList.remove("shown")
+  if (!id("profile-img").contains(e.target) && !id("account-menu").contains(e.target)) {
+    id("account-menu").classList.remove("shown")
   }
 }

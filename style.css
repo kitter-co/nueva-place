@@ -38,7 +38,7 @@ main {
   gap: 5px;
   flex-direction: column;
   justify-content: center;
-  padding: 8px; /* 10px with the border-width */
+  padding: 8px; /* 10px including border width */
   border: 2px solid var(--selected-color, transparent);
   color: var(--selected-color, black);
   border-radius: 25px;
@@ -46,10 +46,11 @@ main {
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   transition: border-color 0.4s ease-out -0.2s,
-              height 0.4s var(--bounce-out);
+              height 0.4s var(--bounce-out),
+              right 0.4s var(--bounce-in);
 }
 
-@media (max-height: 478px) {
+@media (max-height: 560px) {
   #color-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -57,10 +58,14 @@ main {
   }
 }
 
+#color-buttons.hidden {
+  right: -80px;
+}
+
 #color-buttons.closed {
   height: 50px !important;
   transition: border-color 0.15s 0.3s,
-              height 0.4s var(--bounce-in);
+              height 0.4s var(--ease-out);
 }
 
 .color-button {
@@ -223,13 +228,14 @@ main {
   padding: 0;
   align-items: center;
   justify-content: center;
+  display: none;
 }
 
 #profile-img > img {
   height: 100%;
 }
 
-#menu {
+#account-menu {
   transition: transform 0.2s ease, opacity 0.1s linear;
   position: absolute;
   top: 50px;
@@ -245,7 +251,7 @@ main {
   flex-direction: column;
 }
 
-#menu.shown {
+#account-menu.shown {
   transform: translateY(0);
   opacity: 1;
 }

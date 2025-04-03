@@ -18,51 +18,33 @@ const provider = new GoogleAuthProvider()
 // SIGN IN
 
 id("sign-in").onclick = () => {
-  signInWithPopup(auth, provider).then(({ user }) => {
-    if (!user.email.endsWith("@nuevaschool.org")) {
-      let errorDiv = id("signin-error")
-      errorDiv.style.display = "block"
-      errorDiv.classList.add("shown")
-
-      setTimeout(() => {
-        errorDiv.classList.remove("shown")
-        setTimeout(() => {
-          errorDiv.style.display = "none"
-        }, 600)
-      }, 5000)
-
-      signOut(auth)
-    }
-
-    console.log(user)
-    showUser(user.email, user.photoURL)
-  })
+  signInWithPopup(auth, provider).catch(console.error) // TODO error popup
 }
 
 // SIGN OUT
 
 id("sign-out").onclick = () => {
-  signOut(auth).then(hideUser)
+  signOut(auth).catch(console.error) // TODO error popup
 }
 
 onAuthStateChanged(auth, user => {
-  if (user?.email.endsWith("@nueva.place")) {
-    showUser(user.email, user.photoURL)
+  if (!user) {
+    if (signedIn) location.reload()
+    return
+  }
+
+  if (user.email.endsWith("@nuevaschool.org")) {
+    signInSuccess(user.email, user.photoURL)
   } else {
-    hideUser()
+    let errorElem = id("signin-error")
+    errorElem.style.display = "block"
+    errorElem.classList.add("shown")
+
+    setTimeout(() => {
+      errorElem.classList.remove("shown")
+      setTimeout(() => {
+        errorElem.style.display = "none"
+      }, 600)
+    }, 5000)
   }
 })
-
-function showUser(email, img) {
-  id("account-email").innerText = email
-  id("profile-img").style.display = "flex"
-  id("profile-img").innerHTML = `<img src="${img}">`
-  id("sign-in").style.display = "none"
-  signedIn = true
-}
-
-function hideUser() {
-  id("profile-img").style.display = "none"
-  id("sign-in").style.display = "block"
-  signedIn = false
-}
