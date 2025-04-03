@@ -16,15 +16,13 @@ const auth = getAuth(app)
 const provider = new GoogleAuthProvider()
 
 // SIGN IN
-document.getElementById("sign-in").addEventListener("click", () => {
-  signInWithPopup(auth, provider).then(result => {
-    const user = result.user
+
+id("sign-in").onclick = () => {
+  signInWithPopup(auth, provider).then(({ user }) => {
     if (!user.email.endsWith("@nuevaschool.org")) {
-      let errorDiv = document.getElementById("signin-error")
+      let errorDiv = id("signin-error")
       errorDiv.style.display = "block"
-      setTimeout(() => {
-        errorDiv.classList.add("shown")
-      }, 10) // this is so the erroeDiv actually transitions
+      errorDiv.classList.add("shown")
 
       setTimeout(() => {
         errorDiv.classList.remove("shown")
@@ -34,22 +32,21 @@ document.getElementById("sign-in").addEventListener("click", () => {
       }, 5000)
 
       signOut(auth)
-
     }
+
     console.log(user)
     showUser(user.email, user.photoURL)
   })
-})
+}
 
-//SIGN OUT
-document.getElementById("sign-out").addEventListener("click", () => {
-  signOut(auth).then(() => {
-    hideUser()
-  })
-})
+// SIGN OUT
+
+id("sign-out").onclick = () => {
+  signOut(auth).then(hideUser)
+}
 
 onAuthStateChanged(auth, user => {
-  if (user && user.email.endsWith("@nueva.place")) {
+  if (user?.email.endsWith("@nueva.place")) {
     showUser(user.email, user.photoURL)
   } else {
     hideUser()
@@ -57,15 +54,15 @@ onAuthStateChanged(auth, user => {
 })
 
 function showUser(email, img) {
-  document.getElementById("account-email").innerText = email
-  document.getElementById("profile-img").style.display = "flex"
-  document.getElementById("profile-img").innerHTML = `<img src="${img}">`
-  document.getElementById("sign-in").style.display = "none"
+  id("account-email").innerText = email
+  id("profile-img").style.display = "flex"
+  id("profile-img").innerHTML = `<img src="${img}">`
+  id("sign-in").style.display = "none"
   signedIn = true
 }
 
 function hideUser() {
-  document.getElementById("profile-img").style.display = "none"
-  document.getElementById("sign-in").style.display = "block"
+  id("profile-img").style.display = "none"
+  id("sign-in").style.display = "block"
   signedIn = false
 }
