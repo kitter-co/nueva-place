@@ -32,7 +32,7 @@
 
 
         </main>
-        
+
         <!-- GOOGLE SIGN IN -->
         <div id="sign-in-container">
             <div id="g_id_onload"
@@ -40,8 +40,8 @@
                 data-callback="handleCredentialResponse"
                 data-auto_prompt="false">
             </div>
-        
-            <div class="g_id_signin"
+
+            <div id="signin-btn" class="g_id_signin"
                 data-type="standard"
                 data-size="small"
                 data-theme="outline"
@@ -49,10 +49,11 @@
                 data-shape="rectangular"
                 data-logo_alignment="left">
             </div>
-        
-            <div id="user-info"></div>
+
+            <div id="email-badge" style="display:none;"></div>
             <button id="signout-btn" style="display:none;">Sign Out</button>
         </div>
+
         <!-- GOOGLE SIGN IN -->
         
     </body>
