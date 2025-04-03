@@ -193,7 +193,8 @@ function selectColor(rgb) {
     colorButtonsWrapper.style.height = colorButtonsWrapper.offsetHeight + "px"
     void colorButtonsWrapper.offsetWidth // force css recalc
     colorButtonsWrapper.classList.add("closed")
-    colorButtonsWrapper.style.setProperty("--selected-color", `rgb(${rgb})`)
+    if (rgb == [255, 255, 255]) colorButtonsWrapper.style.setProperty("--selected-color", "rgba(0, 0, 0, 0.2)")
+    else colorButtonsWrapper.style.setProperty("--selected-color", `rgb(${rgb})`)
   }
 
   currentColor = rgb
