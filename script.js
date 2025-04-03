@@ -252,7 +252,7 @@ id("profile-img").onclick = () => {
 }
 
 document.addEventListener("mousedown", e => {
-  if (e.target != id("profile-img") && !id("profile-img").contains(e.target)) {
+  if (e.target != id("profile-img") && !id("profile-img").contains(e.target) && e.target != id("menu") && !id("menu").contains(e.target)) {
     id("menu").classList.remove("shown")
   }
 })
