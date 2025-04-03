@@ -163,7 +163,6 @@ main {
   font-size: 0.75em;
   z-index: 2;
   font-weight: bold;
-  pointer-events: none;
   color: var(--accent);
   display: flex;
   align-items: center;
