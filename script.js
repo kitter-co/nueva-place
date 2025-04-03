@@ -124,6 +124,11 @@ onkeydown = e => {
   if (e.code === "Escape") {
     drawColor = null
   }
+
+  if (e.code == "KeyP") {
+    id("color-buttons").style.setProperty("--height", id("color-buttons").getBoundingClientRect().height + "px")
+    setTimeout(() => { id("color-buttons").classList.add("closed") }, 0)
+  }
 }
 
 // placeholder data (draws a TINY black square in the corner)
@@ -180,4 +185,8 @@ for (let [name, rgb] of Object.entries(colors)) {
   id("color-buttons").append(button)
 
   button.onclick = () => drawColor = rgb
+}
+
+id("exit-place-mode").onclick = () => {
+  id("color-buttons").classList.remove("closed")
 }

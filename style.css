@@ -38,12 +38,20 @@ main {
   display: flex;
   gap: 5px;
   flex-direction: column;
+  justify-content: center;
   padding: 10px;
   border-radius: 25px;
   background: var(--bg-0);
   max-height: calc(100% - 20px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  height: var(--height, auto);
+  transition: height 0.5s cubic-bezier(0.724, 1.467, 0.082, 1.2335);
+}
+
+#color-buttons.closed {
+  height: 50px !important;
+  transition: height 0.5s cubic-bezier(0.918, -0.467, 0.276, 0.99);
 }
 
 @media (max-height: 478px) {
@@ -59,7 +67,12 @@ main {
   border-radius: 100px;
   background: var(--color);
   position: relative;
-  transition: scale 0.1s ease;
+  transition: scale 0.1s ease, opacity 0.1s linear;
+}
+
+#color-buttons.closed .color-button {
+  opacity: 0;
+  transition: scale 0.1s ease, opacity 0.3s 0.1s linear;
 }
 
 .color-button.white {
@@ -128,3 +141,29 @@ main {
   to { height: 0; }
 }
 
+#exit-place-mode {
+  padding: 0;
+  border-radius: 100px;
+  height: 50px;
+  width: 50px;
+  margin-left: -10px;
+  border: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s linear, visibility 0.2s linear;
+}
+
+#color-buttons.closed #exit-place-mode {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s 0.2s linear, visibility 0.3s 0.2s linear;
+}
+
+#exit-place-mode svg {
+  height: 30px;
+  width: 30px;
+}
