@@ -87,6 +87,11 @@ button {
   border-color: transparent;
 }
 
+.button-secondary:active {
+  background: rgba(0, 0, 0, 0.075);
+  border-color: transparent;
+}
+
 .button-primary {
   background: var(--accent);
   color: var(--text-primary);
