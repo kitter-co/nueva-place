@@ -12,7 +12,7 @@ let signedIn = true, onCooldown = false, lastEdit = 0
 
 let canvasW, canvasH, imgW, imgH, imgData
 
-let cameraX = 0, cameraY = 0, rawZoom = 3, cameraZoom = 2 ** rawZoom
+let cameraX = 0, cameraY = 0, rawZoom = 3, zoom = 2 ** rawZoom
 
 let mouseX = null, mouseY = null, targetX = null, targetY = null, drawColor = null
 
@@ -26,8 +26,8 @@ function updateMousePos(e) {
   mouseX = e.pageX
   mouseY = e.pageY
 
-  targetX = Math.floor((mouseX - rect.left + cameraX) / cameraZoom)
-  targetY = Math.floor((mouseY - rect.top  + cameraY) / cameraZoom)
+  targetX = Math.floor((mouseX - rect.left) / zoom + cameraX)
+  targetY = Math.floor((mouseY - rect.top ) / zoom + cameraY)
 }
 
 function setPixel(x, y, rgb) {
@@ -49,15 +49,15 @@ function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
   offscreenCtx.putImageData(imgData, 0, 0)
-  ctx.drawImage(offscreenCanvas, -cameraX, -cameraY, imgW * cameraZoom, imgH * cameraZoom)
+  ctx.drawImage(offscreenCanvas, -cameraX * zoom, -cameraY * zoom, imgW * zoom, imgH * zoom)
 
   if (canPlace() && targetX !== null && targetY !== null && !draggingCamera) {
     ctx.beginPath()
-    ctx.rect(targetX * cameraZoom - cameraX, targetY * cameraZoom - cameraY, cameraZoom, cameraZoom)
-    ctx.fillStyle = "#0002"
+    ctx.rect((targetX - cameraX) * zoom, (targetY - cameraY) * zoom, zoom, zoom)
     ctx.strokeStyle = `rgb(${drawColor})`
-    ctx.fill()
     ctx.stroke()
+    ctx.fillStyle = "#0002"
+    ctx.fill()
 
     canvas.style.cursor = "crosshair"
   } else {
@@ -104,28 +104,32 @@ onmousemove = e => {
   updateMousePos(e)
 
   if (draggingCamera) {
-    cameraX -= mouseX - lastX
-    cameraY -= mouseY - lastY
+    cameraX -= (mouseX - lastX) / zoom
+    cameraY -= (mouseY - lastY) / zoom
   }
 }
 
-canvas.addEventListener("wheel", e => {
+canvas.onwheel = e => {
   if (e.ctrlKey) {
     e.preventDefault()
     rawZoom -= e.deltaY * 0.015
   } else {
     rawZoom -= e.deltaY * 0.005
   }
-  
-  cameraZoom = 2 ** rawZoom
-}, { passive: false })
+
+  let oldZoom = zoom
+  zoom = 2 ** rawZoom
+  // TODO fix this - it kinda works most of the time but its super janky
+  cameraX += (mouseX + cameraX) * (zoom - oldZoom) / oldZoom / zoom
+  cameraY += (mouseY + cameraY) * (zoom - oldZoom) / oldZoom / zoom
+}
 
 onkeydown = e => {
   if (e.code === "Escape") {
     drawColor = null
   }
 
-  if (e.code == "KeyP") {
+  if (e.code === "KeyP") {
     id("color-buttons").style.setProperty("--height", id("color-buttons").getBoundingClientRect().height + "px")
     setTimeout(() => { id("color-buttons").classList.add("closed") }, 0)
   }
