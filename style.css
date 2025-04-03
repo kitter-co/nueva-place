@@ -47,7 +47,7 @@ main {
   overflow: hidden;
   transition: border-color 0.4s ease-out -0.2s,
               height 0.4s var(--bounce-out),
-              right 0.4s var(--bounce-in);
+              right 0.4s var(--ease-out);
 }
 
 @media (max-height: 560px) {
@@ -65,7 +65,8 @@ main {
 #color-buttons.closed {
   height: 50px !important;
   transition: border-color 0.15s 0.3s,
-              height 0.4s var(--ease-out);
+              height 0.4s var(--bounce-in),
+              right 0.4s var(--bounce-in);
 }
 
 .color-button {
