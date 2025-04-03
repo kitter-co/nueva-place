@@ -24,7 +24,7 @@ document.getElementById("sign-in").addEventListener("click", () => {
         errorDiv.style.display = "block"
         setTimeout(() => {
             errorDiv.classList.add("shown")
-        }) // the set timeout with 0 time is because without it the div wont transition
+        }, 10) // this is so the erroeDiv actually transitions
 
         setTimeout(() => {
             errorDiv.classList.remove("shown")
