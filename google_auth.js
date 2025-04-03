@@ -37,22 +37,22 @@ document.getElementById("sign-in").addEventListener("click", () => {
 
     }
     console.log(user)
-    showUser(user.email)
+    showUser(user.email, user.photoURL)
     })
 })
 
 //SIGN OUT
 document.getElementById("sign-out").addEventListener("click", () => {
     signOut(auth).then(() => {
-    hideUser()
+        hideUser()
     })
 })
 
 onAuthStateChanged(auth, user => {
     if (user && user.email.endsWith("@nueva.place")) {
-    showUser(user.email)
+        showUser(user.email)
     } else {
-    hideUser()
+        hideUser()
     }
 })
 
