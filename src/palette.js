@@ -1,8 +1,6 @@
 import { hasCurrentColor, setCurrentColor } from "./canvas.js"
 import { id } from "./utils.js"
 
-// COLOR PALETTE
-
 const colors = {
   "Red":         [213, 0, 0],
   "Orange":      [254, 111, 27],

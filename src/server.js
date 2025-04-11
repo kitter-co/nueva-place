@@ -12,8 +12,6 @@ import {
 import { errorToast } from "./toast.js"
 import { hexToRGB } from "./utils.js"
 
-// SERVÍR
-
 function placePixel(x, y, rgb) {
   let oldRGB = getPixel(x, y), placeTime = performance.now()
 

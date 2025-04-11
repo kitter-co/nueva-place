@@ -21,8 +21,6 @@ const provider = new GoogleAuthProvider()
 
 let signedIn = false
 
-// ACCOUNTS
-
 function isSignedIn() {
   return signedIn
 }

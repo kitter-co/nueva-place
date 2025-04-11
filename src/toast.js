@@ -1,7 +1,5 @@
 import { id } from "./utils.js"
 
-// ERROR TOAST
-
 const errorToastElem = id("error-toast")
 let toastHideTimeout
 
