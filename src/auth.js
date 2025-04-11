@@ -37,8 +37,6 @@ function signInSuccess(email, img) {
 }
 
 id("profile-img").onclick = () => {
-
-  // id("account-menu").style.display =  ? "none" : "flex"
   if (id("account-menu").style.display == "none") {
     id("account-menu").style.display = "flex"
     setTimeout(() => {
