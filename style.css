@@ -53,8 +53,9 @@ main {
 @media (max-height: 620px) {
   #color-buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(7, 1fr);
     align-content: center;
+    grid-auto-flow: column;
   }
 }
 
