@@ -40,6 +40,7 @@ onAuthStateChanged(auth, user => {
   }
 
   if (user.email.endsWith("@nuevaschool.org")) {
+    console.log("auth, user:", auth, user)
     signInSuccess(user.email, user.photoURL)
   } else {
     errorToast("You must use a @nuevaschool.org email address.")
