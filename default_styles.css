@@ -1,5 +1,7 @@
 :root {
   --accent: #0028bc;
+  --accent-light: #0031e4;
+  --accent-dark: #002197;
 
   --text-default: black;
   --text-primary: white;
@@ -93,6 +95,14 @@ button {
 .button-primary {
   background: var(--accent);
   color: var(--text-primary);
+}
+
+.button-primary:hover {
+  background: var(--accent-light);
+}
+
+.button-primary:active {
+  background: var(--accent-dark);
 }
 
 .button-secondary {
