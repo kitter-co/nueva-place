@@ -3,8 +3,6 @@ import { colorButtonsWrapper, cancelColor } from "./palette.js"
 import { placePixel } from "./server.js"
 import { isSignedIn } from "./auth.js"
 
-// CANVAS
-
 const canvasWrapper = id("canvas-wrapper")
 const canvas = id("canvas")
 const ctx = canvas.getContext("2d")
