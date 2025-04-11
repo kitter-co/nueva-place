@@ -181,6 +181,12 @@ main {
   mask-size: 100%;
   mask-repeat: no-repeat;
   mask-position: center;
+  margin-right: 1px;
+  margin-top: 1px;
+}
+
+#logo > span {
+  margin-left: 0.5px;
 }
 
 /* GOOGLE SIGN IN */
