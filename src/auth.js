@@ -37,8 +37,11 @@ function signInSuccess(email, img) {
 }
 
 id("profile-img").onclick = () => {
-  id("account-menu").classList.toggle("shown")
-  id("profile-img").classList.toggle("menu-shown")
+  id("account-menu").style.display = id("account-menu").style.display == "flex" ? "none" : "flex"
+  setTimeout(() => {
+    id("account-menu").classList.toggle("shown")
+    id("profile-img").classList.toggle("menu-shown")
+  }, 0)
 }
 
 document.onmousedown = e => {
@@ -52,7 +55,7 @@ document.onmousedown = e => {
 
 id("sign-in").onclick = () => {
   signInWithPopup(auth, provider).catch(error => {
-    errorToast("Something went wrong while trying to sign in.", true)
+    errorToast("Something went wrong while trying to sign in.")
     console.error(error)
   })
 }

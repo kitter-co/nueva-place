@@ -29,7 +29,7 @@ function selectColor(rgb) {
     colorButtonsWrapper.classList.add("closed")
     colorButtonsWrapper.style.setProperty(
       "--selected-color",
-      rgb == "255,255,255" ? "#0004" : `rgb(${rgb})`
+      rgb == "255, 255, 255" ? "#0004" : `rgb(${rgb})`
     )
   }
 
