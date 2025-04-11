@@ -47,10 +47,10 @@ main {
   overflow: hidden;
   transition: border-color 0.4s ease-out -0.2s,
               height 0.4s var(--bounce-out),
-              right 0.4s var(--ease-out);
+              translate 0.4s var(--ease-out);
 }
 
-@media (max-height: 560px) {
+@media (max-height: 620px) {
   #color-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -59,14 +59,14 @@ main {
 }
 
 #color-buttons.hidden {
-  right: -80px;
+  translate: calc(100% + 10px) 0;
 }
 
 #color-buttons.closed {
   height: 50px !important;
   transition: border-color 0.15s 0.3s,
               height 0.4s var(--bounce-in),
-              right 0.4s var(--bounce-in);
+              translate 0.4s var(--bounce-in);
 }
 
 .color-button {
