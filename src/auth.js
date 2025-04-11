@@ -37,17 +37,31 @@ function signInSuccess(email, img) {
 }
 
 id("profile-img").onclick = () => {
-  id("account-menu").style.display = id("account-menu").style.display == "flex" ? "none" : "flex"
-  setTimeout(() => {
-    id("account-menu").classList.toggle("shown")
-    id("profile-img").classList.toggle("menu-shown")
-  }, 0)
+
+  // id("account-menu").style.display =  ? "none" : "flex"
+  if (id("account-menu").style.display == "none") {
+    id("account-menu").style.display = "flex"
+    setTimeout(() => {
+      id("account-menu").classList.add("shown")
+      id("profile-img").classList.add("menu-shown")
+    }, 0)
+  } else {
+    id("account-menu").classList.add("shown")
+    id("profile-img").classList.add("menu-shown")
+    setTimeout(() => {
+      id("account-menu").style.display = "none"
+    }, 200)
+  }
 }
 
 document.onmousedown = e => {
   if (!id("profile-img").contains(e.target) && !id("account-menu").contains(e.target)) {
     id("account-menu").classList.remove("shown")
     id("profile-img").classList.remove("menu-shown")
+
+    setTimeout(() => {
+      id("account-menu").style.display == "none"
+    }, 200)
   }
 }
 
