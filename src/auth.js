@@ -7,7 +7,7 @@ import { errorToast } from "./toast.js"
 
 const firebaseConfig = {
   apiKey: "AIzaSyCFyU3lKCbyZYnrqSDNQZ2WjQA8gYhWKkA",
-  authDomain: "https://nueva.place/__/auth/handler",
+  authDomain: "https://nueva-place.firebaseapp.com/__/auth/handler",
   projectId: "nueva-place",
   storageBucket: "nueva-place.appspot.com",
   messagingSenderId: "888072535263",
