@@ -213,8 +213,10 @@ const colors = {
   "Purple":      [172, 48, 221],
   "Magenta":     [246, 48, 163],
   "White":       [255, 255, 255],
-  "Gray":        [160, 160, 160],
-  "Black":       [0, 0, 0]
+  "Light Gray":  [170, 170, 170],
+  "Dark Gray":   [85, 85, 85],
+  "Black":       [0, 0, 0],
+  "Brown":       [89, 54, 33],
 }
 
 const colorButtonsWrapper = id("color-buttons")
