@@ -178,7 +178,7 @@ main {
   height: 1em;
   width: 1em;
   background: currentColor;
-  mask-image: url("./nueva_school.png");
+  mask-image: url("../nueva_school.png");
   mask-size: 100%;
   mask-repeat: no-repeat;
   mask-position: center;
