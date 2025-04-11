@@ -272,11 +272,13 @@ main {
   display: flex;
   gap: 10px;
   flex-direction: column;
+  pointer-events: none;
 }
 
 #account-menu.shown {
   transform: translateY(0);
   opacity: 1;
+  pointer-events: all;
 }
 
 #sign-out {
