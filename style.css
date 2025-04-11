@@ -264,6 +264,12 @@ main {
   padding: 5px 10px;
 }
 
+#sign-out > svg {
+  height: 1.25em;
+  width: 1.25em;
+  margin-right: 5px;
+}
+
 /* TOAST (yummy) */
 
 #error-toast {
