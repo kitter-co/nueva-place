@@ -203,34 +203,6 @@ main {
   background: currentColor;
 }
 
-/* GOOGLE SIGN IN */
-#sign-in-container {
-  /* position: absolute; */
-  top: 10px;
-  right: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-}
-
-#user-info {
-  color: white;
-  text-align: right;
-}
-
-#email-badge {
-  background: var(--accent);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 100px;
-  font-size: 0.85em;
-  max-width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 /* ACCOUNTS */
 
 #account-wrapper {
@@ -285,7 +257,7 @@ main {
   pointer-events: none;
 }
 
-#account-menu.shown, #account-menu:has(:focus-visible) {
+#account-menu.shown, #account-menu:focus-within {
   transform: translateY(0);
   opacity: 1;
   pointer-events: all;

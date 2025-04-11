@@ -12,6 +12,15 @@ function clamp(n, min, max) {
   return Math.max(min, Math.min(max, n))
 }
 
+// 0xRRGGBB -> [R, G, B]
+function hexToRGB(hex) {
+  return [
+    hex >> 16,
+    (hex >> 8) & 0xff,
+    hex & 0xff
+  ]
+}
+
 // CANVAS
 
 const canvasWrapper = id("canvas-wrapper")
@@ -57,7 +66,7 @@ function setPixel(x, y, rgb) {
   imgData.data[i + 2] = rgb[2]
 }
 
-function draw(init = null) {
+function draw(init = false) {
   requestAnimationFrame(() => draw())
 
   canvasW = canvasWrapper.offsetWidth
@@ -116,6 +125,7 @@ function inBounds() {
 let draggingCamera = false
 
 canvas.onmousedown = e => {
+  updateMousePos(e)
   if (!currentColor || !inBounds()) {
     draggingCamera = true
   }
@@ -171,6 +181,26 @@ function sendPlaceRequest(x, y, hex) {
   return Promise.resolve()
 }
 
+function receivedPixelUpdate(x, y, hex) {
+  let i = (x + y * imgW) * 4
+  imgData.data.set(hexToRGB(hex), i)
+}
+
+function receivedFullUpdate(width, height, data) {
+  offscreenCanvas.width = imgW = width
+  offscreenCanvas.height = imgH = height
+
+  let rawData = new Uint8ClampedArray(imgW * imgH * 4)
+  for (let y = 0; y < imgH; y++) {
+    for (let x = 0; x < imgW; x++) {
+      let i = (x + y * imgW) * 4
+      rawData.set(hexToRGB(data[y][x]), i)
+      rawData[i + 3] = 255
+    }
+  }
+  imgData = new ImageData(rawData, imgW, imgH)
+}
+
 // TODO placeholder data
 Promise.resolve({ json() { return { width: 10, height: 5, img: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] } } })
 // fetch("the data")
@@ -178,25 +208,7 @@ Promise.resolve({ json() { return { width: 10, height: 5, img: [[0, 0, 0, 0, 0, 
     alert(`It didn't work :(\n\nERROR:\n${err.message}`)
   })
   .then(res => res.json()).then(data => {
-    imgW = data.width
-    imgH = data.height
-
-    offscreenCanvas.width = imgW
-    offscreenCanvas.height = imgH
-
-    let rawData = new Uint8ClampedArray(imgW * imgH * 4)
-    for (let y = 0; y < imgH; y++) {
-      for (let x = 0; x < imgW; x++) {
-        let i = (x + y * imgW) * 4, hex = data.img[y][x]
-
-        rawData[i + 0] = hex >> 16
-        rawData[i + 1] = (hex >> 8) & 0xff
-        rawData[i + 2] = hex & 0xff
-        rawData[i + 3] = 255
-      }
-    }
-    imgData = new ImageData(rawData, imgW, imgH)
-
+    receivedFullUpdate(data.width, data.height, data.img)
     draw(true)
   })
 
@@ -211,12 +223,12 @@ const colors = {
   "Light Blue":  [3, 155, 229],
   "Dark Blue":   [44, 57, 190],
   "Purple":      [172, 48, 221],
-  "Magenta":     [246, 48, 163],
+  "Pink":        [255, 68, 173],
   "White":       [255, 255, 255],
-  "Light Gray":  [191, 191, 191],
-  "Dark Gray":   [64, 64, 64],
+  "Light Gray":  [200, 200, 200],
+  "Dark Gray":   [100, 100, 100],
   "Black":       [0, 0, 0],
-  "Brown":       [143, 86, 51],
+  "Brown":       [153, 80, 51],
 }
 
 const colorButtonsWrapper = id("color-buttons")
