@@ -1,6 +1,10 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js"
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js"
 
+import { id } from "./utils.js"
+import { colorButtonsWrapper } from "./palette.js"
+import { errorToast } from "./toast.js"
+
 const firebaseConfig = {
   apiKey: "AIzaSyCFyU3lKCbyZYnrqSDNQZ2WjQA8gYhWKkA",
   authDomain: "nueva-place.firebaseapp.com",
@@ -14,6 +18,35 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const provider = new GoogleAuthProvider()
+
+let signedIn = false
+
+// ACCOUNTS
+
+function isSignedIn() {
+  return signedIn
+}
+
+function signInSuccess(email, img) {
+  id("account-email").innerText = email
+  id("profile-img").style.display = "flex"
+  id("profile-img").innerHTML = `<img src="${img}">`
+  id("sign-in").remove()
+  colorButtonsWrapper.classList.remove("hidden")
+  signedIn = true
+}
+
+id("profile-img").onclick = () => {
+  id("account-menu").classList.toggle("shown")
+  id("profile-img").classList.toggle("menu-shown")
+}
+
+document.onmousedown = e => {
+  if (!id("profile-img").contains(e.target) && !id("account-menu").contains(e.target)) {
+    id("account-menu").classList.remove("shown")
+    id("profile-img").classList.remove("menu-shown")
+  }
+}
 
 // SIGN IN
 
@@ -46,3 +79,5 @@ onAuthStateChanged(auth, user => {
     errorToast("You must use a @nuevaschool.org email address.")
   }
 })
+
+export { isSignedIn }
