@@ -275,7 +275,7 @@ main {
   pointer-events: none;
 }
 
-#account-menu.shown {
+#account-menu.shown, #account-menu:has(:focus-visible) {
   transform: translateY(0);
   opacity: 1;
   pointer-events: all;
