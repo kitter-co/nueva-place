@@ -275,11 +275,13 @@ function signInSuccess(email, img) {
 
 id("profile-img").onclick = () => {
   id("account-menu").classList.toggle("shown")
+  id("profile-img").classList.toggle("menu-shown")
 }
 
 document.onmousedown = e => {
   if (!id("profile-img").contains(e.target) && !id("account-menu").contains(e.target)) {
     id("account-menu").classList.remove("shown")
+    id("profile-img").classList.remove("menu-shown")
   }
 }
 

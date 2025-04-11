@@ -258,6 +258,11 @@ main {
   height: 100%;
 }
 
+#profile-img.menu-shown {
+  border: 1px solid transparent;
+  background: var(--bg-1);
+}
+
 #account-menu {
   transition: transform 0.2s ease, opacity 0.1s linear;
   position: absolute;
