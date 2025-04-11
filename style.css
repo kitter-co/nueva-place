@@ -60,7 +60,7 @@ main {
 }
 
 #color-buttons.hidden {
-  translate: calc(100% + 10px) 0;
+  translate: calc(100% + 20px) 0;
 }
 
 #color-buttons.closed {
@@ -170,6 +170,7 @@ main {
   color: var(--accent);
   display: flex;
   align-items: center;
+  text-decoration: none;
 }
 
 #logo > div {
@@ -187,10 +188,6 @@ main {
 
 #logo > span {
   margin-left: 0.5px;
-}
-
-#logo:is(:hover, :focus-visible) {
-  text-decoration: none;
 }
 
 #logo:is(:hover, :focus-visible)::after {
