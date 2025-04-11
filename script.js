@@ -58,12 +58,17 @@ function updateMousePos(e) {
   }
 }
 
-function setPixel(x, y, rgb) {
-  let i = (x + y * imgW) * 4
+function imgDataIndex(x, y) {
+  return (x + y * imgW) * 4
+}
 
-  imgData.data[i + 0] = rgb[0]
-  imgData.data[i + 1] = rgb[1]
-  imgData.data[i + 2] = rgb[2]
+function getPixel(x, y) {
+  let i = imgDataIndex(x, y)
+  return [...imgData.data.subarray(i, i + 2)]
+}
+
+function setPixel(x, y, rgb) {
+  imgData.data.set(rgb, imgDataIndex(x, y))
 }
 
 function draw(init = false) {
@@ -110,12 +115,17 @@ function startCooldown() {
   currentColor = null
 }
 
-function attemptPlacePixel() {
-  if (!canPlace() || !inBounds()) return
+function endCooldown() {
+  onCooldown = false
+  colorButtonsWrapper.classList.remove("hidden", "closed")
+  colorButtonsWrapper.style.removeProperty("--selected-color")
+  colorButtonsWrapper.style.height = ""
+}
 
-  sendPlaceRequest(targetX, targetY, (currentColor[0] << 16) | (currentColor[1] << 8) | currentColor[2])
-  setPixel(targetX, targetY, currentColor) // TODO undo if server request fails
-  startCooldown()
+function attemptPlacePixel() {
+  if (canPlace() && inBounds()) {
+    placePixel(targetX, targetY, currentColor)
+  }
 }
 
 function inBounds() {
@@ -176,14 +186,26 @@ onkeydown = e => {
 
 // SERVÍR
 
-function sendPlaceRequest(x, y, hex) {
-  // TODO
-  return Promise.resolve()
+function placePixel(x, y, rgb) {
+  let oldRGB = getPixel(x, y), placeTime = performance.now()
+
+  setPixel(x, y, rgb)
+  startCooldown()
+
+  let hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2]
+  Promise.resolve() // TODO replace with actual server request
+    .catch(() => {
+      setTimeout(() => {
+        errorToast("Oh no!\nLooks like there was an error trying to place your pixel. Wait a minute, then try again.")
+        endCooldown()
+        setPixel(x, y, oldRGB)
+        // wait at least half a second before showing the error message
+      }, placeTime - performance.now() + 500)
+    })
 }
 
 function receivedPixelUpdate(x, y, hex) {
-  let i = (x + y * imgW) * 4
-  imgData.data.set(hexToRGB(hex), i)
+  setPixel(x, y, hexToRGB(hex))
 }
 
 function receivedFullUpdate(width, height, data) {
@@ -193,7 +215,7 @@ function receivedFullUpdate(width, height, data) {
   let rawData = new Uint8ClampedArray(imgW * imgH * 4)
   for (let y = 0; y < imgH; y++) {
     for (let x = 0; x < imgW; x++) {
-      let i = (x + y * imgW) * 4
+      let i = imgDataIndex(x, y)
       rawData.set(hexToRGB(data[y][x]), i)
       rawData[i + 3] = 255
     }
