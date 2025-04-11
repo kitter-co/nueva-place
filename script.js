@@ -271,6 +271,7 @@ function signInSuccess(email, img) {
   id("sign-in").style.display = "none"
   colorButtonsWrapper.classList.remove("hidden")
   signedIn = true
+  console.log("whener", auth)
 }
 
 id("profile-img").onclick = () => {
