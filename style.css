@@ -244,7 +244,7 @@ main {
   transition: filter 0.2s linear;
 }
 
-#account-wrapper:has(.shown) {
+#account-wrapper:has(.shown, #sign-in) {
   filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.15));
 }
 

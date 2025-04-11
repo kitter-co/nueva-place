@@ -268,7 +268,7 @@ function signInSuccess(email, img) {
   id("account-email").innerText = email
   id("profile-img").style.display = "flex"
   id("profile-img").innerHTML = `<img src="${img}">`
-  id("sign-in").style.display = "none"
+  id("sign-in").remove()
   colorButtonsWrapper.classList.remove("hidden")
   signedIn = true
 }
