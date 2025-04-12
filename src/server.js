@@ -10,15 +10,14 @@ import {
 } from "./canvas.js"
 
 import { errorToast } from "./toast.js"
-import { hexToRGB } from "./utils.js"
+import { hexToRGB, rgbToHex } from "./utils.js"
 
 function placePixel(x, y, rgb) {
   let oldRGB = getPixel(x, y), placeTime = performance.now()
 
   setPixel(x, y, rgb)
   startCooldown()
-
-  let hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2]
+  // let hex = rgbToHex(rgb)
   Promise.resolve() // TODO replace with actual server request
     .catch(() => {
       setTimeout(() => {

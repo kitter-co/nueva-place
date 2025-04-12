@@ -25,39 +25,23 @@ function isSignedIn() {
   return signedIn
 }
 
-function signInSuccess(email, img) {
-  id("account-email").innerText = email
-  id("profile-img").style.display = "flex"
-  id("profile-img").innerHTML = `<img src="${img}">`
-  id("sign-in").remove()
+function signInSuccess(user) {
+  id("account-wrapper").classList.add("signed-in")
+
+  id("account-name").innerText = user.displayName
+  id("account-email").innerText = user.email
+  id("profile-img").src = user.photoURL
   colorButtonsWrapper.classList.remove("hidden")
   signedIn = true
 }
 
 id("profile-img").onclick = () => {
-  if (id("account-menu").style.display == "none") {
-    id("account-menu").style.display = "flex"
-    setTimeout(() => {
-      id("account-menu").classList.add("shown")
-      id("profile-img").classList.add("menu-shown")
-    }, 0)
-  } else {
-    id("account-menu").classList.add("shown")
-    id("profile-img").classList.add("menu-shown")
-    setTimeout(() => {
-      id("account-menu").style.display = "none"
-    }, 200)
-  }
+  id("account-wrapper").classList.toggle("menu-open")
 }
 
 document.onmousedown = e => {
-  if (!id("profile-img").contains(e.target) && !id("account-menu").contains(e.target)) {
-    id("account-menu").classList.remove("shown")
-    id("profile-img").classList.remove("menu-shown")
-
-    setTimeout(() => {
-      id("account-menu").style.display == "none"
-    }, 200)
+  if (!id("account-wrapper").contains(e.target)) {
+    id("account-wrapper").classList.remove("menu-open")
   }
 }
 
@@ -74,7 +58,7 @@ id("sign-in").onclick = () => {
 
 id("sign-out").onclick = () => {
   signOut(auth).catch(error => {
-    errorToast("Something went wrong while trying to sign out.", true)
+    errorToast("Something went wrong while trying to sign out.")
     console.error(error)
   })
 }
@@ -87,7 +71,7 @@ onAuthStateChanged(auth, user => {
 
   if (user.email.endsWith("@nuevaschool.org")) {
     console.log("auth, user:", auth, user)
-    signInSuccess(user.email, user.photoURL)
+    signInSuccess(user)
   } else {
     errorToast("You must use a @nuevaschool.org email address.")
   }

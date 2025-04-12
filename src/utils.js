@@ -15,4 +15,9 @@ function hexToRGB(hex) {
   ]
 }
 
-export { id, clamp, hexToRGB }
+function rgbToHex(rgb) {
+  return (rgb[0] << 16) | (rgb[1] << 8) | rgb[2]
+}
+
+
+export { id, clamp, hexToRGB, rgbToHex }

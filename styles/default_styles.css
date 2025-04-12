@@ -83,6 +83,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5em;
   padding: 10px 15px;
   border-radius: 20px;
 }
@@ -115,7 +116,7 @@ button {
 }
 
 .button-secondary:active {
-  background: rgba(0, 0, 0, 0.075);
+  background: rgba(0, 0, 0, 0.1);
   border-color: transparent;
 }
 
