@@ -156,28 +156,32 @@ canvas.oncontextmenu = e => {
 }
 
 document.addEventListener("mousedown", e => {
-  if (e.button != 2 && e.target != id("context-menu") && !id("context-menu").contains(e.target)) {
+  if (e.button != 2 && e.target != id("context-menu") && !id("context-menu").contains(e.target) && e.target != id("context-menu-button") && !id("context-menu-button").contains(e.target)) {
     closeContextMenu()
   }
 })
 
 let contextMenuOpen = false
-function openContextMenu(mouseX, mouseY, pixelX, pixelY) {
-  id("context-menu").style.left = mouseX + "px"
-  id("context-menu").style.top = mouseY + "px"
+function openContextMenu(mouseX = null, mouseY = null, pixelX, pixelY) {
+  if (mouseX != null && mouseY != null) {
+    id("context-menu").style.left = mouseX + "px"
+    id("context-menu").style.top = mouseY + "px"
+  }
 
   id("copy-location").dataset.pixelX = pixelX
   id("copy-location").dataset.pixelY = pixelY
   id("context-menu").style.display = "flex"
 
-  id("context-menu").style.height = ""
-  id("context-menu").dataset.height = id("context-menu").getBoundingClientRect().height
-  id("context-menu").style.height = 0
+  if (mouseX != null && mouseY != null) {
+    id("context-menu").style.height = ""
+    id("context-menu").dataset.height = id("context-menu").getBoundingClientRect().height
+    id("context-menu").style.height = 0
+  }
 
   id("context-menu").classList.add("shown")
 
   setTimeout(() => {
-    if (!contextMenuOpen) {
+    if (!contextMenuOpen && mouseX != null && mouseY != null) {
       id("context-menu").animate(
         [
           { height: "0" },
@@ -194,6 +198,10 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY) {
     contextMenuOpen = true
   }, 0)
 
+}
+
+id("context-menu-button").onclick = () => {
+  openContextMenu(null, null, 0, 0) // sam: for mobile choose the center of the view cause you have no mouse
 }
 
 function closeContextMenu() {

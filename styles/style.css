@@ -276,7 +276,7 @@ main {
   width: 100%;
 }
 
-#sign-out > svg, #sign-in > svg, #context-menu > button > svg {
+#context-menu-button > svg, #sign-out > svg, #sign-in > svg, #context-menu > button > svg {
   height: 1.25em;
   width: 1.25em;
 }
@@ -305,11 +305,33 @@ main {
 }
 
 #context-menu > button {
-  padding: 10px 10px;
+  padding: 10px;
   padding-right: 20px;
   border-radius: 0;
   border: none;
   justify-content: start;
+}
+
+#context-menu-button {
+  position: absolute;
+  top: 10px;
+  right: 60px;
+  z-index: 10;
+  height: 40px;
+  width: 40px;
+  padding: 0;
+  display: none;
+}
+
+@media (hover: none) {
+  #context-menu {
+    right: 60px;
+    top: 60px;
+  }
+
+  #context-menu-button {
+    display: flex;
+  }
 }
 
 /* TOAST (yummy) */
