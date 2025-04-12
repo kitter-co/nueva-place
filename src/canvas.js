@@ -108,15 +108,21 @@ function draw(init = false) {
 
 function startCooldown() {
   onCooldown = true
+
   colorButtonsWrapper.classList.add("hidden")
   currentColor = null
 }
 
 function endCooldown() {
   onCooldown = false
-  colorButtonsWrapper.classList.remove("hidden", "closed")
+
+  colorButtonsWrapper.classList.add("disable-transitions")
+  colorButtonsWrapper.classList.remove("closed")
   colorButtonsWrapper.style.removeProperty("--selected-color")
   colorButtonsWrapper.style.height = ""
+  void colorButtonsWrapper.offsetWidth // force css recalc
+  colorButtonsWrapper.classList.remove("disable-transitions")
+  colorButtonsWrapper.classList.remove("hidden")
 }
 
 function attemptPlacePixel() {

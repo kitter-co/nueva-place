@@ -18,7 +18,7 @@ function placePixel(x, y, rgb) {
   setPixel(x, y, rgb)
   startCooldown()
   // let hex = rgbToHex(rgb)
-  Promise.resolve() // TODO replace with actual server request
+  Promise.reject() // TODO replace with actual server request
     .catch(() => {
       setTimeout(() => {
         errorToast("Oh no!\nLooks like there was an error trying to place your pixel. Wait a minute, then try again.")

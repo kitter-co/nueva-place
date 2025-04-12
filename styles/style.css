@@ -61,6 +61,7 @@ main {
 
 #color-buttons.hidden {
   translate: calc(100% + 20px) 0;
+  pointer-events: none;
 }
 
 #color-buttons.closed {
@@ -213,13 +214,13 @@ main {
   transition: filter 0.2s linear;
 }
 
-#account-wrapper:not(.signed-in),
-#account-menu {
-  filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.15));
-}
-
 #account-wrapper.signed-in #sign-in {
   display: none;
+}
+
+#sign-in,
+#account-menu {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
 #profile-button {
