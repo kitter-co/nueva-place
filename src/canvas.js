@@ -163,16 +163,14 @@ document.addEventListener("mousedown", e => {
 
 let contextMenuOpen = false
 function openContextMenu(mouseX, mouseY, pixelX, pixelY, fromRight = false) {
-  if (mouseX != 60 && mouseY != 60) {
-    if (fromRight) {
-      id("context-menu").style.left = ""
-      id("context-menu").style.right = mouseX + "px"
-    } else {
-      id("context-menu").style.right = ""
-      id("context-menu").style.left = mouseX + "px"
-    }
-    id("context-menu").style.top = mouseY + "px"
+  if (fromRight) {
+    id("context-menu").style.left = ""
+    id("context-menu").style.right = mouseX + "px"
+  } else {
+    id("context-menu").style.right = ""
+    id("context-menu").style.left = mouseX + "px"
   }
+  id("context-menu").style.top = mouseY + "px"
 
   id("copy-location").dataset.pixelX = pixelX
   id("copy-location").dataset.pixelY = pixelY
