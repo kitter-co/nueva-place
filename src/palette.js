@@ -5,7 +5,7 @@ const colors = {
   "Red":         [213, 0, 0],
   "Orange":      [254, 111, 27],
   "Yellow":      [255, 207, 38],
-  "Light Green": [8, 214, 95],
+  "Light Green": [8, 214, 72],
   "Dark Green":  [0, 123, 42],
   "Light Blue":  [3, 155, 229],
   "Dark Blue":   [44, 57, 190],
