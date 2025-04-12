@@ -221,26 +221,42 @@ id("copy-location").onclick = () => {
   closeContextMenu()
 }
 
-canvas.onclick = e => {
-  updateMousePos(e)
+function getEventPos(e) {
+  return e.touches ? e.touches[0] : e
+}
+
+function handleStart(e) {
+  let pos = getEventPos(e)
+  updateMousePos(pos)
   if (!draggingCamera) attemptPlacePixel()
 }
 
-onmouseup = e => {
-  updateMousePos(e)
-  draggingCamera = false
-}
+function handleMove(e) {
+  if (e.touches && e.touches.length > 1) return
 
-onmousemove = e => {
+  let pos = getEventPos(e)
   let lastX = mouseX, lastY = mouseY
 
-  updateMousePos(e)
+  updateMousePos(pos)
 
   if (draggingCamera) {
     cameraX -= (mouseX - lastX) / zoom
     cameraY -= (mouseY - lastY) / zoom
   }
 }
+
+function handleEnd(e) {
+  draggingCamera = false
+}
+
+canvas.addEventListener("click", handleStart)
+canvas.addEventListener("touchstart", handleStart)
+
+window.addEventListener("mousemove", handleMove)
+window.addEventListener("touchmove", handleMove, { passive: false })
+
+window.addEventListener("mouseup", handleEnd)
+window.addEventListener("touchend", handleEnd)
 
 canvas.onwheel = e => {
   if (e.ctrlKey) {
@@ -255,6 +271,13 @@ canvas.onwheel = e => {
   zoom = Math.exp(rawZoom)
   cameraX += mouseX / oldZoom - mouseX / zoom
   cameraY += mouseY / oldZoom - mouseY / zoom
+}
+
+onkeydown = e => {
+  if (e.code === "Escape") {
+    cancelColor()
+    id("account-menu").classList.remove("shown")
+  }
 }
 
 onkeydown = e => {
