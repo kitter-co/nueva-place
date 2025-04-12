@@ -221,6 +221,8 @@ id("copy-location").onclick = () => {
   closeContextMenu()
 }
 
+let lastTouchDist = null
+
 function getEventPos(e) {
   return e.touches ? e.touches[0] : e
 }
@@ -230,6 +232,14 @@ function updateInteractionStart(e) {
   updateMousePos(pos)
 
   if (e.type === "touchstart") {
+    if (e.touches.length === 2) {
+      let dx = e.touches[0].clientX - e.touches[1].clientX
+      let dy = e.touches[0].clientY - e.touches[1].clientY
+      lastTouchDist = Math.sqrt(dx * dx + dy * dy)
+    } else {
+      draggingCamera = true
+    }
+  } else if (e.type === "mousedown") {
     draggingCamera = true
   }
 
@@ -239,7 +249,29 @@ function updateInteractionStart(e) {
 }
 
 function updateInteractionMove(e) {
-  if (e.touches && e.touches.length > 1) return
+  if (e.touches && e.touches.length === 2) {
+    let dx = e.touches[0].clientX - e.touches[1].clientX
+    let dy = e.touches[0].clientY - e.touches[1].clientY
+    let dist = Math.sqrt(dx * dx + dy * dy)
+
+    if (lastTouchDist !== null) {
+      let delta = dist - lastTouchDist
+      rawZoom += delta * 0.005
+
+      let oldZoom = zoom
+      rawZoom = clamp(rawZoom, MIN_ZOOM, MAX_ZOOM)
+      zoom = Math.exp(rawZoom)
+
+      cameraX += mouseX / oldZoom - mouseX / zoom
+      cameraY += mouseY / oldZoom - mouseY / zoom
+    }
+
+    lastTouchDist = dist
+    e.preventDefault()
+    return
+  }
+
+  lastTouchDist = null
 
   let pos = getEventPos(e)
   let lastX = mouseX, lastY = mouseY
@@ -258,13 +290,10 @@ function updateInteractionMove(e) {
 
 function updateInteractionEnd(e) {
   draggingCamera = false
+  lastTouchDist = null
 }
 
-canvas.addEventListener("mousedown", e => {
-  draggingCamera = true
-  updateInteractionStart(e)
-})
-
+canvas.addEventListener("mousedown", updateInteractionStart)
 canvas.addEventListener("touchstart", updateInteractionStart, { passive: false })
 
 window.addEventListener("mousemove", updateInteractionMove)
