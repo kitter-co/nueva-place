@@ -1,4 +1,5 @@
 import { id, clamp } from "./utils.js"
+import { toast } from "./toast.js"
 import { colorButtonsWrapper, cancelColor } from "./palette.js"
 import { placePixel } from "./server.js"
 import { isSignedIn } from "./auth.js"
@@ -142,6 +143,56 @@ canvas.onmousedown = e => {
   if (!currentColor || !inBounds()) {
     draggingCamera = true
   }
+}
+
+canvas.oncontextmenu = e => {
+  e.preventDefault()
+  openContextMenu(
+    e.clientX,
+    e.clientY,
+    0, // sam: pass in the coords of the pixel you're clicking on/closest to
+    0
+  )
+}
+
+document.addEventListener("mousedown", e => {
+  if (e.button != 2 && e.target != id("context-menu") && !id("context-menu").contains(e.target)) {
+    closeContextMenu()
+  }
+})
+
+function openContextMenu(mouseX, mouseY, pixelX, pixelY) {
+  id("context-menu").style.left = mouseX + "px"
+  id("context-menu").style.top = mouseY + "px"
+  id("copy-location").dataset.pixelX = pixelX
+  id("copy-location").dataset.pixelY = pixelY
+  id("context-menu").style.display = "flex"
+  setTimeout(() => {
+    id("context-menu").classList.add("shown")
+  }, 0)
+}
+
+function closeContextMenu() {
+  id("context-menu").classList.remove("shown")
+  setTimeout(() => {
+    id("context-menu").style.display = "none"
+  }, 200)
+}
+
+id("download-image").onclick = () => {
+  // sam: can you make this download it at full scale please?
+  var link = document.createElement("a")
+  link.download = "nueva_place.png"
+  link.href = canvas.toDataURL()
+  link.click()
+  closeContextMenu()
+}
+
+id("copy-location").onclick = () => {
+  // sam: can you make the canvas center around a certain set of pixel coords if there's ?coords=x,y?
+  navigator.clipboard.writeText(`https://nueva.place/?coords=${id("copy-location").dataset.pixelX},${id("copy-location").dataset.pixelY}`)
+  toast("Location Copied!")
+  closeContextMenu()
 }
 
 canvas.onclick = e => {
