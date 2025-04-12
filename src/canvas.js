@@ -225,13 +225,20 @@ function getEventPos(e) {
   return e.touches ? e.touches[0] : e
 }
 
-function handleStart(e) {
+function updateInteractionStart(e) {
   let pos = getEventPos(e)
   updateMousePos(pos)
-  if (!draggingCamera) attemptPlacePixel()
+
+  if (e.type === "touchstart") {
+    draggingCamera = true
+  }
+
+  if (!draggingCamera) {
+    attemptPlacePixel()
+  }
 }
 
-function handleMove(e) {
+function updateInteractionMove(e) {
   if (e.touches && e.touches.length > 1) return
 
   let pos = getEventPos(e)
@@ -243,20 +250,35 @@ function handleMove(e) {
     cameraX -= (mouseX - lastX) / zoom
     cameraY -= (mouseY - lastY) / zoom
   }
+
+  if (e.type === "touchmove") {
+    e.preventDefault()
+  }
 }
 
-function handleEnd(e) {
+function updateInteractionEnd(e) {
   draggingCamera = false
 }
 
-canvas.addEventListener("click", handleStart)
-canvas.addEventListener("touchstart", handleStart)
+canvas.addEventListener("mousedown", e => {
+  draggingCamera = true
+  updateInteractionStart(e)
+})
 
-window.addEventListener("mousemove", handleMove)
-window.addEventListener("touchmove", handleMove, { passive: false })
+canvas.addEventListener("touchstart", updateInteractionStart, { passive: false })
 
-window.addEventListener("mouseup", handleEnd)
-window.addEventListener("touchend", handleEnd)
+window.addEventListener("mousemove", updateInteractionMove)
+window.addEventListener("touchmove", updateInteractionMove, { passive: false })
+
+window.addEventListener("mouseup", updateInteractionEnd)
+window.addEventListener("touchend", updateInteractionEnd)
+
+canvas.addEventListener("click", e => {
+  if (!draggingCamera) {
+    updateMousePos(e)
+    attemptPlacePixel()
+  }
+})
 
 canvas.onwheel = e => {
   if (e.ctrlKey) {
