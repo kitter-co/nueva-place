@@ -342,8 +342,6 @@ main {
   top: 10px;
   left: 50%;
   translate: -50% 0;
-  width: 60%;
-  min-width: 300px;
   pointer-events: none;
   z-index: 100;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
@@ -373,4 +371,9 @@ main {
 
 #toast.error {
   color: var(--text-error);
+}
+
+#toast-wrapper:has(#toast.error) {
+  width: 60%;
+  min-width: 300px;
 }
