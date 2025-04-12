@@ -4,7 +4,7 @@ import { id } from "./utils.js"
 const colors = {
   "Red":         [213, 0, 0],
   "Orange":      [254, 111, 27],
-  "Yellow":      [246, 191, 38],
+  "Yellow":      [255, 207, 38],
   "Light Green": [8, 214, 95],
   "Dark Green":  [0, 123, 42],
   "Light Blue":  [3, 155, 229],
