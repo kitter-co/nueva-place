@@ -47,9 +47,17 @@ document.onmousedown = e => {
 
 // SIGN IN
 
+const errorMessages = {
+  "auth/cancelled-popup-request": "Sign in popup was closed or blocked by your browser."
+}
+
 id("sign-in").onclick = () => {
   signInWithPopup(auth, provider).catch(error => {
-    errorToast("Something went wrong while trying to sign in.")
+    if (error.code in errorMessages) {
+      errorToast(errorMessages[error.code])
+    } else {
+      errorToast("Something went wrong while trying to sign in.")
+    }
     console.error(error)
   })
 }

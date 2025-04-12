@@ -61,7 +61,7 @@ function imgDataIndex(x, y) {
 
 function getPixel(x, y) {
   let i = imgDataIndex(x, y)
-  return [...imgData.data.subarray(i, i + 2)]
+  return [...imgData.data.subarray(i, i + 3)]
 }
 
 function setPixel(x, y, rgb) {
