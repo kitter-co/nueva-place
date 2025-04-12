@@ -162,9 +162,15 @@ document.addEventListener("mousedown", e => {
 })
 
 let contextMenuOpen = false
-function openContextMenu(mouseX = null, mouseY = null, pixelX, pixelY) {
-  if (mouseX != null && mouseY != null) {
-    id("context-menu").style.left = mouseX + "px"
+function openContextMenu(mouseX, mouseY, pixelX, pixelY, fromRight = false) {
+  if (mouseX != 60 && mouseY != 60) {
+    if (fromRight) {
+      id("context-menu").style.left = ""
+      id("context-menu").style.right = mouseX + "px"
+    } else {
+      id("context-menu").style.right = ""
+      id("context-menu").style.left = mouseX + "px"
+    }
     id("context-menu").style.top = mouseY + "px"
   }
 
@@ -174,7 +180,7 @@ function openContextMenu(mouseX = null, mouseY = null, pixelX, pixelY) {
 
   id("context-menu").style.height = ""
 
-  if (mouseX != null && mouseY != null) {
+  if (mouseX != 60 && mouseY != 60) {
     id("context-menu").dataset.height = id("context-menu").getBoundingClientRect().height
     id("context-menu").style.height = 0
   }
@@ -182,7 +188,7 @@ function openContextMenu(mouseX = null, mouseY = null, pixelX, pixelY) {
   id("context-menu").classList.add("shown")
 
   setTimeout(() => {
-    if (!contextMenuOpen && mouseX != null && mouseY != null) {
+    if (!contextMenuOpen && mouseX != 60 && mouseY != 60) {
       id("context-menu").animate(
         [
           { height: "0" },
@@ -202,7 +208,7 @@ function openContextMenu(mouseX = null, mouseY = null, pixelX, pixelY) {
 }
 
 id("context-menu-button").onclick = () => {
-  openContextMenu(null, null, 0, 0) // sam: for mobile choose the center of the view cause you have no mouse
+  openContextMenu(60, 60, 0, 0, true) // sam: for mobile choose the center of the view cause you have no mouse
 }
 
 function closeContextMenu() {

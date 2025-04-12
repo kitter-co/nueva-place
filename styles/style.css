@@ -314,18 +314,6 @@ main {
   height: 40px;
   width: 40px;
   padding: 0;
-  display: none;
-}
-
-@media (hover: none) {
-  #context-menu {
-    right: 60px;
-    top: 60px;
-  }
-
-  #context-menu-button {
-    display: flex;
-  }
 }
 
 /* TOAST (yummy) */
