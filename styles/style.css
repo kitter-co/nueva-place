@@ -290,6 +290,8 @@ main {
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
   transform: translateY(calc(-100% - 20px));
   transition: visibility 0s 0.5s, transform 0.5s var(--bounce-in);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 #error-toast-wrapper.shown {
@@ -306,7 +308,6 @@ main {
   color: var(--text-error);
   background: var(--bg-0);
   padding: 10px 12px;
-  border-radius: 8px;
   pointer-events: all;
   flex: 0 1 auto;
 }
