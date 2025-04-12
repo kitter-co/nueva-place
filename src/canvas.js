@@ -172,8 +172,9 @@ function openContextMenu(mouseX = null, mouseY = null, pixelX, pixelY) {
   id("copy-location").dataset.pixelY = pixelY
   id("context-menu").style.display = "flex"
 
+  id("context-menu").style.height = ""
+
   if (mouseX != null && mouseY != null) {
-    id("context-menu").style.height = ""
     id("context-menu").dataset.height = id("context-menu").getBoundingClientRect().height
     id("context-menu").style.height = 0
   }
