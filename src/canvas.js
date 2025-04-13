@@ -199,6 +199,8 @@ function openContextMenu(button = false) {
   clearTimeout(contextMenuTimeout)
 
   if (button) {
+    id("context-button-wrapper").append(id("context-menu"))
+
     id("context-menu").style = ""
     id("context-menu-button").classList.add("selected")
 
@@ -213,6 +215,8 @@ function openContextMenu(button = false) {
       }
     })
   } else {
+    document.body.append(id("context-menu"))
+
     id("context-menu").style.position = "fixed"
     id("context-menu").style.right = "auto"
     id("context-menu").style.left = mouseX + "px"
