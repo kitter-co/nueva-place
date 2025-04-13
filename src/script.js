@@ -5,6 +5,8 @@ onload = () => {
   document.body.classList.remove("disable-transitions")
 }
 
+// some change so it updates
+
 function updateTheme(theme) {
   if (theme === "dark") {
     document.documentElement.id = "dark"
