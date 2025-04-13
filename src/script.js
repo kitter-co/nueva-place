@@ -37,11 +37,3 @@ if (localStorage.getItem("theme")) {
 } else {
   updateTheme("auto")
 }
-
-let darkThemeMedia = window.matchMedia("(prefers-color-scheme: dark)")
-darkThemeMedia.addListener(e => {
-  console.log("change")
-  if (localStorage.getItem("theme") == "auto") {
-    updateTheme("auto")
-  }
-})
