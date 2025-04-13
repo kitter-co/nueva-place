@@ -198,8 +198,8 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
 
     let contextMenuHeight
     if (!button) {
-      id("context-menu").style.height = 0
       contextMenuHeight = id("context-menu").getBoundingClientRect().height
+      id("context-menu").style.height = 0
     }
 
     setTimeout(() => {
