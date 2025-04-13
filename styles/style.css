@@ -180,19 +180,11 @@ main {
   position: absolute;
   top: 10px;
   left: 10px;
-<<<<<<< HEAD
   font-size: 1em;
-=======
-  font-size: 16px;
->>>>>>> 3fbf8c457037abadefaa9a417867706bf976dbb7
   z-index: 2;
-  font-weight: bold;
   color: var(--accent);
   display: flex;
   align-items: center;
-  padding: 4px 7px 4px 8px;
-  border-radius: 5px;
-  border: 1px solid var(--button-active);
   pointer-events: none;
 }
 
