@@ -1,6 +1,6 @@
-import { id, clamp } from "./utils.js"
+import { clamp, id } from "./utils.js"
 import { toast } from "./toast.js"
-import { colorButtonsWrapper, cancelColor } from "./palette.js"
+import { cancelColor, colorButtonsWrapper } from "./palette.js"
 import { placePixel } from "./server.js"
 import { isSignedIn } from "./auth.js"
 
@@ -18,6 +18,14 @@ let canvasW, canvasH, imgW, imgH, imgData
 
 const MIN_ZOOM = 1, MAX_ZOOM = 4.5 // these are "raw zoom" values, rawZoom = ln(zoom)
 let cameraX = 0, cameraY = 0, rawZoom = 3, zoom = Math.exp(rawZoom)
+
+function updateZoom() {
+  let oldZoom = zoom
+  rawZoom = clamp(rawZoom, MIN_ZOOM, MAX_ZOOM)
+  zoom = Math.exp(rawZoom)
+  cameraX += mouseX / oldZoom - mouseX / zoom
+  cameraY += mouseY / oldZoom - mouseY / zoom
+}
 
 let mouseX = null, mouseY = null, targetX = null, targetY = null, currentColor = null
 
@@ -251,20 +259,20 @@ function closeContextMenu() {
 }
 
 id("download-image").onclick = () => {
-  // sam: can you make this download it at full scale please?
-  var link = document.createElement("a")
-  link.download = "nueva_place.png"
-  link.href = canvas.toDataURL()
-  link.click()
+  offscreenCanvas.toBlob(blob => {
+    let link = document.createElement("a")
+    link.download = "nueva-place.png"
+    link.href = URL.createObjectURL(blob)
+    link.click()
+  })
   closeContextMenu()
 }
 
 closeContextMenu()
 
 id("copy-location").onclick = () => {
-  // sam: can you make the canvas center around a certain set of pixel coords if there's ?coords=x,y?
-  navigator.clipboard.writeText(`https://nueva.place/?coords=${id("copy-location").dataset.pixelX},${id("copy-location").dataset.pixelY}`)
-  toast("Location Copied!")
+  navigator.clipboard.writeText(`https://nueva.place/?pos=${cameraX},${cameraY},${rawZoom}`)
+    .then(() => toast("Location Copied!"))
   closeContextMenu()
 }
 
@@ -274,15 +282,18 @@ function getEventPos(e) {
   return e.touches ? e.touches[0] : e
 }
 
+function touchDist(e) {
+  let dx = e.touches[0].clientX - e.touches[1].clientX
+  let dy = e.touches[0].clientY - e.touches[1].clientY
+  return Math.hypot(dx, dy)
+}
+
 function updateInteractionStart(e) {
-  let pos = getEventPos(e)
-  updateMousePos(pos)
+  updateMousePos(getEventPos(e))
 
   if (e.type === "touchstart") {
     if (e.touches.length === 2) {
-      let dx = e.touches[0].clientX - e.touches[1].clientX
-      let dy = e.touches[0].clientY - e.touches[1].clientY
-      lastTouchDist = Math.sqrt(dx * dx + dy * dy)
+      lastTouchDist = touchDist(e)
     } else {
       draggingCamera = true
     }
@@ -297,20 +308,11 @@ function updateInteractionStart(e) {
 
 function updateInteractionMove(e) {
   if (e.touches && e.touches.length === 2) {
-    let dx = e.touches[0].clientX - e.touches[1].clientX
-    let dy = e.touches[0].clientY - e.touches[1].clientY
-    let dist = Math.sqrt(dx * dx + dy * dy)
+    let dist = touchDist(e)
 
     if (lastTouchDist !== null) {
-      let delta = dist - lastTouchDist
-      rawZoom += delta * 0.005
-
-      let oldZoom = zoom
-      rawZoom = clamp(rawZoom, MIN_ZOOM, MAX_ZOOM)
-      zoom = Math.exp(rawZoom)
-
-      cameraX += mouseX / oldZoom - mouseX / zoom
-      cameraY += mouseY / oldZoom - mouseY / zoom
+      rawZoom += (dist - lastTouchDist) * 0.005
+      updateZoom()
     }
 
     lastTouchDist = dist
@@ -320,10 +322,8 @@ function updateInteractionMove(e) {
 
   lastTouchDist = null
 
-  let pos = getEventPos(e)
   let lastX = mouseX, lastY = mouseY
-
-  updateMousePos(pos)
+  updateMousePos(getEventPos(e))
 
   if (draggingCamera) {
     cameraX -= (mouseX - lastX) / zoom
@@ -363,12 +363,7 @@ canvas.onwheel = e => {
   } else {
     rawZoom -= e.deltaY * 0.005
   }
-
-  let oldZoom = zoom
-  rawZoom = clamp(rawZoom, MIN_ZOOM, MAX_ZOOM)
-  zoom = Math.exp(rawZoom)
-  cameraX += mouseX / oldZoom - mouseX / zoom
-  cameraY += mouseY / oldZoom - mouseY / zoom
+  updateZoom()
 }
 
 onkeydown = e => {
