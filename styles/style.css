@@ -188,7 +188,10 @@ main {
   color: var(--accent);
   display: flex;
   align-items: center;
-  text-decoration: none;
+  padding: 4px 7px 4px 8px;
+  border-radius: 5px;
+  border: 1px solid var(--button-active);
+  pointer-events: none;
 }
 
 #logo > div {
@@ -206,16 +209,6 @@ main {
 
 #logo > span {
   margin-left: 0.5px;
-}
-
-#logo:is(:hover, :focus-visible)::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  height: 1.5px;
-  background: currentColor;
 }
 
 /* theme selector */
