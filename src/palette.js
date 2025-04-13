@@ -1,4 +1,3 @@
-import { hasCurrentColor, setCurrentColor } from "./canvas.js"
 import { id } from "./utils.js"
 
 const colors = {
@@ -18,10 +17,16 @@ const colors = {
   "Brown":       [153, 80, 51],
 }
 
+let currentColor = null, onCooldown = false
+
+function clearCurrentColor() {
+  currentColor = null
+}
+
 const colorButtonsWrapper = id("color-buttons")
 
 function selectColor(rgb) {
-  if (!hasCurrentColor()) {
+  if (!currentColor) {
     colorButtonsWrapper.style.height = colorButtonsWrapper.offsetHeight + "px"
     void colorButtonsWrapper.offsetWidth // force css recalc
     colorButtonsWrapper.classList.add("closed")
@@ -31,18 +36,18 @@ function selectColor(rgb) {
     )
   }
 
-  setCurrentColor(rgb)
+  currentColor = rgb
 }
 
 function cancelColor() {
-  if (hasCurrentColor()) {
+  if (currentColor) {
     colorButtonsWrapper.classList.remove("closed")
     setTimeout(() => {
       colorButtonsWrapper.style.height = ""
     }, 400)
   }
 
-  setCurrentColor(null)
+  currentColor = null
 }
 
 for (let [name, rgb] of Object.entries(colors)) {
@@ -60,4 +65,20 @@ for (let [name, rgb] of Object.entries(colors)) {
 
 id("exit-place-mode").onclick = cancelColor
 
-export { colorButtonsWrapper, cancelColor }
+function startCooldown(timestamp = Math.floor(Date.now() / 1000)) {
+  onCooldown = true
+
+  colorButtonsWrapper.classList.add("cooldown")
+
+  const elapsed = Math.floor(Date.now() / 1000) - timestamp
+  id("cooldown").style.animationDelay = `-${elapsed}s`
+}
+
+function endCooldown() {
+  onCooldown = false
+
+  colorButtonsWrapper.classList.remove("cooldown")
+  colorButtonsWrapper.style.height = ""
+}
+
+export { colorButtonsWrapper, currentColor, clearCurrentColor, cancelColor, startCooldown, endCooldown, onCooldown }

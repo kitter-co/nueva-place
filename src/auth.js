@@ -2,7 +2,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebas
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js"
 
 import { id } from "./utils.js"
-import { colorButtonsWrapper } from "./palette.js"
 import { validateToken } from "./server.js"
 import { errorToast } from "./toast.js"
 

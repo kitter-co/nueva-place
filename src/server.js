@@ -2,15 +2,13 @@ import {
   setSize,
   setData,
   imgDataIndex,
-  getPixel,
   setPixel,
-  draw,
-  startCooldown,
-  endCooldown
+  draw
 } from "./canvas.js"
 
 import { errorToast } from "./toast.js"
 import { id, hexToRGB, rgbToHex } from "./utils.js"
+import { clearCurrentColor, endCooldown, startCooldown } from "./palette.js"
 
 const HOST = 'localhost:3000'; // TODO change
 const socket = new WebSocket(`ws://${HOST}`);
@@ -25,6 +23,18 @@ socket.addEventListener('open', () => {
   }
 })
 
+// TODO TEMPORARY
+// setTimeout(() => {
+//   interpret(
+//     JSON.stringify({
+//       type: "pixels",
+//       body: JSON.stringify(
+//         Array.from({length: 20}, () => Array.from({length: 20}, () => 0))
+//       )
+//     })
+//   )
+// }, 1000)
+
 function interpret(data) {
   const msg  = JSON.parse(data);
   const body = JSON.parse(msg.body);
@@ -32,7 +42,7 @@ function interpret(data) {
   switch (msg.type) {
     case 'pixels':
       receivedFullUpdate(body[0].length, body.length, body)
-      draw(true)
+      draw(true) // TODO only run this ONCE ever
       break;
 
     case 'update':
@@ -44,7 +54,7 @@ function interpret(data) {
 
       if (elapsed < 0.1 * 60) {
         startCooldown(body)
-        setTimeout(() => endCooldown(), (0.1 * 60 - elapsed) * 1000)
+        setTimeout(endCooldown, (0.1 * 60 - elapsed) * 1000)
       }
 
       break;
@@ -85,6 +95,7 @@ function placePixel(x, y, rgb) {
 
   setPixel(x, y, rgb)
   startCooldown()
+  clearCurrentColor()
 
   let hex = rgbToHex(rgb)
   updatePixel(x, y, hex)
@@ -92,7 +103,6 @@ function placePixel(x, y, rgb) {
   const colorButtonsWrapper = id("color-buttons")
 
   colorButtonsWrapper.classList.remove("closed")
-  colorButtonsWrapper.style.removeProperty("--selected-color")
 }
 
 function receivedPixelUpdate(x, y, hex) {

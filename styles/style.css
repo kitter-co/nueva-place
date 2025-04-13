@@ -39,13 +39,13 @@ main {
   flex-direction: column;
   justify-content: center;
   padding: 8px; /* 10px including border width */
-  border: 2px solid var(--selected-color, transparent);
-  color: var(--selected-color, black);
+  border: 2px solid transparent;
+  color: var(--selected-color, var(--text-default));
   border-radius: 25px;
   background: var(--bg-0);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
   overflow: hidden;
-  transition: border-color 0.4s ease-out -0.2s,
+  transition: border-color 0.3s ease-out -0.2s,
               height 0.4s var(--bounce-out),
               translate 0.4s var(--ease-out);
 }
@@ -66,6 +66,7 @@ main {
 
 #color-buttons.closed {
   height: 50px !important;
+  border-color: var(--selected-color, transparent);
   transition: border-color 0.15s 0.3s,
               height 0.4s var(--bounce-in),
               translate 0.4s var(--bounce-in);
@@ -85,7 +86,7 @@ main {
 }
 
 #color-buttons.closed .color-button {
-  opacity: 0%;
+  opacity: 0;
   transition: scale 0.1s, opacity 0.23s 0.15s;
 }
 
@@ -145,14 +146,14 @@ main {
   z-index: 2;
   height: 100%;
   background: rgba(127, 127, 127, 15%);
-  opacity: 0%;
+  opacity: 0;
   transition: opacity 1s;
   pointer-events: none;
 }
 
 #color-buttons.cooldown .color-button {
   pointer-events: none;
-  opacity: 0%;
+  opacity: 0;
 }
 
 #color-buttons.cooldown #cooldown {
