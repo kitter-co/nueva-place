@@ -228,10 +228,8 @@ function openContextMenu(button = false) {
   }
 
   id("context-menu").classList.remove("shown")
-  id("context-menu").classList.add("disable-transitions")
   id("context-menu").style.display = ""
   void id("context-menu").offsetWidth
-  id("context-menu").classList.remove("disable-transitions")
   id("context-menu").classList.add("shown")
 }
 
