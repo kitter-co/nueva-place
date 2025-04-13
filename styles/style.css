@@ -182,15 +182,12 @@ main {
   position: absolute;
   top: 10px;
   left: 10px;
-  font-size: 16px;
+  font-size: 0.75em;
   z-index: 2;
   font-weight: bold;
   color: var(--accent);
   display: flex;
   align-items: center;
-  padding: 4px 7px 4px 8px;
-  border-radius: 5px;
-  border: 1px solid var(--button-active);
   pointer-events: none;
 }
 
