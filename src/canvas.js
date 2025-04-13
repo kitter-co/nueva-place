@@ -165,6 +165,7 @@ let contextMenuOpen = false
 function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
   setTimeout(() => {
     if (button) {
+      contextMenuOpen = true
       id("context-menu").style.left = ""
       id("context-menu").style.right = innerWidth - id("context-menu-button").getBoundingClientRect().right + "px"
 
@@ -177,6 +178,7 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
     } else {
       id("context-menu").style.right = ""
       id("context-menu").style.left = mouseX + "px"
+      contextMenuOpen = false
     }
     id("context-menu").style.top = mouseY + "px"
 
@@ -232,8 +234,6 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
           }
         )
       }
-
-      contextMenuOpen = true
     }, 0)
   }, 0)
 }
