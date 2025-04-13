@@ -212,13 +212,32 @@ main {
   gap: 10px;
   z-index: 10;
   transition: filter 0.2s linear;
-  background: var(--bg-1);
   padding: 5px;
   border-radius: 25px;
 }
 
 #account-wrapper.signed-in #sign-in {
   display: none;
+}
+
+#account-wrapper > .button-secondary {
+  position: relative;
+  background: var(--bg-1);
+}
+
+#account-wrapper > .button-secondary::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+}
+
+#account-wrapper > .button-secondary:is(:hover, :focus-visible)::after {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+#account-wrapper > .button-secondary:active::after {
+  background: rgba(0, 0, 0, 0.1);
 }
 
 #sign-in,
