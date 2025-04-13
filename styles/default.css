@@ -130,6 +130,11 @@ button {
   border-color: transparent;
 }
 
+.button-secondary.selected {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: transparent;
+}
+
 /* cards */
 
 .card {

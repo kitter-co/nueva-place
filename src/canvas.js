@@ -172,6 +172,7 @@ id("context-menu").oncontextmenu = e => {
 function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
   setTimeout(() => {
     if (button) {
+      id("context-menu-button").classList.add("selected")
       contextMenuOpen = true
       id("context-menu").style.left = ""
       id("context-menu").style.right = innerWidth - id("context-menu-button").getBoundingClientRect().right + "px"
@@ -234,6 +235,7 @@ id("context-menu-button").onclick = () => {
 }
 
 function closeContextMenu() {
+  id("context-menu-button").classList.remove("selected")
   contextMenuOpen = false
   id("context-menu").classList.remove("shown")
   id("context-menu").animate(

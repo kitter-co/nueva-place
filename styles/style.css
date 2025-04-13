@@ -241,6 +241,11 @@ main {
   background: rgba(0, 0, 0, 0.1);
 }
 
+#account-wrapper .button-secondary.selected::after {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: transparent;
+}
+
 #sign-in,
 #account-menu {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
