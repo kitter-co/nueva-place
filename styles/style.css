@@ -172,7 +172,7 @@ main {
   position: absolute;
   top: 10px;
   left: 10px;
-  font-size: 0.75em;
+  font-size: 16px;
   z-index: 2;
   font-weight: bold;
   color: var(--accent);
@@ -183,8 +183,8 @@ main {
 
 #logo > div {
   display: inline-block;
-  height: 1em;
-  width: 1em;
+  height: 16px;
+  width: 16px;
   background: currentColor;
   mask-image: url("../nueva_school.png");
   mask-size: 100%;
