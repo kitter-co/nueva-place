@@ -14,7 +14,7 @@ offscreenCtx.imageSmoothingEnabled = false
 let canvasW, canvasH, imgW, imgH, imgData
 
 const MIN_ZOOM = 1, MAX_ZOOM = 4.5 // these are "raw zoom" values, rawZoom = ln(zoom)
-let cameraX = 0, cameraY = 0, rawZoom = 3, zoom = Math.exp(rawZoom)
+let cameraX = 0, cameraY = 0, rawZoom = 2, zoom = Math.exp(rawZoom)
 
 function updateZoom() {
   let oldZoom = zoom
