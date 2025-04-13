@@ -260,12 +260,12 @@ main {
   display: none;
 }
 
-#account-wrapper > .button-secondary {
+#account-wrapper .button-secondary {
   position: relative;
   background: var(--bg-1);
 }
 
-#account-wrapper > .button-secondary::after {
+#account-wrapper .button-secondary::after {
   content: "";
   position: absolute;
   inset: -1px;
@@ -273,11 +273,11 @@ main {
   pointer-events: none;
 }
 
-#account-wrapper > .button-secondary:is(:hover, :focus-visible)::after {
+#account-wrapper .button-secondary:is(:hover, :focus-visible)::after {
   background: var(--button-hover);
 }
 
-#account-wrapper > .button-secondary:active::after {
+#account-wrapper .button-secondary:active::after {
   background: var(--button-active);
 }
 
