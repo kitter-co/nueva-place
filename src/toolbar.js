@@ -109,7 +109,7 @@ id("download-image").onclick = () => {
 closeContextMenu()
 
 id("copy-location").onclick = () => {
-  navigator.clipboard.writeText(`https://nueva.place/#${getViewportDataArray()}`)
+  navigator.clipboard.writeText(`${location.protocol}//${location.host}/?${getViewportDataArray()}`)
            .then(() => toast("URL to Current Viewport Copied!"))
   closeContextMenu()
 }
