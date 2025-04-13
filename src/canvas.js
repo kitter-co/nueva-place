@@ -215,7 +215,9 @@ function openContextMenu(button = false) {
       }
     })
   } else {
-    document.body.append(id("context-menu"))
+    if (id("context-menu").parentElement !== document.body) {
+      document.body.append(id("context-menu"))
+    }
 
     id("context-menu").style.position = "fixed"
     id("context-menu").style.right = "auto"
