@@ -186,9 +186,15 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
 
     id("context-menu").style.height = ""
 
+    let menuHeight
+    if (!button) {
+      menuHeight = id("context-menu").getBoundingClientRect().height
+      id("context-menu").style.height = 0
+    }
+
     setTimeout(() => {
       id("context-menu").classList.add("shown")
-      // only animate height in the context menu
+      
       id("context-menu").animate(
         [
           { transform: "translateY(-10px)" },
@@ -217,7 +223,7 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
         id("context-menu").animate(
           [
             { height: "0"},
-            { height: id("context-menu").dataset.height + "px" }
+            { height: menuHeight + "px" }
           ],
           {
             duration: 150,
