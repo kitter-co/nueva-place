@@ -162,6 +162,13 @@ document.addEventListener("mousedown", e => {
 })
 
 let contextMenuOpen = false
+
+id("context-menu").oncontextmenu = e => {
+  if (!contextMenuOpen) {
+    e.preventDefault()
+  }
+}
+
 function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
   setTimeout(() => {
     if (button) {
