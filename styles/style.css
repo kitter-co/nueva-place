@@ -159,7 +159,6 @@ main {
   opacity: 0;
   transition: opacity 1s;
   pointer-events: none;
-  border-radius: 10px 10px 0 0;
 }
 
 #color-buttons.cooldown .color-button {
