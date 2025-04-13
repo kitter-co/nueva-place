@@ -226,7 +226,11 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
 }
 
 id("context-menu-button").onclick = () => {
-  openContextMenu(60, 60, 0, 0, true) // sam: for mobile choose the center of the view cause you have no mouse
+  if (contextMenuOpen) {
+    closeContextMenu()
+  } else {
+    openContextMenu(60, 60, 0, 0, true) // sam: for mobile choose the center of the view cause you have no mouse
+  }
 }
 
 function closeContextMenu() {
