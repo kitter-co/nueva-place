@@ -110,7 +110,7 @@ function draw(init = false) {
       ctx.beginPath()
       ctx.rect((targetX - cameraX) * zoom, (targetY - cameraY) * zoom, zoom, zoom)
       ctx.strokeStyle = currentColor == "0,0,0" ? "#333" : `rgb(${currentColor})`
-      ctx.lineWidth = clamp(zoom / 20, 1, 2)
+      ctx.lineWidth = clamp(zoom / 20, 1, 3)
       ctx.stroke()
       ctx.fillStyle = "#4442"
       ctx.fill()
@@ -235,7 +235,7 @@ canvas.onwheel = e => {
     e.preventDefault()
     rawZoom -= e.deltaY * 0.015
   } else {
-    rawZoom -= e.deltaY * 0.005
+    rawZoom -= e.deltaY * 0.002
   }
   updateZoom()
 }

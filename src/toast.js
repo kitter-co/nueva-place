@@ -1,6 +1,6 @@
 import { textToHTML, id } from "./utils.js"
 
-const toastWrapper = id("toast-wrapper")
+const toastElem = id("toast")
 let toastHideTimeout
 
 function errorToast(msg = "Something went wrong :(", bug = false) {
@@ -12,21 +12,21 @@ function toast(msg = "Something went wrong :(", error = false, bug = false) {
   let sentences = msg.split(/(?<=[.!?]) +/g)
                      .map(textToHTML)
                      .map((x, i) => i ? `<span style="display: inline-block;">${x}</span>` : x)
-  id("toast").innerHTML = sentences.join(" ")
+  toastElem.innerHTML = sentences.join(" ")
 
   // make sure it is a normal toast if needed
-  id("toast").classList.remove("error")
-  if (error) id("toast").classList.add("error")
+  toastElem.classList.remove("error")
+  if (error) toastElem.classList.add("error")
 
   clearTimeout(toastHideTimeout)
   // force the transition to play again even if it is already shown
-  toastWrapper.classList.remove("shown")
-  toastWrapper.style.transition = "none"
-  void toastWrapper.offsetWidth // force css recalc
-  toastWrapper.style.transition = ""
-  toastWrapper.classList.add("shown")
+  toastElem.classList.remove("shown")
+  toastElem.style.transition = "none"
+  void toastElem.offsetWidth // force css recalc
+  toastElem.style.transition = ""
+  toastElem.classList.add("shown")
 
-  toastHideTimeout = setTimeout(() => toastWrapper.classList.remove("shown"), 5000)
+  toastHideTimeout = setTimeout(() => toastElem.classList.remove("shown"), 5000)
 }
 
 export { errorToast, toast }

@@ -23,7 +23,7 @@ socket.addEventListener('open', () => {
   }
 })
 
-socket.onerror = e => {
+socket.onerror = () => {
   toast("Failed to connect to server.\nYou are currently viewing PLACEHOLDER DATA.", true)
 
   // TODO remove - for testing purposes only
@@ -35,8 +35,6 @@ socket.onerror = e => {
       )
     })
   )
-
-  console.error(e)
 }
 
 let loaded = false
