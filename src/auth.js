@@ -38,6 +38,7 @@ function signInSuccess(user) {
 id("profile-img").onclick = () => {
   id("account-wrapper").classList.toggle("menu-open")
   id("profile-button").classList.toggle("selected")
+  // hello
 }
 
 document.onmousedown = e => {
