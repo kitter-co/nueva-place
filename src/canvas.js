@@ -186,11 +186,6 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
 
     id("context-menu").style.height = ""
 
-    if (!button) {
-      id("context-menu").dataset.height = id("context-menu").getBoundingClientRect().height
-      id("context-menu").style.height = 0
-    }
-
     setTimeout(() => {
       id("context-menu").classList.add("shown")
       // only animate height in the context menu
@@ -218,6 +213,7 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
         }
       )
 
+<<<<<<< HEAD
       if (!button) {
         id("context-menu").animate(
           [
@@ -232,6 +228,8 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
         )
       }
 
+=======
+>>>>>>> 826f896a1fd65706b18b8f67574fa379c7d47ae9
       contextMenuOpen = true
     }, 0)
   }, 0)
