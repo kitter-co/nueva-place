@@ -12,7 +12,7 @@ import {
 import { errorToast } from "./toast.js"
 import { id, hexToRGB, rgbToHex } from "./utils.js"
 
-const HOST = "whener"
+const HOST = 'localhost:3000'; // TODO change
 const socket = new WebSocket(`ws://${HOST}`);
 
 let queue = [];

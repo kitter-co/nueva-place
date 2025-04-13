@@ -144,11 +144,10 @@ main {
   right: 0;
   z-index: 2;
   height: 100%;
-  background-image: repeating-linear-gradient(-25deg, var(--button-hover) 0, var(--button-hover) 25px, var(--button-active) 25px, var(--button-active) 50px);
+  background: rgba(127, 127, 127, 15%);
   opacity: 0%;
   transition: opacity 1s;
   pointer-events: none;
-  border-radius: 10px 10px 0 0;
 }
 
 #color-buttons.cooldown .color-button {
