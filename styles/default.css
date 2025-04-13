@@ -152,7 +152,7 @@ button {
   border-color: transparent;
 }
 
-.button-secondary.selected i {
+.button-secondary.selected i:not(.ph-dots-three) {
   font-family: "Phosphor-Fill" !important;
 }
 
