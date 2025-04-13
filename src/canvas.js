@@ -225,7 +225,7 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
             { height: id("context-menu").dataset.height + "px" }
           ],
           {
-            duration: 200,
+            duration: 150,
             easing: "ease",
             fill: "forwards"
           }
