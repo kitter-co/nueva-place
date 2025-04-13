@@ -172,7 +172,7 @@ document.onmousedown = e => {
   if (!id("profile-button-wrapper").contains(e.target)) {
     closeAccountMenu()
   }
-  if (!id("context-button-wrapper").contains(e.target)) {
+  if (!id("context-menu").contains(e.target) && !id("context-button-wrapper").contains(e.target)) {
     closeContextMenu()
   }
 }
