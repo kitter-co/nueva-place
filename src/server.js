@@ -12,12 +12,18 @@ import {
 import { errorToast } from "./toast.js"
 import { id, hexToRGB, rgbToHex } from "./utils.js"
 
-const socket = new WebSocket('ws://localhost:3000');
+const HOST = 'localhost:3000'; // TODO change
+const socket = new WebSocket(`ws://${HOST}`);
 
-socket.addEventListener(
-  'message',
-  (event) => interpret(event.data)
-);
+let queue = [];
+
+socket.addEventListener('message', (event) => interpret(event.data));
+
+socket.addEventListener('open', () => {
+  for (let payload of queue) {
+    socket.send(payload)
+  }
+})
 
 function interpret(data) {
   const msg  = JSON.parse(data);
@@ -54,12 +60,16 @@ function interpret(data) {
 }
 
 function send(type, body) {
-  const payload = {
+  const payload = JSON.stringify({
     type,
     body: JSON.stringify(body)
-  };
+  });
 
-  socket.send(JSON.stringify(payload));
+  if (socket.readyState === WebSocket.OPEN) {
+    socket.send(payload);
+  } else {
+    queue.push(payload);
+  }
 }
 
 function validateToken(token) {
