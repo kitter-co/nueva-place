@@ -10,7 +10,8 @@ import { errorToast, toast } from "./toast.js"
 import { id, hexToRGB, rgbToHex } from "./utils.js"
 import { clearCurrentColor, endCooldown, startCooldown } from "./palette.js"
 
-const socket = new WebSocket('wss://api.nueva.place')
+const AUTH = '5609854b-4c67-43f1-8d36-4967322f1074'
+const socket = new WebSocket(`wss://api.nueva.place/?auth=${AUTH}`)
 
 let queue = []
 

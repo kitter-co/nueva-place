@@ -36,7 +36,6 @@ main {
   }
 }
 
-
 /* COLOR PALETTE */
 
 #color-buttons {
@@ -100,7 +99,7 @@ main {
   transition: scale 0.1s, opacity 0.23s 0.15s;
 }
 
-.color-button.white {
+:root:not(#dark) .color-button.white {
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
@@ -109,7 +108,7 @@ main {
   outline-offset: 2px;
 }
 
-.color-button.white:focus-visible {
+:root:not(#dark) .color-button.white:focus-visible {
   outline-color: #b1b1b1;
 }
 
