@@ -156,9 +156,7 @@ main {
   z-index: 2;
   height: 100%;
   background: var(--button-active);
-  opacity: 0;
-  transition: opacity 1s;
-  pointer-events: none;
+  display: none;
 }
 
 #color-buttons.cooldown .color-button {
@@ -167,7 +165,7 @@ main {
 }
 
 #color-buttons.cooldown #cooldown {
-  opacity: 100%;
+  display: block;
   animation: cooldown 6s linear forwards;
   backdrop-filter: blur(1px);
 }
