@@ -210,29 +210,6 @@ main {
   margin-left: 0.5px;
 }
 
-/* theme selector */
-#theme-selector-title {
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
-
-#theme-selector {
-  display: flex;
-  gap: 5px;
-  width: 100%;
-}
-
-#theme-selector button {
-  padding: 5px;
-  /* height: 40px; */
-  flex-basis: 100%;
-  flex-shrink: 1;
-}
-
-#theme-selector button[data-theme="auto"].selected i {
-  transform: scaleX(-1);
-}
-
 /* ACCOUNTS */
 
 #account-wrapper {
