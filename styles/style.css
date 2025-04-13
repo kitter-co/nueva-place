@@ -186,7 +186,11 @@ main {
   font-size: 18px;
   z-index: 2;
   font-family: "Reddit Sans", system-ui, sans-serif;
+<<<<<<< HEAD
   font-weight: 650;
+=======
+  font-weight: 750;
+>>>>>>> ad176dba9ea8e35e8a2c41396669bb7429f53a90
   color: var(--accent);
   display: flex;
   align-items: center;
