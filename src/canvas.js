@@ -193,17 +193,32 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
 
     setTimeout(() => {
       id("context-menu").classList.add("shown")
-      id("context-menu").animate(
-        [
-          { height: "0", transform: "translateY(-10px)" },
-          { height: id("context-menu").dataset.height + "px", transform: "translateY(0)" }
-        ],
-        {
-          duration: 200,
-          easing: "ease",
-          fill: "forwards"
-        }
-      )
+      // only animate height in the context menu
+      if (button) {
+        id("context-menu").animate(
+          [
+            { transform: "translateY(-10px)" },
+            { transform: "translateY(0)" }
+          ],
+          {
+            duration: 200,
+            easing: "ease",
+            fill: "forwards"
+          }
+        )
+      } else {
+        id("context-menu").animate(
+          [
+            { height: "0", transform: "translateY(-10px)" },
+            { height: id("context-menu").dataset.height + "px", transform: "translateY(0)" }
+          ],
+          {
+            duration: 200,
+            easing: "ease",
+            fill: "forwards"
+          }
+        )
+      }
 
       contextMenuOpen = true
     }, 0)
