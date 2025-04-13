@@ -10,8 +10,7 @@ import { errorToast, toast } from "./toast.js"
 import { id, hexToRGB, rgbToHex } from "./utils.js"
 import { clearCurrentColor, endCooldown, startCooldown } from "./palette.js"
 
-const HOST = "localhost:3000" // TODO change
-const socket = new WebSocket(`ws://${HOST}`)
+const socket = new WebSocket('wss://api.nueva.place')
 
 let queue = []
 
