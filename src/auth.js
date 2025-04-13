@@ -40,7 +40,7 @@ id("profile-img").onclick = () => {
 }
 
 document.onmousedown = e => {
-  if (!id("profile-button").contains(e.target) && e.target != id("profile-button")) {
+  if (!id("profile-button").contains(e.target) && e.target != id("profile-button") && !id("account-menu").contains(e.target) && e.target != id("account-menu")) {
     id("account-wrapper").classList.remove("menu-open")
   }
 }
