@@ -10,6 +10,9 @@
   --text-error: #d50000;
   --text-success: color-mix(in srgb, #007b2a, #08d648);
 
+  --button-hover: rgba(0, 0, 0, 0.05);
+  --button-active: rgba(0, 0, 0, 0.1);
+
   --bg-0: white;
   --bg-1: #f0f4f6;
 
@@ -18,6 +21,20 @@
   --bounce-in: cubic-bezier(0.918, -0.3, 0.276, 1);
   --bounce-out: cubic-bezier(0.5, 0.19, 0.2, 1.19); /* fallback */
   --bounce-out: linear(0, 0.181 3.9%, 0.346 8%, 0.489 12.1%, 0.615 16.4%, 0.723 20.8%, 0.771 23.1%, 0.815 25.4%, 0.855 27.8%, 0.89 30.2%, 0.922 32.7%, 0.95 35.3%, 0.97 37.5%, 0.988 39.8%, 1.003 42.1%, 1.016 44.5%, 1.027 47%, 1.035 49.6%, 1.04 52.3%, 1.044 55.1%, 1.045 59.1%, 1.042 63.6%, 1.036 68.6%, 1.015 80.8%, 1.007 86.7%, 1.002 93.2%, 1);
+}
+
+:root#dark {
+  --accent: #0028bc;
+  --accent-light: #0031e4;
+  --accent-dark: #002197;
+
+  --text-default: white;
+
+  --button-hover: rgba(255, 255, 255, 0.05);
+  --button-active: rgba(255, 255, 255, 0.1);
+
+  --bg-0: #111213;
+  --bg-1: #14171a;
 }
 
 * {
@@ -117,21 +134,21 @@ button {
 }
 
 .button-secondary {
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--button-active);
 }
 
 .button-secondary:is(:hover, :focus-visible) {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--button-hover);
   border-color: transparent;
 }
 
 .button-secondary:active {
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--button-active);
   border-color: transparent;
 }
 
 .button-secondary.selected {
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--button-active);
   border-color: transparent;
 }
 

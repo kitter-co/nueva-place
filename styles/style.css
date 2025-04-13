@@ -234,15 +234,15 @@ main {
 }
 
 #account-wrapper > .button-secondary:is(:hover, :focus-visible)::after {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--button-hover);
 }
 
 #account-wrapper > .button-secondary:active::after {
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--button-active);
 }
 
 #account-wrapper .button-secondary.selected::after {
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--button-active);
   border-color: transparent;
 }
 
@@ -389,4 +389,23 @@ main {
 #toast-wrapper:has(#toast.error) {
   width: 60%;
   min-width: 300px;
+}
+
+/* theme selected */
+#theme-selector-title {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+#theme-selector {
+  display: flex;
+  gap: 5px;
+  width: 100%;
+}
+
+#theme-selector button {
+  padding: 5px;
+  /* height: 40px; */
+  flex-basis: 100%;
+  flex-shrink: 1;
 }
