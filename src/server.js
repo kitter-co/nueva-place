@@ -47,7 +47,7 @@ function interpret(data) {
       receivedFullUpdate(body[0].length, body.length, body)
       if (!loaded) {
         loaded = true
-        id("canvas").style.animation = "fade-in 0.2s ease-out forwards"
+        id("canvas").style.animation = "fade-in 0.2s linear forwards"
 
         draw(true)
         if (location.hash) {
