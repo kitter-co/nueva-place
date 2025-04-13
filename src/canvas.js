@@ -212,10 +212,6 @@ function openContextMenu(button = false) {
     id("context-menu").style = ""
     id("context-menu-button").classList.add("selected")
 
-    // always play animation for button
-    id("context-menu").classList.remove("shown")
-    id("context-menu").classList.add("disable-transitions")
-
     setTimeout(() => {
       if (id("context-menu-button").getBoundingClientRect().left < 10) {
         id("context-menu").style.right = "auto"
@@ -223,9 +219,7 @@ function openContextMenu(button = false) {
       }
     })
   } else {
-    if (id("context-menu").parentElement !== document.body) {
-      document.body.append(id("context-menu"))
-    }
+    document.body.append(id("context-menu"))
 
     id("context-menu").style.position = "fixed"
     id("context-menu").style.right = "auto"
@@ -233,6 +227,8 @@ function openContextMenu(button = false) {
     id("context-menu").style.top = mouseY + "px"
   }
 
+  id("context-menu").classList.remove("shown")
+  id("context-menu").classList.add("disable-transitions")
   id("context-menu").style.display = ""
   void id("context-menu").offsetWidth
   id("context-menu").classList.remove("disable-transitions")
