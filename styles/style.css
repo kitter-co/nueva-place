@@ -292,6 +292,10 @@ main {
   opacity: 0.5;
 }
 
+#sign-in {
+  padding: 10px 17px 10px 15px;
+}
+
 #sign-out {
   padding: 5px 10px;
   margin-top: 10px;
