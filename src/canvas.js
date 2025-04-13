@@ -196,6 +196,12 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
 
     id("context-menu").style.height = ""
 
+    let contextMenuHeight
+    if (!button) {
+      id("context-menu").style.height = 0
+      contextMenuHeight = id("context-menu-button").getBoundingClientRect().height
+    }
+
     setTimeout(() => {
       id("context-menu").classList.add("shown")
 
@@ -222,6 +228,20 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
           fill: "forwards"
         }
       )
+
+      if (!button) {
+        id("context-menu").animate(
+          [
+            { height: 0 },
+            { height: contextMenuHeight + "px" }
+          ],
+          {
+            duration: 175,
+            easing: "ease",
+            fill: "forwards"
+          }
+        )
+      }
     }, 0)
   }, 0)
 }
