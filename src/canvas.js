@@ -163,33 +163,40 @@ document.addEventListener("mousedown", e => {
 
 let contextMenuOpen = false
 function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
-  if (button) {
-    id("context-menu").style.left = ""
-    id("context-menu").style.right = innerWidth - id("context-menu-button").getBoundingClientRect().right + "px"
-  } else {
-    id("context-menu").style.right = ""
-    id("context-menu").style.left = mouseX + "px"
-  }
-  id("context-menu").style.top = mouseY + "px"
-
-  id("copy-location").dataset.pixelX = pixelX
-  id("copy-location").dataset.pixelY = pixelY
-  id("context-menu").style.display = "flex"
-
-  id("context-menu").style.height = ""
-
-  if (!button) {
-    id("context-menu").dataset.height = id("context-menu").getBoundingClientRect().height
-    id("context-menu").style.height = 0
-  }
-
   setTimeout(() => {
-    id("context-menu").classList.add("shown")
-    if (!contextMenuOpen && !button) {
+    if (button) {
+      id("context-menu").style.left = ""
+      id("context-menu").style.right = innerWidth - id("context-menu-button").getBoundingClientRect().right + "px"
+
+      setTimeout(() => {
+        if (id("context-menu-button").getBoundingClientRect().left < 10) {
+          id("context-menu").style.right = ""
+          id("context-menu").style.left = "10px"
+        }
+      }, 0)
+    } else {
+      id("context-menu").style.right = ""
+      id("context-menu").style.left = mouseX + "px"
+    }
+    id("context-menu").style.top = mouseY + "px"
+
+    id("copy-location").dataset.pixelX = pixelX
+    id("copy-location").dataset.pixelY = pixelY
+    id("context-menu").style.display = "flex"
+
+    id("context-menu").style.height = ""
+
+    if (!button) {
+      id("context-menu").dataset.height = id("context-menu").getBoundingClientRect().height
+      id("context-menu").style.height = 0
+    }
+
+    setTimeout(() => {
+      id("context-menu").classList.add("shown")
       id("context-menu").animate(
         [
-          { height: "0" },
-          { height: id("context-menu").dataset.height + "px" }
+          { height: "0", transform: "translateY(-10px)" },
+          { height: id("context-menu").dataset.height + "px", transform: "translateY(0)" }
         ],
         {
           duration: 200,
@@ -197,11 +204,10 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
           fill: "forwards"
         }
       )
-    }
 
-    contextMenuOpen = true
+      contextMenuOpen = true
+    }, 0)
   }, 0)
-
 }
 
 id("context-menu-button").onclick = () => {
@@ -211,6 +217,17 @@ id("context-menu-button").onclick = () => {
 function closeContextMenu() {
   contextMenuOpen = false
   id("context-menu").classList.remove("shown")
+  id("context-menu").animate(
+    [
+      { transform: "translateY(0)" },
+      { transform: "translateY(-10px)" }
+    ],
+    {
+      duration: 200,
+      easing: "ease",
+      fill: "forwards"
+    }
+  )
   setTimeout(() => {
     id("context-menu").style.display = "none"
     id("context-menu").style.height = 0
