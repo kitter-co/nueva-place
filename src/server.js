@@ -50,8 +50,8 @@ function interpret(data) {
         id("canvas").style.animation = "fade-in 0.2s ease-out forwards"
 
         draw(true)
-        if (location.hash) {
-          let viewportData = location.hash.slice(1).split(",").map(Number)
+        if (location.search) {
+          let viewportData = location.search.slice(1).split(",").map(Number)
           if (viewportData.length === 4 && !viewportData.some(isNaN)) {
             loadViewportDataArray(viewportData)
           } else {
