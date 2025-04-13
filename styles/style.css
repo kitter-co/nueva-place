@@ -268,8 +268,7 @@ main {
   border-color: transparent;
 }
 
-#sign-in,
-#account-menu {
+#sign-in {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
@@ -288,28 +287,36 @@ main {
 #profile-button > img {
   width: 100%;
   height: 100%;
+}
+
+#context-button-wrapper,
+#profile-button-wrapper {
   position: relative;
-  z-index: 1;
+}
+
+.menu {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, opacity 0.1s linear;
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: var(--bg-0);
+  border-radius: 10px;
+  opacity: 0;
+  min-width: 190px;
+  pointer-events: none;
+  z-index: 100;
+  transform: translateY(-8px);
+}
+
+.menu.shown {
+  transform: none;
+  opacity: 1;
+  pointer-events: all;
 }
 
 #account-menu {
-  transition: transform 0.2s ease, opacity 0.1s linear;
-  position: absolute;
-  top: 55px;
-  right: 5px;
-  background: var(--bg-0);
   padding: 10px;
-  border-radius: 10px;
-  opacity: 0;
-  transform: translateY(-10px);
-  min-width: 190px;
-  pointer-events: none;
-}
-
-#account-wrapper.menu-open #account-menu {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: all;
 }
 
 #account-email {
@@ -327,14 +334,6 @@ main {
 }
 
 #context-menu {
-  box-shadow: 0 1px 6px transparent;
-  transition: opacity 0.1s linear, box-shadow 0.2s linear;
-  position: absolute;
-  background: var(--bg-0);
-  border-radius: 10px;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 100;
   gap: 5px;
   display: flex;
   flex-direction: column;
@@ -342,17 +341,8 @@ main {
   padding: 5px;
 }
 
-#context-menu.shown {
-  /* transform: translateY(0); */
-  opacity: 1;
-  pointer-events: all;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-}
-
 #context-menu > button {
-  padding: 5px;
-  padding-right: 15px;
-  border-radius: 0;
+  padding: 5px 15px 5px 5px;
   border: none;
   justify-content: start;
   white-space: nowrap;

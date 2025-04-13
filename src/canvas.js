@@ -146,123 +146,101 @@ canvas.onmousedown = e => {
 }
 
 canvas.oncontextmenu = e => {
+  openContextMenu()
+
   e.preventDefault()
-  openContextMenu(
-    e.clientX,
-    e.clientY,
-    0, // sam: pass in the coords of the pixel you're clicking on/closest to
-    0
-  )
+  e.stopPropagation()
 }
 
-document.addEventListener("mousedown", e => {
-  if (e.button != 2 && e.target != id("context-menu") && !id("context-menu").contains(e.target) && e.target != id("context-menu-button") && !id("context-menu-button").contains(e.target)) {
+id("profile-button").onclick = () => {
+  if (accountMenuOpen) {
+    closeAccountMenu()
+  } else {
+    openAccountMenu()
+  }
+}
+
+document.onmousedown = e => {
+  if (!id("profile-button-wrapper").contains(e.target)) {
+    closeAccountMenu()
+  }
+  if (!id("context-button-wrapper").contains(e.target)) {
     closeContextMenu()
   }
-})
-
-let contextMenuOpen = false
-
-id("context-menu").oncontextmenu = e => {
-  if (!contextMenuOpen) {
-    e.preventDefault()
-  }
 }
 
-function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
-  setTimeout(() => {
-    if (button) {
-      id("context-menu-button").classList.add("selected")
-      contextMenuOpen = true
-      id("context-menu").style.left = ""
-      id("context-menu").style.right = innerWidth - id("context-menu-button").getBoundingClientRect().right + "px"
+let accountMenuOpen = false, accountMenuTimeout
 
-      setTimeout(() => {
-        if (id("context-menu-button").getBoundingClientRect().left < 10) {
-          id("context-menu").style.right = ""
-          id("context-menu").style.left = "10px"
-        }
-      }, 0)
-    } else {
-      id("context-menu").style.right = ""
-      id("context-menu").style.left = mouseX + "px"
-      contextMenuOpen = false
-    }
-    id("context-menu").style.top = mouseY + "px"
+function openAccountMenu() {
+  accountMenuOpen = true
+  clearTimeout(accountMenuTimeout)
 
-    id("copy-location").dataset.pixelX = pixelX
-    id("copy-location").dataset.pixelY = pixelY
-    id("context-menu").style.display = "flex"
+  id("account-menu").style.display = ""
+  void id("account-menu").offsetWidth
+  id("account-menu").classList.add("shown")
+  id("profile-button").classList.add("selected")
+}
 
-    id("context-menu").style.height = ""
+function closeAccountMenu() {
+  if (!accountMenuOpen) return
+  accountMenuOpen = false
+
+  id("account-menu").classList.remove("shown")
+  id("profile-button").classList.remove("selected")
+  accountMenuTimeout = setTimeout(() => {
+    id("account-menu").style.display = "none"
+  }, 200)
+}
+
+let contextMenuOpen = false, contextMenuTimeout
+
+function openContextMenu(button = false) {
+  contextMenuOpen = true
+  clearTimeout(contextMenuTimeout)
+
+  if (button) {
+    id("context-menu").style = ""
+    id("context-menu-button").classList.add("selected")
+
+    // always play animation for button
+    id("context-menu").classList.remove("shown")
+    id("context-menu").classList.add("disable-transitions")
 
     setTimeout(() => {
-      id("context-menu").classList.add("shown")
+      if (id("context-menu-button").getBoundingClientRect().left < 10) {
+        id("context-menu").style.right = "auto"
+        id("context-menu").style.left = "0"
+      }
+    })
+  } else {
+    id("context-menu").style.position = "fixed"
+    id("context-menu").style.right = "auto"
+    id("context-menu").style.left = mouseX + "px"
+    id("context-menu").style.top = mouseY + "px"
+  }
 
-      id("context-menu").animate(
-        [
-          { transform: "translateY(-10px)" },
-          { transform: "translateY(0)" }
-        ],
-        {
-          duration: 200,
-          easing: "ease",
-          fill: "forwards"
-        }
-      )
-
-      id("context-menu").animate(
-        [
-          { opacity: 0 },
-          { opacity: 1 }
-        ],
-        {
-          duration: 100,
-          easing: "linear",
-          fill: "forwards"
-        }
-      )
-    }, 0)
-  }, 0)
+  id("context-menu").style.display = ""
+  void id("context-menu").offsetWidth
+  id("context-menu").classList.remove("disable-transitions")
+  id("context-menu").classList.add("shown")
 }
 
 id("context-menu-button").onclick = () => {
-  if (contextMenuOpen) {
+  if (contextMenuOpen && id("context-menu-button").classList.contains("selected")) {
     closeContextMenu()
   } else {
-    openContextMenu(60, 60, 0, 0, true) // sam: for mobile choose the center of the view cause you have no mouse
+    openContextMenu(true)
   }
 }
 
 function closeContextMenu() {
-  id("context-menu-button").classList.remove("selected")
+  if (!contextMenuOpen) return
   contextMenuOpen = false
+
   id("context-menu").classList.remove("shown")
-  id("context-menu").animate(
-    [
-      { transform: "translateY(0)" },
-      { transform: "translateY(-10px)" }
-    ],
-    {
-      duration: 200,
-      easing: "ease",
-      fill: "forwards"
-    }
-  )
-  id("context-menu").animate(
-    [
-      { opacity: 1 },
-      { opacity: 0 }
-    ],
-    {
-      duration: 100,
-      easing: "linear",
-      fill: "forwards"
-    }
-  )
-  setTimeout(() => {
+  id("context-menu-button").classList.remove("selected")
+  contextMenuTimeout = setTimeout(() => {
     id("context-menu").style.display = "none"
-    id("context-menu").style.height = 0
   }, 200)
 }
 

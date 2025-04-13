@@ -35,19 +35,6 @@ function signInSuccess(user) {
   signedIn = true
 }
 
-id("profile-img").onclick = () => {
-  id("account-wrapper").classList.toggle("menu-open")
-  id("profile-button").classList.toggle("selected")
-
-}
-
-document.onmousedown = e => {
-  if (!id("profile-button").contains(e.target) && e.target != id("profile-button") && !id("account-menu").contains(e.target) && e.target != id("account-menu")) {
-    id("account-wrapper").classList.remove("menu-open")
-    id("profile-button").classList.remove("selected")
-  }
-}
-
 // SIGN IN
 
 const errorMessages = {

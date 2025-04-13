@@ -20,34 +20,48 @@
         </a>
 
         <div id="account-wrapper">
-            <button id="context-menu-button" class="button-secondary">
-                <i class="ph-bold ph-dots-three"></i>
-            </button>
+            <div id="context-button-wrapper">
+                <button id="context-menu-button" class="button-secondary">
+                    <i class="ph-bold ph-dots-three"></i>
+                </button>
+                <div id="context-menu" class="menu" style="display: none;">
+                    <button class="button-secondary" id="copy-location">
+                        <i class="ph ph-map-pin"></i>
+                        Copy Location
+                    </button>
+                    <button class="button-secondary" id="download-image">
+                        <i class="ph ph-image"></i>
+                        Download PNG
+                    </button>
+                </div>
+            </div>
             <button id="sign-in" class="button-primary">
                 <i class="ph ph-google-logo"></i>
                 Sign In with Google
             </button>
-            <button id="profile-button" class="button-secondary">
-                <img id="profile-img" alt="Profile picture" draggable="false"/>
-            </button>
-            <div id="account-menu">
-                <div id="account-name"></div>
-                <div id="account-email"></div>
-                <button id="sign-out" class="button-secondary">
-                    <i class="ph ph-sign-out"></i>
-                    Sign Out
+            <div id="profile-button-wrapper">
+                <button id="profile-button" class="button-secondary">
+                    <img id="profile-img" alt="Profile picture" draggable="false"/>
                 </button>
-                <div id="theme-selector-title">Theme</div>
-                <div id="theme-selector">
-                    <button class="button-secondary" data-theme="dark" title="Dark Theme">
-                        <i class="ph ph-moon"></i>
+                <div id="account-menu" class="menu" style="display: none;">
+                    <div id="account-name"></div>
+                    <div id="account-email"></div>
+                    <button id="sign-out" class="button-secondary">
+                        <i class="ph ph-sign-out"></i>
+                        Sign Out
                     </button>
-                    <button class="button-secondary selected" data-theme="auto" title="Auto Theme">
-                        <i class="ph-fill ph-circle-half"></i>
-                    </button>
-                    <button class="button-secondary" data-theme="light" title="Light Theme">
-                        <i class="ph ph-sun"></i>
-                    </button>
+                    <div id="theme-selector-title">Theme</div>
+                    <div id="theme-selector">
+                        <button class="button-secondary" data-theme="dark" title="Dark Theme">
+                            <i class="ph ph-moon"></i>
+                        </button>
+                        <button class="button-secondary selected" data-theme="auto" title="Auto Theme">
+                            <i class="ph-fill ph-circle-half"></i>
+                        </button>
+                        <button class="button-secondary" data-theme="light" title="Light Theme">
+                            <i class="ph ph-sun"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,16 +84,6 @@
             <div class="spacer"></div>
         </div>
 
-        <div id="context-menu" style="display: none;">
-            <button class="button-secondary" id="copy-location">
-                <i class="ph ph-map-pin"></i>
-                Copy Location
-            </button>
-            <button class="button-secondary" id="download-image">
-                <i class="ph ph-image"></i>
-                Download PNG
-            </button>
-        </div>
     </body>
 
     <script src="./src/script.js" type="module"></script>
