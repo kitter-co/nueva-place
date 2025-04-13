@@ -230,6 +230,7 @@ main {
   position: absolute;
   inset: -1px;
   border-radius: inherit;
+  pointer-events: none;
 }
 
 #account-wrapper > .button-secondary:is(:hover, :focus-visible)::after {
