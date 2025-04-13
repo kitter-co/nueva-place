@@ -162,10 +162,10 @@ document.addEventListener("mousedown", e => {
 })
 
 let contextMenuOpen = false
-function openContextMenu(mouseX, mouseY, pixelX, pixelY, fromRight = false) {
-  if (fromRight) {
+function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
+  if (button) {
     id("context-menu").style.left = ""
-    id("context-menu").style.right = mouseX + "px"
+    id("context-menu").style.right = innerWidth - id("context-menu-button").getBoundingClientRect().right + "px"
   } else {
     id("context-menu").style.right = ""
     id("context-menu").style.left = mouseX + "px"
@@ -178,14 +178,14 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, fromRight = false) {
 
   id("context-menu").style.height = ""
 
-  if (mouseX != 60 && mouseY != 60) {
+  if (!button) {
     id("context-menu").dataset.height = id("context-menu").getBoundingClientRect().height
     id("context-menu").style.height = 0
   }
 
   setTimeout(() => {
     id("context-menu").classList.add("shown")
-    if (!contextMenuOpen && mouseX != 60 && mouseY != 60) {
+    if (!contextMenuOpen && !button) {
       id("context-menu").animate(
         [
           { height: "0" },
