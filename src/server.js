@@ -10,18 +10,18 @@ import { errorToast, toast } from "./toast.js"
 import { id, hexToRGB, rgbToHex } from "./utils.js"
 import { clearCurrentColor, endCooldown, startCooldown } from "./palette.js"
 
-const HOST = 'localhost:3000'; // TODO change
-const socket = new WebSocket(`ws://${HOST}`);
+const HOST = "localhost:3000" // TODO change
+const socket = new WebSocket(`ws://${HOST}`)
 
-let queue = [];
+let queue = []
 
-socket.addEventListener('message', (event) => interpret(event.data));
+socket.onmessage = (event) => interpret(event.data)
 
-socket.addEventListener('open', () => {
+socket.onopen = () => {
   for (let payload of queue) {
     socket.send(payload)
   }
-})
+}
 
 socket.onerror = () => {
   toast("Failed to connect to server.\nYou are currently viewing PLACEHOLDER DATA.", true)
@@ -40,11 +40,11 @@ socket.onerror = () => {
 let loaded = false
 
 function interpret(data) {
-  const msg  = JSON.parse(data);
-  const body = JSON.parse(msg.body);
+  const msg  = JSON.parse(data)
+  const body = JSON.parse(msg.body)
 
   switch (msg.type) {
-    case 'pixels':
+    case "pixels":
       receivedFullUpdate(body[0].length, body.length, body)
       if (!loaded) {
         loaded = true
@@ -60,13 +60,13 @@ function interpret(data) {
         }
       }
 
-      break;
+      break
 
-    case 'update':
+    case "update":
       receivedPixelUpdate(body.x, body.y, body.color)
-      break;
+      break
 
-    case 'cooldown': {
+    case "cooldown": {
       const elapsed = Math.floor(Date.now() / 1000) - body
 
       if (elapsed < 0.1 * 60) {
@@ -74,15 +74,15 @@ function interpret(data) {
         setTimeout(endCooldown, (0.1 * 60 - elapsed) * 1000)
       }
 
-      break;
+      break
     }
 
-    case 'error':
+    case "error":
       errorToast(body)
-      break;
+      break
 
     default:
-      break;
+      break
   }
 }
 
@@ -90,21 +90,21 @@ function send(type, body) {
   const payload = JSON.stringify({
     type,
     body: JSON.stringify(body)
-  });
+  })
 
   if (socket.readyState === WebSocket.OPEN) {
-    socket.send(payload);
+    socket.send(payload)
   } else {
-    queue.push(payload);
+    queue.push(payload)
   }
 }
 
 function validateToken(token) {
-  send('token', token);
+  send("token", token)
 }
 
 function updatePixel(x, y, color) {
-  send('update', { x, y, color });
+  send("update", { x, y, color })
 }
 
 function placePixel(x, y, rgb) {
