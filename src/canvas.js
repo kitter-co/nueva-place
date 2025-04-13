@@ -295,6 +295,8 @@ id("download-image").onclick = () => {
   closeContextMenu()
 }
 
+closeContextMenu()
+
 id("copy-location").onclick = () => {
   // sam: can you make the canvas center around a certain set of pixel coords if there's ?coords=x,y?
   navigator.clipboard.writeText(`https://nueva.place/?coords=${id("copy-location").dataset.pixelX},${id("copy-location").dataset.pixelY}`)
