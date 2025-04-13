@@ -21,7 +21,7 @@ function placePixel(x, y, rgb) {
   Promise.reject() // TODO replace with actual server request
     .catch(() => {
       setTimeout(() => {
-        errorToast("Oh no!\nLooks like there was an error trying to place your pixel. Wait a minute, then try again.")
+        errorToast("Looks like there was an error trying to place your pixel. Wait a minute, then try again.")
         endCooldown()
         setPixel(x, y, oldRGB)
         // wait at least half a second before showing the error message
