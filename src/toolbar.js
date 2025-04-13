@@ -1,6 +1,6 @@
 import { id } from "./utils.js"
 import { toast } from "./toast.js"
-import { canvas, download, mouseX, mouseY } from "./canvas.js"
+import { canvas, download, getViewportDataArray, mouseX, mouseY } from "./canvas.js"
 
 canvas.oncontextmenu = e => {
   openContextMenu()
@@ -109,7 +109,7 @@ id("download-image").onclick = () => {
 closeContextMenu()
 
 id("copy-location").onclick = () => {
-  navigator.clipboard.writeText(`https://nueva.place/?pos=${123 /* TODO */}`)
-           .then(() => toast("Location Copied!"))
+  navigator.clipboard.writeText(`${location.href}#${getViewportDataArray()}`)
+           .then(() => toast("URL to Current Viewport Copied!"))
   closeContextMenu()
 }

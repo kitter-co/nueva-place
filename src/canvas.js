@@ -24,6 +24,24 @@ function updateZoom() {
   cameraY += mouseY / oldZoom - mouseY / zoom
 }
 
+function getViewportDataArray() {
+  return [
+    cameraX + innerWidth / zoom / 2,
+    cameraY + innerHeight / zoom / 2,
+    innerWidth / zoom,
+    innerHeight / zoom
+  ].map(x => Math.round(x * 1e5) / 1e5)
+}
+
+function loadViewportDataArray([x, y, zx, zy]) {
+  let zoom = Math.min(innerWidth / zx, innerHeight / zy)
+  rawZoom = Math.log(zoom)
+  updateZoom()
+
+  cameraX = x - innerWidth / zoom / 2
+  cameraY = y - innerHeight / zoom / 2
+}
+
 let mouseX = null, mouseY = null, targetX = null, targetY = null
 
 function setSize(width, height) {
@@ -237,6 +255,8 @@ onkeydown = e => {
 }
 
 export {
+  getViewportDataArray,
+  loadViewportDataArray,
   setSize,
   setData,
   imgDataIndex,

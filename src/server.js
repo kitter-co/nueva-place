@@ -3,10 +3,10 @@ import {
   setData,
   imgDataIndex,
   setPixel,
-  draw
+  draw, loadViewportDataArray
 } from "./canvas.js"
 
-import { errorToast } from "./toast.js"
+import { errorToast, toast } from "./toast.js"
 import { id, hexToRGB, rgbToHex } from "./utils.js"
 import { clearCurrentColor, endCooldown, startCooldown } from "./palette.js"
 
@@ -35,6 +35,8 @@ socket.addEventListener('open', () => {
 //   )
 // }, 1000)
 
+let loaded = false
+
 function interpret(data) {
   const msg  = JSON.parse(data);
   const body = JSON.parse(msg.body);
@@ -42,7 +44,20 @@ function interpret(data) {
   switch (msg.type) {
     case 'pixels':
       receivedFullUpdate(body[0].length, body.length, body)
-      draw(true) // TODO only run this ONCE ever
+      if (!loaded) {
+        loaded = true
+
+        draw(true)
+        if (location.hash) {
+          let viewportData = location.hash.slice(1).split(",").map(Number)
+          if (viewportData.length === 4 && !viewportData.some(isNaN)) {
+            loadViewportDataArray(viewportData)
+          } else {
+            toast("Invalid viewport data in URL", true)
+          }
+        }
+      }
+
       break;
 
     case 'update':
