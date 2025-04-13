@@ -180,9 +180,10 @@ main {
   position: absolute;
   top: 10px;
   left: 10px;
-  font-size: 1em;
+  font-size: 18px;
   z-index: 2;
-  font-weight: 600;
+  font-family: "Reddit Sans", system-ui, sans-serif;
+  font-weight: 800;
   color: var(--accent);
   display: flex;
   align-items: center;
@@ -191,8 +192,8 @@ main {
 
 #logo > div {
   display: inline-block;
-  height: 16px;
-  width: 16px;
+  height: 18px;
+  width: 18px;
   background: currentColor;
   mask-image: url("../nueva_school.png");
   mask-size: 100%;
