@@ -205,17 +205,16 @@ main {
 
 #account-wrapper {
   position: absolute;
-    top: 0;
-    right: 0;
-    filter: drop-shadow(0 1px 6px transparent);
-    display: flex;
-    gap: 10px;
-    z-index: 10;
-    transition: filter 0.2s linear;
-    background: var(--bg-1);
-    padding: 10px;
-    border-bottom-left-radius: 30px;
-}
+  top: 0;
+  right: 0;
+  filter: drop-shadow(0 1px 6px transparent);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+  transition: filter 0.2s linear;
+  background: var(--bg-1);
+  padding: 10px;
+  border-bottom-left-radius: 30px;
 }
 
 #account-wrapper.signed-in #sign-in {
