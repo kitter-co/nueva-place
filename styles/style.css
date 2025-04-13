@@ -253,12 +253,12 @@ main {
   display: none;
 }
 
-#account-wrapper .button-secondary {
+#context-menu-button, #profile-button {
   position: relative;
   background: var(--bg-1);
 }
 
-#account-wrapper .button-secondary::after {
+#context-menu-button::after, #profile-button::after {
   content: "";
   position: absolute;
   inset: -1px;
@@ -266,15 +266,15 @@ main {
   pointer-events: none;
 }
 
-#account-wrapper .button-secondary:is(:hover, :focus-visible)::after {
+#context-menu-button:is(:hover, :focus-visible)::after, #profile-button:is(:hover, :focus-visible)::after {
   background: var(--button-hover);
 }
 
-#account-wrapper .button-secondary:active::after {
+#context-menu-button:active::after, #profile-button:active::after {
   background: var(--button-active);
 }
 
-#account-wrapper .button-secondary.selected::after {
+#context-menu-button.selected::after, #profile-button.selected::after {
   background: var(--button-selected);
   border-color: transparent;
 }
