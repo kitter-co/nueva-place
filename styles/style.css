@@ -296,6 +296,7 @@ main {
 #context-menu-button > svg, #sign-out > svg, #sign-in > svg, #context-menu > button > svg {
   height: 1.25em;
   width: 1.25em;
+  /* hello */
 }
 
 #context-menu {
