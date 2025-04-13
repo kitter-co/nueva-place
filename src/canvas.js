@@ -183,9 +183,8 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, fromRight = false) {
     id("context-menu").style.height = 0
   }
 
-  id("context-menu").classList.add("shown")
-
   setTimeout(() => {
+    id("context-menu").classList.add("shown")
     if (!contextMenuOpen && mouseX != 60 && mouseY != 60) {
       id("context-menu").animate(
         [
