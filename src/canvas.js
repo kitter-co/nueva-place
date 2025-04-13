@@ -195,15 +195,9 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
 
     id("context-menu").style.height = ""
 
-    let menuHeight
-    if (!button) {
-      menuHeight = id("context-menu").getBoundingClientRect().height
-      id("context-menu").style.height = 0
-    }
-
     setTimeout(() => {
       id("context-menu").classList.add("shown")
-      
+
       id("context-menu").animate(
         [
           { transform: "translateY(-10px)" },
@@ -227,20 +221,6 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
           fill: "forwards"
         }
       )
-
-      if (!button) {
-        id("context-menu").animate(
-          [
-            { height: "0"},
-            { height: menuHeight + "px" }
-          ],
-          {
-            duration: 150,
-            easing: "ease",
-            fill: "forwards"
-          }
-        )
-      }
     }, 0)
   }, 0)
 }
