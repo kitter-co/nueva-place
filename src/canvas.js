@@ -194,23 +194,35 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
     setTimeout(() => {
       id("context-menu").classList.add("shown")
       // only animate height in the context menu
-      if (button) {
+      id("context-menu").animate(
+        [
+          { transform: "translateY(-10px)" },
+          { transform: "translateY(0)" }
+        ],
+        {
+          duration: 200,
+          easing: "ease",
+          fill: "forwards"
+        }
+      )
+
+      id("context-menu").animate(
+        [
+          { opacity: 0 },
+          { opacity: 1 }
+        ],
+        {
+          duration: 100,
+          easing: "linear",
+          fill: "forwards"
+        }
+      )
+
+      if (!button) {
         id("context-menu").animate(
           [
-            { transform: "translateY(-10px)" },
-            { transform: "translateY(0)" }
-          ],
-          {
-            duration: 200,
-            easing: "ease",
-            fill: "forwards"
-          }
-        )
-      } else {
-        id("context-menu").animate(
-          [
-            { height: "0", transform: "translateY(-10px)" },
-            { height: id("context-menu").dataset.height + "px", transform: "translateY(0)" }
+            { height: "0"},
+            { height: id("context-menu").dataset.height + "px" }
           ],
           {
             duration: 200,
@@ -240,6 +252,17 @@ function closeContextMenu() {
     {
       duration: 200,
       easing: "ease",
+      fill: "forwards"
+    }
+  )
+  id("context-menu").animate(
+    [
+      { opacity: 1 },
+      { opacity: 0 }
+    ],
+    {
+      duration: 100,
+      easing: "linear",
       fill: "forwards"
     }
   )
