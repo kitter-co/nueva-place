@@ -143,13 +143,6 @@ function inBounds() {
 
 let draggingCamera = false
 
-canvas.onmousedown = e => {
-  updateMousePos(e)
-  if (!currentColor || !inBounds()) {
-    draggingCamera = true
-  }
-}
-
 let lastTouchDist = null
 
 function getEventPos(e) {
@@ -171,12 +164,8 @@ function updateInteractionStart(e) {
     } else {
       draggingCamera = true
     }
-  } else if (e.type === "mousedown") {
+  } else if (e.type === "mousedown" && (!currentColor || !inBounds())) {
     draggingCamera = true
-  }
-
-  if (!draggingCamera) {
-    attemptPlacePixel()
   }
 }
 
