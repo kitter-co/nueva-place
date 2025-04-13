@@ -10,8 +10,9 @@
   --text-error: #d50000;
   --text-success: color-mix(in srgb, #007b2a, #08d648);
 
-  --button-hover: rgba(0, 0, 0, 0.05);
-  --button-active: rgba(0, 0, 0, 0.1);
+  --button-hover: rgba(0, 0, 10, 0.05);
+  --button-active: rgba(0, 0, 10, 0.1);
+  --button-selected: rgba(0, 100, 255, 0.1);
 
   --bg-0: white;
   --bg-1: #f0f4f6;
@@ -24,14 +25,15 @@
 }
 
 :root#dark {
-  --accent: #0028bc;
-  --accent-light: #0031e4;
-  --accent-dark: #002197;
+  --accent: #3d67ff;
+  --accent-light: #6687ff;
+  --accent-dark: #1a4bff;
 
   --text-default: white;
 
-  --button-hover: rgba(255, 255, 255, 0.05);
-  --button-active: rgba(255, 255, 255, 0.1);
+  --button-hover: rgba(245, 245, 255, 0.05);
+  --button-active: rgba(245, 245, 255, 0.1);
+  --button-selected: rgba(20, 120, 255, 0.1);
 
   --bg-0: #111213;
   --bg-1: #14171a;
@@ -148,8 +150,9 @@ button {
 }
 
 .button-secondary.selected {
-  background: var(--button-active);
+  background: var(--button-selected);
   border-color: transparent;
+  color: var(--accent);
 }
 
 .button-secondary.selected i:not(.ph-dots-three) {
