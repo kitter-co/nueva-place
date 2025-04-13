@@ -112,7 +112,7 @@ function draw(init = false) {
       ctx.strokeStyle = currentColor == "0,0,0" ? "#333" : `rgb(${currentColor})`
       ctx.lineWidth = clamp(zoom / 20, 1, 3)
       ctx.stroke()
-      ctx.fillStyle = "#4442"
+      ctx.fillStyle = `rgba(${currentColor},0.1)`
       ctx.fill()
     }
 
