@@ -205,16 +205,16 @@ main {
 
 #account-wrapper {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 5px;
+  right: 5px;
   filter: drop-shadow(0 1px 6px transparent);
   display: flex;
   gap: 10px;
   z-index: 10;
   transition: filter 0.2s linear;
   background: var(--bg-1);
-  padding: 10px;
-  border-bottom-left-radius: 30px;
+  padding: 5px;
+  border-radius: 25px;
 }
 
 #account-wrapper.signed-in #sign-in {
@@ -246,8 +246,8 @@ main {
 #account-menu {
   transition: transform 0.2s ease, opacity 0.1s linear;
   position: absolute;
-  top: 50px;
-  right: 0;
+  top: 55px;
+  right: 5px;
   background: var(--bg-0);
   padding: 10px;
   border-radius: 10px;
