@@ -143,3 +143,8 @@ button {
   box-shadow: 0 4px 8px gainsboro;
   background: var(--bg-1);
 }
+
+/* icons */
+i {
+  font-size: 1.25em;
+}
