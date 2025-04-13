@@ -213,7 +213,6 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
         }
       )
 
-<<<<<<< HEAD
       if (!button) {
         id("context-menu").animate(
           [
@@ -228,8 +227,6 @@ function openContextMenu(mouseX, mouseY, pixelX, pixelY, button = false) {
         )
       }
 
-=======
->>>>>>> 826f896a1fd65706b18b8f67574fa379c7d47ae9
       contextMenuOpen = true
     }, 0)
   }, 0)
