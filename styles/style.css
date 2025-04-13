@@ -71,6 +71,10 @@ main {
               translate 0.4s var(--bounce-in);
 }
 
+#color-buttons.cooldown {
+  cursor: not-allowed;
+}
+
 .color-button {
   width: 30px;
   height: 30px;
@@ -81,7 +85,7 @@ main {
 }
 
 #color-buttons.closed .color-button {
-  opacity: 0;
+  opacity: 0%;
   transition: scale 0.1s, opacity 0.23s 0.15s;
 }
 
@@ -136,21 +140,24 @@ main {
 #cooldown {
   position: absolute;
   left: 0;
-  top: 0;
+  bottom: 0;
   right: 0;
   z-index: 2;
   height: 100%;
-  background-image: repeating-linear-gradient(-25deg, rgba(0, 0, 0, 0.25) 0, rgba(0, 0, 0, 0.25) 25px, rgba(0, 0, 0, 0.35) 25px, rgba(0, 0, 0, 0.35) 50px);
-  display: none;
+  background: rgba(127, 127, 127, 15%);
+  opacity: 0%;
+  transition: opacity 1s;
+  pointer-events: none;
 }
 
 #color-buttons.cooldown .color-button {
   pointer-events: none;
+  opacity: 0%;
 }
 
 #color-buttons.cooldown #cooldown {
-  display: block;
-  animation: cooldown 10s linear forwards;
+  opacity: 100%;
+  animation: cooldown 6s linear forwards;
   backdrop-filter: blur(1px);
 }
 
@@ -386,7 +393,7 @@ main {
 #toast {
   color: var(--text-success);
   background: var(--bg-0);
-  padding: 10px 12px;
+  padding: 10.5px 12px;
   pointer-events: all;
   flex: 0 1 auto;
 }

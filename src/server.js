@@ -10,23 +10,79 @@ import {
 } from "./canvas.js"
 
 import { errorToast } from "./toast.js"
-import { hexToRGB, rgbToHex } from "./utils.js"
+import { id, hexToRGB, rgbToHex } from "./utils.js"
+
+const socket = new WebSocket('ws://localhost:3000');
+
+socket.addEventListener(
+  'message',
+  (event) => interpret(event.data)
+);
+
+function interpret(data) {
+  const msg  = JSON.parse(data);
+  const body = JSON.parse(msg.body);
+
+  switch (msg.type) {
+    case 'pixels':
+      receivedFullUpdate(body[0].length, body.length, body)
+      draw(true)
+      break;
+
+    case 'update':
+      receivedPixelUpdate(body.x, body.y, body.color)
+      break;
+
+    case 'cooldown': {
+      const elapsed = Math.floor(Date.now() / 1000) - body
+
+      if (elapsed < 0.1 * 60) {
+        startCooldown(body)
+        setTimeout(() => endCooldown(), (0.1 * 60 - elapsed) * 1000)
+      }
+
+      break;
+    }
+
+    case 'error':
+      errorToast(body)
+      break;
+
+    default:
+      break;
+  }
+}
+
+function send(type, body) {
+  const payload = {
+    type,
+    body: JSON.stringify(body)
+  };
+
+  socket.send(JSON.stringify(payload));
+}
+
+function validateToken(token) {
+  send('token', token);
+}
+
+function updatePixel(x, y, color) {
+  send('update', { x, y, color });
+}
 
 function placePixel(x, y, rgb) {
-  let oldRGB = getPixel(x, y), placeTime = performance.now()
+  // let oldRGB = getPixel(x, y), placeTime = performance.now()
 
   setPixel(x, y, rgb)
   startCooldown()
-  // let hex = rgbToHex(rgb)
-  Promise.reject() // TODO replace with actual server request
-    .catch(() => {
-      setTimeout(() => {
-        errorToast("Looks like there was an error trying to place your pixel. Wait a minute, then try again.")
-        endCooldown()
-        setPixel(x, y, oldRGB)
-        // wait at least half a second before showing the error message
-      }, placeTime - performance.now() + 500)
-    })
+
+  let hex = rgbToHex(rgb)
+  updatePixel(x, y, hex)
+
+  const colorButtonsWrapper = id("color-buttons")
+
+  colorButtonsWrapper.classList.remove("closed")
+  colorButtonsWrapper.style.removeProperty("--selected-color")
 }
 
 function receivedPixelUpdate(x, y, hex) {
@@ -48,15 +104,4 @@ function receivedFullUpdate(width, height, data) {
   setData(new ImageData(rawData, width, height))
 }
 
-// TODO placeholder data
-Promise.resolve({ json() { return { width: 25, height: 5, img: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] } } })
-// fetch("the data")
-  .catch(err => {
-    alert(`It didn't work :(\n\nERROR:\n${err.message}`)
-  })
-  .then(res => res.json()).then(data => {
-    receivedFullUpdate(data.width, data.height, data.img)
-    draw(true)
-  })
-
-export { placePixel }
+export { validateToken, placePixel }

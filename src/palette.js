@@ -37,7 +37,6 @@ function selectColor(rgb) {
 function cancelColor() {
   if (hasCurrentColor()) {
     colorButtonsWrapper.classList.remove("closed")
-    colorButtonsWrapper.style.removeProperty("--selected-color")
     setTimeout(() => {
       colorButtonsWrapper.style.height = ""
     }, 400)

@@ -3,6 +3,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChang
 
 import { id } from "./utils.js"
 import { colorButtonsWrapper } from "./palette.js"
+import { validateToken } from "./server.js"
 import { errorToast } from "./toast.js"
 
 const firebaseConfig = {
@@ -31,7 +32,6 @@ function signInSuccess(user) {
   id("account-name").innerText = user.displayName
   id("account-email").innerText = user.email
   id("profile-img").src = user.photoURL
-  colorButtonsWrapper.classList.remove("hidden")
   signedIn = true
 }
 
@@ -68,8 +68,10 @@ onAuthStateChanged(auth, user => {
   }
 
   if (user.email.endsWith("@nuevaschool.org")) {
-    console.log("auth, user:", auth, user)
     signInSuccess(user)
+    validateToken(user.accessToken)
+
+    id("color-buttons").classList.remove("hidden")
   } else {
     errorToast("You must use a @nuevaschool.org email address.")
   }

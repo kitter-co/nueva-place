@@ -76,11 +76,6 @@ header {
   background: var(--bg-1);
 }
 
-.disable-transitions,
-.disable-transitions * {
-  transition: none !important;
-}
-
 svg {
   /* prevents svgs from shifting slightly at the start and end of transitions in safari */
   transform: translate(0, 0);

@@ -115,23 +115,21 @@ function draw(init = false) {
   }
 }
 
-function startCooldown() {
-  onCooldown = true
-
-  colorButtonsWrapper.classList.add("hidden")
+function startCooldown(timestamp = Math.floor(Date.now() / 1000)) {
   currentColor = null
+  colorButtonsWrapper.classList.add("cooldown")
+
+  const elapsed = Math.floor(Date.now() / 1000) - timestamp
+  id("cooldown").style.animationDelay = `-${elapsed}s`
 }
 
 function endCooldown() {
   onCooldown = false
 
-  colorButtonsWrapper.classList.add("disable-transitions")
-  colorButtonsWrapper.classList.remove("closed")
+  colorButtonsWrapper.classList.remove("cooldown")
   colorButtonsWrapper.style.removeProperty("--selected-color")
   colorButtonsWrapper.style.height = ""
   void colorButtonsWrapper.offsetWidth // force css recalc
-  colorButtonsWrapper.classList.remove("disable-transitions")
-  colorButtonsWrapper.classList.remove("hidden")
 }
 
 function attemptPlacePixel() {
