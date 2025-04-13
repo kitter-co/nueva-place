@@ -1,10 +1,6 @@
 import "./canvas.js"
 import "./toolbar.js"
 
-onload = () => {
-  document.body.classList.remove("disable-transitions")
-}
-
 function updateTheme(theme) {
   if (theme === "dark") {
     document.documentElement.id = "dark"
