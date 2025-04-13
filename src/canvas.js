@@ -1,7 +1,7 @@
 import { clamp, id } from "./utils.js"
 import { cancelColor, currentColor, onCooldown } from "./palette.js"
 import { placePixel } from "./server.js"
-import { isSignedIn } from "./auth.js"
+import { signedIn } from "./auth.js"
 
 const canvasWrapper = id("canvas-wrapper")
 const canvas = id("canvas")
@@ -54,7 +54,7 @@ function setData(data) {
 }
 
 function canPlace() {
-  return isSignedIn() && !onCooldown && currentColor
+  return signedIn && !onCooldown && currentColor
 }
 
 function updateMousePos(e) {

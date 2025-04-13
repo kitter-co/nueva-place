@@ -21,10 +21,6 @@ const provider = new GoogleAuthProvider()
 
 let signedIn = false
 
-function isSignedIn() {
-  return signedIn
-}
-
 function signInSuccess(user) {
   id("account-wrapper").classList.add("signed-in")
 
@@ -76,4 +72,4 @@ onAuthStateChanged(auth, user => {
   }
 })
 
-export { isSignedIn }
+export { signedIn }

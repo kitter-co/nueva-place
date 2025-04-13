@@ -288,7 +288,7 @@ main {
   padding: 0;
 }
 
-#account-wrapper:not(.signed-in) #profile-button {
+#account-wrapper:not(.signed-in) #profile-button-wrapper {
   display: none;
 }
 
