@@ -80,9 +80,6 @@ function interpret(data) {
     case "error":
       errorToast(body)
       break
-
-    default:
-      break
   }
 }
 
