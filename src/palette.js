@@ -81,4 +81,12 @@ function endCooldown() {
   colorButtonsWrapper.style.height = ""
 }
 
-export { colorButtonsWrapper, currentColor, clearCurrentColor, cancelColor, startCooldown, endCooldown, onCooldown }
+export {
+  colorButtonsWrapper,
+  currentColor,
+  clearCurrentColor,
+  cancelColor,
+  startCooldown,
+  endCooldown,
+  onCooldown
+}

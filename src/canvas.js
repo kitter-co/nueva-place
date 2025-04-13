@@ -125,7 +125,7 @@ function draw(init = false) {
 function download() {
   offscreenCanvas.toBlob(blob => {
     let link = document.createElement("a")
-    link.download = "nueva-place.png"
+    link.download = `nueva-place_${new Date().toDateString().slice(4).replaceAll(" ", "-")}.png`
     link.href = URL.createObjectURL(blob)
     link.click()
   })

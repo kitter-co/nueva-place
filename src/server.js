@@ -23,17 +23,21 @@ socket.addEventListener('open', () => {
   }
 })
 
-// TODO TEMPORARY
-// setTimeout(() => {
-//   interpret(
-//     JSON.stringify({
-//       type: "pixels",
-//       body: JSON.stringify(
-//         Array.from({length: 20}, () => Array.from({length: 20}, () => 0))
-//       )
-//     })
-//   )
-// }, 1000)
+socket.onerror = e => {
+  toast("Failed to connect to server.\nYou are currently viewing PLACEHOLDER DATA.", true)
+
+  // TODO remove - for testing purposes only
+  interpret(
+    JSON.stringify({
+      type: "pixels",
+      body: JSON.stringify(
+        Array.from({length: 25}, () => Array.from({length: 25}, () => Math.floor(Math.random() * 0x1000000)))
+      )
+    })
+  )
+
+  console.error(e)
+}
 
 let loaded = false
 

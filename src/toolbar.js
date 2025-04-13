@@ -33,7 +33,7 @@ function openAccountMenu() {
   clearTimeout(accountMenuTimeout)
 
   id("account-menu").style.display = ""
-  void id("account-menu").offsetWidth
+  void id("account-menu").offsetWidth // force css recalc
   id("account-menu").classList.add("shown")
   id("profile-button").classList.add("selected")
 }
@@ -78,7 +78,7 @@ function openContextMenu(button = false) {
 
   id("context-menu").classList.remove("shown")
   id("context-menu").style.display = ""
-  void id("context-menu").offsetWidth
+  void id("context-menu").offsetWidth // force css recalc
   id("context-menu").classList.add("shown")
 }
 
@@ -109,7 +109,7 @@ id("download-image").onclick = () => {
 closeContextMenu()
 
 id("copy-location").onclick = () => {
-  navigator.clipboard.writeText(`${location.href}#${getViewportDataArray()}`)
+  navigator.clipboard.writeText(`https://nueva.place/#${getViewportDataArray()}`)
            .then(() => toast("URL to Current Viewport Copied!"))
   closeContextMenu()
 }
