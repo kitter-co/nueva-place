@@ -409,3 +409,7 @@ main {
   flex-basis: 100%;
   flex-shrink: 1;
 }
+
+#theme-selector button[data-theme="auto"].selected i {
+  transform: scaleX(-1);
+}
