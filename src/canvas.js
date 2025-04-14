@@ -157,11 +157,11 @@ function draw(init = false) {
     if (inBounds()) {
       ctx.beginPath()
       ctx.rect((targetX - cameraX) * zoom, (targetY - cameraY) * zoom, zoom, zoom)
+      ctx.fillStyle = `rgba(${currentColor.map(x => x * 0.8)},0.2)`
+      ctx.fill()
       ctx.strokeStyle = currentColor == "0,0,0" ? "#333" : `rgb(${currentColor})`
       ctx.lineWidth = clamp(zoom / 20, 1, 3)
       ctx.stroke()
-      ctx.fillStyle = currentColor == "255,255,255" ? "rgba(221, 221, 221, 0.4)" : `rgba(${currentColor},0.1)`
-      ctx.fill()
     }
 
     canvas.style.cursor = "crosshair"
