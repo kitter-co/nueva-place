@@ -185,7 +185,7 @@ main {
   font-size: 18px;
   z-index: 2;
   font-family: "Reddit Sans", system-ui, sans-serif;
-  font-weight: 700;
+  font-weight: 650;
   color: var(--accent);
   display: flex;
   align-items: center;
