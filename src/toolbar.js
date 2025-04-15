@@ -13,7 +13,7 @@ let pixelsHighlighted = false
 
 id("highlight-pixels").onclick = () => {
   pixelsHighlighted = !pixelsHighlighted
-  // sam or ayush, help make this actually work
+  // sam or ayush, help make this actually work (make your pixels normal opacity and make other people's only half opacity maybe?)
   if (pixelsHighlighted) id("highlight-pixels").classList.add("selected")
   else id("highlight-pixels").classList.remove("selected")
   
