@@ -16,7 +16,10 @@ id("highlight-pixels").onclick = () => {
   // sam or ayush, help make this actually work
   if (pixelsHighlighted) id("highlight-pixels").classList.add("selected")
   else id("highlight-pixels").classList.remove("selected")
-  closeContextMenu()
+  
+  setTimeout(() => {
+    closeContextMenu()
+  }, 200)
 }
 
 id("profile-button").onclick = () => {
