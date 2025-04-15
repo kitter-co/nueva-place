@@ -9,6 +9,16 @@ canvas.oncontextmenu = e => {
   e.stopPropagation()
 }
 
+let pixelsHighlighted = false
+
+id("highlight-pixels").onclick = () => {
+  pixelsHighlighted = !pixelsHighlighted
+  // sam or ayush, help make this actually work
+  if (pixelsHighlighted) id("highlight-pixels").classList.add("selected")
+  else id("highlight-pixels").classList.remove("selected")
+  closeContextMenu()
+}
+
 id("profile-button").onclick = () => {
   if (accountMenuOpen) {
     closeAccountMenu()
