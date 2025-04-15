@@ -10,8 +10,7 @@ import { errorToast, toast } from "./toast.js"
 import { id, hexToRGB, rgbToHex } from "./utils.js"
 import { clearCurrentColor, endCooldown, startCooldown } from "./palette.js"
 
-const AUTH = '5609854b-4c67-43f1-8d36-4967322f1074'
-const socket = new WebSocket(`wss://api.nueva.place/?auth=${AUTH}`)
+const socket = new WebSocket('wss://api.nueva.place')
 
 let queue = []
 
@@ -51,8 +50,8 @@ function interpret(data) {
         id("canvas").style.animation = "fade-in 0.2s ease-out forwards"
 
         draw(true)
-        if (location.search) {
-          let viewportData = location.search.slice(1).split(",").map(Number)
+        if (location.hash) {
+          let viewportData = location.hash.slice(1).split(",").map(Number)
           if (viewportData.length === 4 && !viewportData.some(isNaN)) {
             loadViewportDataArray(viewportData)
           } else {
