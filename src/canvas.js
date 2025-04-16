@@ -117,6 +117,14 @@ function setPixel(x, y, rgb, user) {
 
   imgData.data.set(rgb, i)
   users[y][x] = user
+
+  if (userImgData) {
+    if (user == email) {
+      userImgData.data.set(rgb, i)
+    } else {
+      userImgData.data.set(darken(rgb), i)
+    }
+  }
 }
 
 function toggleHighlight() {
