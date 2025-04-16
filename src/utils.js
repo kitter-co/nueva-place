@@ -20,13 +20,7 @@ function rgbToHex(rgb) {
 }
 
 function darken(rgb) {
-  let [r, g, b] = rgb
-
-  return [
-    Math.max(r - 127, 0),
-    Math.max(g - 127, 0),
-    Math.max(b - 127, 0),
-  ]
+  return rgb.map((x) => x / 6)
 }
 
 function textToHTML(str) {
