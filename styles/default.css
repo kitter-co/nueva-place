@@ -78,6 +78,11 @@ header {
   background: var(--bg-1);
 }
 
+i {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
 svg {
   /* prevents svgs from shifting slightly at the start and end of transitions in safari */
   transform: translate(0, 0);
