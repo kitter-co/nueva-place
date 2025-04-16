@@ -1,6 +1,6 @@
 import { id } from "./utils.js"
 import { toast } from "./toast.js"
-import { canvas, download, getViewportDataArray, mouseX, mouseY } from "./canvas.js"
+import { canvas, download, getViewportDataArray, mouseX, mouseY, toggleHighlight } from "./canvas.js"
 
 canvas.oncontextmenu = e => {
   openContextMenu()
@@ -9,17 +9,13 @@ canvas.oncontextmenu = e => {
   e.stopPropagation()
 }
 
-let pixelsHighlighted = false
-
 id("highlight-pixels").onclick = () => {
-  pixelsHighlighted = !pixelsHighlighted
-  // sam or ayush, help make this actually work (make your pixels normal opacity and make other people's only half opacity maybe?)
-  if (pixelsHighlighted) id("highlight-pixels").classList.add("selected")
+  let highlight = toggleHighlight()
+
+  if (highlight) id("highlight-pixels").classList.add("selected")
   else id("highlight-pixels").classList.remove("selected")
-  
-  setTimeout(() => {
-    closeContextMenu()
-  }, 200)
+
+  setTimeout(() => closeContextMenu(), 200)
 }
 
 id("profile-button").onclick = () => {

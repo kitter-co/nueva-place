@@ -4,6 +4,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChang
 import { id } from "./utils.js"
 import { validateToken } from "./server.js"
 import { errorToast } from "./toast.js"
+import { updateUserPixels } from "./canvas.js"
 
 const firebaseConfig = {
   apiKey: "AIzaSyCFyU3lKCbyZYnrqSDNQZ2WjQA8gYhWKkA",
@@ -20,6 +21,7 @@ const auth = getAuth(app)
 const provider = new GoogleAuthProvider()
 
 let signedIn = false
+let email = null
 
 function signInSuccess(user) {
   id("account-wrapper").classList.add("signed-in")
@@ -27,7 +29,13 @@ function signInSuccess(user) {
   id("account-name").innerText = user.displayName
   id("account-email").innerText = user.email
   id("profile-img").src = user.photoURL
+
+  id("highlight-pixels").style.display = 'flex'
+
   signedIn = true
+  email = user.email
+
+  updateUserPixels()
 }
 
 // SIGN IN
@@ -72,4 +80,4 @@ onAuthStateChanged(auth, user => {
   }
 })
 
-export { signedIn }
+export { signedIn, email }

@@ -1,20 +1,24 @@
-import { clamp, id } from "./utils.js"
+import { clamp, id, darken } from "./utils.js"
 import { cancelColor, currentColor, onCooldown } from "./palette.js"
 import { placePixel } from "./server.js"
-import { signedIn } from "./auth.js"
+import { signedIn, email } from "./auth.js"
 
 const canvasWrapper = id("canvas-wrapper")
+
 const canvas = id("canvas")
 const ctx = canvas.getContext("2d")
+
 const offscreenCanvas = document.createElement("canvas")
 const offscreenCtx = offscreenCanvas.getContext("2d")
 
 offscreenCtx.imageSmoothingEnabled = false
 
-let canvasW, canvasH, imgW, imgH, imgData
+let canvasW, canvasH, imgW, imgH, imgData, userImgData, users
 
 const MIN_ZOOM = 1, MAX_ZOOM = 4.5 // these are "raw zoom" values, rawZoom = ln(zoom)
 let cameraX = 0, cameraY = 0, rawZoom = 2, zoom = Math.exp(rawZoom)
+
+let userHighlight = false
 
 function updateZoom() {
   let oldZoom = zoom
@@ -49,8 +53,32 @@ function setSize(width, height) {
   offscreenCanvas.height = imgH = height
 }
 
-function setData(data) {
+function setData(data, usersData) {
   imgData = data
+  users = usersData
+}
+
+function updateUserPixels() {
+  let rawData = new Uint8ClampedArray(imgW * imgH * 4)
+
+  for (let y = 0; y < imgH; y++) {
+    for (let x = 0; x < imgW; x++) {
+      let rgb = getPixel(x, y)
+      let user = users[y][x]
+
+      let i = imgDataIndex(x, y)
+
+      if (user == email) {
+        rawData.set(rgb, i)
+      } else {
+        rawData.set(darken(rgb), i)
+      }
+
+      rawData[i + 3] = 255
+    }
+  }
+
+  userImgData = new ImageData(rawData, imgW, imgH)
 }
 
 function canPlace() {
@@ -80,8 +108,15 @@ function getPixel(x, y) {
   return [...imgData.data.subarray(i, i + 3)]
 }
 
-function setPixel(x, y, rgb) {
-  imgData.data.set(rgb, imgDataIndex(x, y))
+function setPixel(x, y, rgb, user) {
+  let i = imgDataIndex(x, y)
+
+  imgData.data.set(rgb, i)
+  users[y][x] = user
+}
+
+function toggleHighlight() {
+  return userHighlight = !userHighlight
 }
 
 function draw(init = false) {
@@ -102,7 +137,8 @@ function draw(init = false) {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-  offscreenCtx.putImageData(imgData, 0, 0)
+  offscreenCtx.putImageData(userHighlight ? userImgData : imgData, 0, 0)
+
   ctx.drawImage(offscreenCanvas, -cameraX * zoom, -cameraY * zoom, imgW * zoom, imgH * zoom)
 
   if (canPlace() && !draggingCamera) {
@@ -248,9 +284,11 @@ export {
   loadViewportDataArray,
   setSize,
   setData,
+  updateUserPixels,
   imgDataIndex,
   getPixel,
   setPixel,
+  toggleHighlight,
   draw,
   download,
   canvas,

@@ -19,8 +19,18 @@ function rgbToHex(rgb) {
   return (rgb[0] << 16) | (rgb[1] << 8) | rgb[2]
 }
 
+function darken(rgb) {
+  let [r, g, b] = rgb
+
+  return [
+    Math.max(r - 127, 0),
+    Math.max(g - 127, 0),
+    Math.max(b - 127, 0),
+  ]
+}
+
 function textToHTML(str) {
   return str.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")
 }
 
-export { id, clamp, hexToRGB, rgbToHex, textToHTML }
+export { id, clamp, hexToRGB, rgbToHex, darken, textToHTML }

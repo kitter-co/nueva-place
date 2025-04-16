@@ -7,8 +7,9 @@ import {
 } from "./canvas.js"
 
 import { errorToast, toast } from "./toast.js"
-import { id, hexToRGB, rgbToHex } from "./utils.js"
+import { id, hexToRGB, rgbToHex, darken } from "./utils.js"
 import { clearCurrentColor, endCooldown, startCooldown } from "./palette.js"
+import { email } from "./auth.js"
 
 const AUTH = '5609854b-4c67-43f1-8d36-4967322f1074'
 const socket = new WebSocket(`wss://api.nueva.place/?auth=${AUTH}`)
@@ -64,7 +65,7 @@ function interpret(data) {
       break
 
     case "update":
-      receivedPixelUpdate(body.x, body.y, body.color)
+      receivedPixelUpdate(body.x, body.y, body.color, body.user)
       break
 
     case "cooldown": {
@@ -108,7 +109,7 @@ function updatePixel(x, y, color) {
 function placePixel(x, y, rgb) {
   // let oldRGB = getPixel(x, y), placeTime = performance.now()
 
-  setPixel(x, y, rgb)
+  setPixel(x, y, rgb, email)
   startCooldown()
   clearCurrentColor()
 
@@ -120,23 +121,30 @@ function placePixel(x, y, rgb) {
   colorButtonsWrapper.classList.remove("closed")
 }
 
-function receivedPixelUpdate(x, y, hex) {
-  setPixel(x, y, hexToRGB(hex))
+function receivedPixelUpdate(x, y, hex, user) {
+  setPixel(x, y, hexToRGB(hex), user)
 }
 
 function receivedFullUpdate(width, height, data) {
   setSize(width, height)
 
   let rawData = new Uint8ClampedArray(width * height * 4)
+  let users = Array.from({ length: height }, () => Array(width))
+
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
+      let pixel = data[y][x]
+
       let i = imgDataIndex(x, y)
-      rawData.set(hexToRGB(data[y][x]), i)
+
+      rawData.set(hexToRGB(pixel.color), i)
       rawData[i + 3] = 255
+
+      users[y][x] = pixel.user
     }
   }
 
-  setData(new ImageData(rawData, width, height))
+  setData(new ImageData(rawData, width, height), users)
 }
 
 export { validateToken, placePixel }
