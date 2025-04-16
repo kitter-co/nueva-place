@@ -61,7 +61,7 @@ function setData(data, usersData) {
 }
 
 function updateUserPixels() {
-  if (userImgData || !imgData) return
+  if (userImgData || !imgData || !email) return
 
   let rawData = new Uint8ClampedArray(imgW * imgH * 4)
 
