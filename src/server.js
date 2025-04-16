@@ -7,7 +7,7 @@ import {
 } from "./canvas.js"
 
 import { errorToast, toast } from "./toast.js"
-import { id, hexToRGB, rgbToHex, darken } from "./utils.js"
+import { id, hexToRGB, rgbToHex } from "./utils.js"
 import { clearCurrentColor, endCooldown, startCooldown } from "./palette.js"
 import { email } from "./auth.js"
 
