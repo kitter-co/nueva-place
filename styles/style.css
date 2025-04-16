@@ -360,6 +360,11 @@ main {
   border-radius: 5px;
 }
 
+#context-menu > i {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
 #context-menu-button {
   height: 40px;
   width: 40px;
