@@ -56,9 +56,13 @@ function setSize(width, height) {
 function setData(data, usersData) {
   imgData = data
   users = usersData
+
+  updateUserPixels()
 }
 
 function updateUserPixels() {
+  if (userImgData || !imgData) return
+
   let rawData = new Uint8ClampedArray(imgW * imgH * 4)
 
   for (let y = 0; y < imgH; y++) {
