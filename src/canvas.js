@@ -90,12 +90,14 @@ function canPlace() {
 }
 
 function updateMousePos(e) {
-  let rect = canvas.getBoundingClientRect()
+  e = getEventPos(e)
 
   mouseX = e.pageX
   mouseY = e.pageY
 
   if (e.target === canvas) {
+    let rect = canvas.getBoundingClientRect()
+
     targetX = Math.floor((mouseX - rect.left) / zoom + cameraX)
     targetY = Math.floor((mouseY - rect.top ) / zoom + cameraY)
   } else {
@@ -204,7 +206,7 @@ function touchDist(e) {
 }
 
 function updateInteractionStart(e) {
-  updateMousePos(getEventPos(e))
+  updateMousePos(e)
 
   if (e.type === "touchstart") {
     if (e.touches.length === 2) {
@@ -234,7 +236,7 @@ function updateInteractionMove(e) {
   lastTouchDist = null
 
   let lastX = mouseX, lastY = mouseY
-  updateMousePos(getEventPos(e))
+  updateMousePos(e)
 
   if (draggingCamera) {
     cameraX -= (mouseX - lastX) / zoom

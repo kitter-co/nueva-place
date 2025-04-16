@@ -20,7 +20,7 @@ function rgbToHex(rgb) {
 }
 
 function darken(rgb) {
-  return rgb.map((x) => x / 6)
+  return rgb.map(x => x / 6)
 }
 
 function textToHTML(str) {
