@@ -53,8 +53,6 @@
   min-height: 0;
 }
 
-/* do i need to push something? */
-
 :not(h1, h2, h3, h4, h5, h6) {
   font-size: inherit;
 }
@@ -76,11 +74,6 @@ header {
   left: 0;
   right: 0;
   background: var(--bg-1);
-}
-
-svg {
-  /* prevents svgs from shifting slightly at the start and end of transitions in safari */
-  transform: translate(0, 0);
 }
 
 /* links */
@@ -156,16 +149,13 @@ button {
   font-family: "Phosphor-Fill" !important;
 }
 
-/* cards */
-
-.card {
-  padding: 16px;
-  border-radius: 24px;
-  box-shadow: 0 4px 8px gainsboro;
-  background: var(--bg-1);
-}
-
 /* icons */
+
 i {
   font-size: 1.25em;
+}
+
+svg {
+  /* prevents svgs from shifting slightly at the start and end of transitions in safari */
+  transform: translate(0, 0);
 }
