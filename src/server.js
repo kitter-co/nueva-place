@@ -69,7 +69,7 @@ function interpret(data) {
       break
 
     case "cooldown": {
-      const elapsed = Math.floor(Date.now() / 1000) - body
+      const elapsed = Date.now() / 1000 - body
 
       if (elapsed < 0.1 * 60) {
         startCooldown(body)
@@ -110,7 +110,6 @@ function placePixel(x, y, rgb) {
   // let oldRGB = getPixel(x, y), placeTime = performance.now()
 
   setPixel(x, y, rgb, email)
-  startCooldown()
   clearCurrentColor()
 
   let hex = rgbToHex(rgb)

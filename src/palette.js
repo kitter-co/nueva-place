@@ -65,12 +65,12 @@ for (let [name, rgb] of Object.entries(colors)) {
 
 id("exit-place-mode").onclick = cancelColor
 
-function startCooldown(timestamp = Math.floor(Date.now() / 1000)) {
+function startCooldown(timestamp) {
   onCooldown = true
 
   colorButtonsWrapper.classList.add("cooldown")
 
-  const elapsed = Math.floor(Date.now() / 1000) - timestamp
+  const elapsed = Date.now() / 1000 - timestamp
   id("cooldown").style.animationDelay = `-${elapsed}s`
 }
 
