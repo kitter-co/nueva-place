@@ -72,7 +72,7 @@ function updateUserPixels() {
 
       let i = imgDataIndex(x, y)
 
-      if (user == email) {
+      if (user === email) {
         rawData.set(rgb, i)
       } else {
         rawData.set(darken(rgb), i)
@@ -119,7 +119,7 @@ function setPixel(x, y, rgb, user) {
   users[y][x] = user
 
   if (userImgData) {
-    if (user == email) {
+    if (user === email) {
       userImgData.data.set(rgb, i)
     } else {
       userImgData.data.set(darken(rgb), i)
