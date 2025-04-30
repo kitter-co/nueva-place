@@ -1,8 +1,6 @@
 import "./canvas.js"
 import "./toolbar.js"
 
-// some change so it updates
-
 function updateTheme(theme) {
   if (theme === "dark") {
     document.documentElement.id = "dark"

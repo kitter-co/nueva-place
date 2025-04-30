@@ -25,17 +25,7 @@ socket.onopen = () => {
 }
 
 socket.onerror = () => {
-  toast("Failed to connect to server.\nYou are currently viewing PLACEHOLDER DATA.", true)
-
-  // TODO remove - for testing purposes only
-  interpret(
-    JSON.stringify({
-      type: "pixels",
-      body: JSON.stringify(
-        Array.from({length: 25}, () => Array.from({length: 25}, () => Math.floor(Math.random() * 0x1000000)))
-      )
-    })
-  )
+  toast("Failed to connect to server.\nWait a minute, then reload the page and try again.", true)
 }
 
 let loaded = false
@@ -107,8 +97,6 @@ function updatePixel(x, y, color) {
 }
 
 function placePixel(x, y, rgb) {
-  // let oldRGB = getPixel(x, y), placeTime = performance.now()
-
   setPixel(x, y, rgb, email)
   clearCurrentColor()
 
