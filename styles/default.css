@@ -57,10 +57,6 @@
   font-size: inherit;
 }
 
-html, body {
-  height: 100%;
-}
-
 body {
   font-family: "Inter", system-ui, sans-serif;
   color: var(--text-default);

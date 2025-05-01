@@ -6,7 +6,7 @@ import {
   draw, loadViewportDataArray, canvas
 } from "./canvas.js"
 
-import { errorToast, toast } from "./toast.js"
+import { errorToast } from "./toast.js"
 import { id, hexToRGB, rgbToHex } from "./utils.js"
 import { clearCurrentColor, endCooldown, startCooldown } from "./palette.js"
 import { email } from "./auth.js"
@@ -25,7 +25,7 @@ socket.onopen = () => {
 }
 
 socket.onerror = () => {
-  toast("Failed to connect to server.\nWait a minute, then reload the page and try again.", true)
+  errorToast("Failed to connect to server.\nWait a minute, then reload the page and try again.")
 }
 
 let loaded = false

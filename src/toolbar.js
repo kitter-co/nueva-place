@@ -119,6 +119,6 @@ closeContextMenu()
 
 id("copy-location").onclick = () => {
   navigator.clipboard.writeText(`${location.protocol}//${location.host}/?${getViewportDataArray()}`)
-           .then(() => toast("URL to Current Viewport Copied!"))
+           .then(() => toast("URL to current viewport copied!"))
   closeContextMenu()
 }
