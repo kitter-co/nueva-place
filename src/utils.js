@@ -15,12 +15,13 @@ function hexToRGB(hex) {
   ]
 }
 
+// [R, G, B] -> 0xRRGGBB
 function rgbToHex(rgb) {
   return (rgb[0] << 16) | (rgb[1] << 8) | rgb[2]
 }
 
 function darken(rgb) {
-  return rgb.map(x => x / 6)
+  return rgb == "0,0,0" ? [20, 20, 20] : rgb.map(x => x / 6)
 }
 
 function textToHTML(str) {

@@ -1,7 +1,7 @@
-import { clamp, id, darken } from "./utils.js"
+import { clamp, darken, id } from "./utils.js"
 import { cancelColor, currentColor, onCooldown } from "./palette.js"
 import { placePixel } from "./server.js"
-import { signedIn, email } from "./auth.js"
+import { email, signedIn } from "./auth.js"
 
 const canvasWrapper = id("canvas-wrapper")
 
@@ -90,7 +90,7 @@ function canPlace() {
 }
 
 function updateMousePos(e) {
-  e = getEventPos(e)
+  if (e.touches) e = e.touches[0]
 
   mouseX = e.pageX
   mouseY = e.pageY
@@ -194,10 +194,6 @@ function inBounds() {
 let draggingCamera = false
 
 let lastTouchDist = null
-
-function getEventPos(e) {
-  return e.touches ? e.touches[0] : e
-}
 
 function touchDist(e) {
   let dx = e.touches[0].clientX - e.touches[1].clientX

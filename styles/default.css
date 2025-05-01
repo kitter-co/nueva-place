@@ -76,6 +76,41 @@ header {
   background: var(--bg-1);
 }
 
+hr {
+  height: 1px;
+  background: var(--text-default);
+  opacity: 0.2;
+}
+
+article {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 0 40px;
+  line-height: 1.4;
+}
+
+@media (max-width: 450px) {
+  article {
+    padding: 0 20px;
+  }
+}
+
+:where(article h1, article p) {
+  margin: 20px 0;
+}
+
+:where(article p + :is(ol, ul)) {
+  margin-top: -8px;
+}
+
+ol, ul {
+  padding-left: 40px;
+}
+
+li {
+  margin: 8px 0;
+}
+
 /* links */
 
 a:not(.button) {
@@ -158,4 +193,36 @@ i {
 svg {
   /* prevents svgs from shifting slightly at the start and end of transitions in safari */
   transform: translate(0, 0);
+}
+
+/* logo */
+
+#logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  font-size: 18px;
+  font-family: "Reddit Sans", system-ui, sans-serif;
+  font-weight: 700;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+}
+
+#logo > div {
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+  background: currentColor;
+  mask-image: url("../nueva_school.png");
+  mask-size: 100%;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  margin-right: 1px;
+  margin-top: 1px;
+}
+
+#logo > span {
+  margin-left: 0.5px;
 }
