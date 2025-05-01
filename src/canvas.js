@@ -26,6 +26,8 @@ function updateZoom() {
   zoom = Math.exp(rawZoom)
   cameraX += mouseX / oldZoom - mouseX / zoom
   cameraY += mouseY / oldZoom - mouseY / zoom
+
+  clampViewport()
 }
 
 function getViewportDataArray() {
@@ -46,6 +48,16 @@ function loadViewportDataArray([x, y, zx, zy]) {
 
   cameraX = x - innerWidth / zoom / 2
   cameraY = y - innerHeight / zoom / 2
+
+  clampViewport()
+}
+
+function clampViewport() {
+  let halfW = innerWidth  / 2 / zoom,
+      halfH = innerHeight / 2 / zoom
+
+  cameraX = clamp(cameraX, -halfW, imgW - halfW)
+  cameraY = clamp(cameraY, -halfH, imgH - halfH)
 }
 
 let mouseX = null, mouseY = null, targetX = null, targetY = null
@@ -250,6 +262,8 @@ function updateInteractionMove(e) {
   if (draggingCamera) {
     cameraX -= (mouseX - lastX) / zoom
     cameraY -= (mouseY - lastY) / zoom
+
+    clampViewport()
   }
 
   if (e.type === "touchmove") {
