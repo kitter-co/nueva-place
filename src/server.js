@@ -3,7 +3,7 @@ import {
   setData,
   imgDataIndex,
   setPixel,
-  draw, loadViewportDataArray
+  draw, loadViewportDataArray, canvas
 } from "./canvas.js"
 
 import { errorToast, toast } from "./toast.js"
@@ -39,7 +39,7 @@ function interpret(data) {
       receivedFullUpdate(body[0].length, body.length, body)
       if (!loaded) {
         loaded = true
-        id("canvas").style.animation = "fade-in 0.2s ease-out forwards"
+        canvas.style.animation = "fade-in 0.2s ease-out forwards"
 
         draw(true)
         if (location.search) {
@@ -47,7 +47,9 @@ function interpret(data) {
           if (viewportData.length === 4 && !viewportData.some(isNaN)) {
             loadViewportDataArray(viewportData)
           } else {
-            toast("Invalid viewport data in URL", true)
+            // probably better to just ignore it
+            // most likely case is that something else put some query params and the user doesn't need to know
+            // toast("Invalid viewport data in URL", true)
           }
         }
       }
