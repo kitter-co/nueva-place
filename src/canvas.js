@@ -104,8 +104,6 @@ function updateMousePos(e) {
     targetY = Math.floor((mouseY - rect.top ) / zoom + cameraY)
 
     if (inBounds()) {
-      console.log("no wya")
-
       let html = `X: ${targetX + 1}, Y: ${targetY + 1}`
       let user = users[targetY][targetX]
       if (user) {
