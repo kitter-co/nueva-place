@@ -211,7 +211,7 @@ svg {
   height: 18px;
   width: 18px;
   background: currentColor;
-  mask-image: url("../nueva_school.png");
+  mask-image: url("/nueva_school.png");
   mask-size: 100%;
   mask-repeat: no-repeat;
   mask-position: center;
