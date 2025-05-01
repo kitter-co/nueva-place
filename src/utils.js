@@ -24,6 +24,7 @@ function darken(rgb) {
   return rgb == "0,0,0" ? [20, 20, 20] : rgb.map(x => x / 6)
 }
 
+// slightly different from traditional "escape" because it replaces new lines with "<br>"
 function textToHTML(str) {
   return str.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")
 }

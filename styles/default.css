@@ -186,7 +186,7 @@ button {
 
 /* icons */
 
-i {
+.ph, .ph-bold, .ph-fill {
   font-size: 1.25em;
 }
 

@@ -1,4 +1,4 @@
-import { clamp, darken, id } from "./utils.js"
+import { clamp, darken, id, textToHTML } from "./utils.js"
 import { cancelColor, currentColor, onCooldown } from "./palette.js"
 import { placePixel } from "./server.js"
 import { email, signedIn } from "./auth.js"
@@ -37,6 +37,8 @@ function getViewportDataArray() {
   ].map(x => Math.round(x * 1e5) / 1e5)
 }
 
+// will always show everything that was on screen when the viewport
+// was captured, but sometimes more if the aspect ratio is different
 function loadViewportDataArray([x, y, zx, zy]) {
   let zoom = Math.min(innerWidth / zx, innerHeight / zy)
   rawZoom = Math.log(zoom)
@@ -100,6 +102,19 @@ function updateMousePos(e) {
 
     targetX = Math.floor((mouseX - rect.left) / zoom + cameraX)
     targetY = Math.floor((mouseY - rect.top ) / zoom + cameraY)
+
+    if (inBounds()) {
+      console.log("no wya")
+
+      let html = `X: ${targetX + 1}, Y: ${targetY + 1}`
+      let user = users[targetY][targetX]
+      if (user) {
+        html += `, placed by <i>${textToHTML(user.split("@")[0])}</i>`
+      }
+      id("pixel-info").innerHTML = html
+    } else {
+      id("pixel-info").innerHTML = ""
+    }
   } else {
     targetX = targetY = null
   }

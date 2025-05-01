@@ -36,6 +36,21 @@ main {
   }
 }
 
+#pixel-info {
+  position: absolute;
+  bottom: 5px;
+  left: 8px;
+  color: #888;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+@media (max-width: 300px) {
+  #pixel-info {
+    display: none;
+  }
+}
+
 /* COLOR PALETTE */
 
 #color-buttons {
