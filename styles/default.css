@@ -200,7 +200,7 @@ svg {
   z-index: 2;
   font-size: 18px;
   font-family: "Reddit Sans", system-ui, sans-serif;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--accent);
   display: flex;
   align-items: center;
