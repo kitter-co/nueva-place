@@ -11,6 +11,8 @@ import { id, hexToRGB, rgbToHex } from "./utils.js"
 import { clearCurrentColor, endCooldown, startCooldown } from "./palette.js"
 import { email } from "./auth.js"
 
+const COOLDOWN_TIME = 6 // TODO change back to 5 minutes
+
 const AUTH = '5609854b-4c67-43f1-8d36-4967322f1074'
 const socket = new WebSocket(`wss://api.nueva.place/?auth=${AUTH}`)
 
@@ -63,9 +65,9 @@ function interpret(data) {
     case "cooldown": {
       const elapsed = Date.now() / 1000 - body
 
-      if (elapsed < 0.1 * 60) {
+      if (elapsed < COOLDOWN_TIME) {
         startCooldown(body)
-        setTimeout(endCooldown, (0.1 * 60 - elapsed) * 1000)
+        setTimeout(endCooldown, (COOLDOWN_TIME - elapsed) * 1000)
       }
 
       break
