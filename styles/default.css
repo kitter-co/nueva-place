@@ -202,7 +202,6 @@ svg {
   font-family: "Reddit Sans", system-ui, sans-serif;
   font-weight: 600;
   color: var(--accent);
-  color: lime;
   display: flex;
   align-items: center;
 }
